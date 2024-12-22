@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A445896ECD70EC69ED14AA1D /* Pods_VoiceAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20919475D0F81088F08CF2E /* Pods_VoiceAssistant.framework */; };
+		DC1C153622B8E27B00367496 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1C153522B8E27B00367496 /* AppDelegate.swift */; };
+		DC1C153822B8E27B00367496 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1C153722B8E27B00367496 /* ViewController.swift */; };
+		DC1C153B22B8E27B00367496 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153922B8E27B00367496 /* Main.storyboard */; };
+		DC1C153D22B8E27D00367496 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153C22B8E27D00367496 /* Assets.xcassets */; };
+		DC1C154022B8E27D00367496 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153E22B8E27D00367496 /* LaunchScreen.storyboard */; };
+		FC46F0B12D1752D2004020A9 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B02D1752C8004020A9 /* extensions.swift */; };
+		FC46F0B32D17532A004020A9 /* consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B22D175325004020A9 /* consts.swift */; };
+		FC46F0B52D175344004020A9 /* types.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B42D175343004020A9 /* types.swift */; };
+		FC46F0B72D17543C004020A9 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B62D175434004020A9 /* AudioManager.swift */; };
+		FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0BA2D176FD6004020A9 /* ApiManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9FB79C1FE665D71D938E5959 /* Pods-VoiceAssistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceAssistant.release.xcconfig"; path = "Target Support Files/Pods-VoiceAssistant/Pods-VoiceAssistant.release.xcconfig"; sourceTree = "<group>"; };
+		A20919475D0F81088F08CF2E /* Pods_VoiceAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC2A27D01DB510CC0411ADB4 /* Pods-VoiceAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceAssistant.debug.xcconfig"; path = "Target Support Files/Pods-VoiceAssistant/Pods-VoiceAssistant.debug.xcconfig"; sourceTree = "<group>"; };
+		DC1C153222B8E27B00367496 /* VoiceAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC1C153522B8E27B00367496 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DC1C153722B8E27B00367496 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DC1C153A22B8E27B00367496 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DC1C153C22B8E27D00367496 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DC1C153F22B8E27D00367496 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DC1C154122B8E27D00367496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC1C154722B8E4B700367496 /* MicrosoftCognitiveServicesSpeech-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MicrosoftCognitiveServicesSpeech-Bridging-Header.h"; sourceTree = "<group>"; };
+		FC46F0B02D1752C8004020A9 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		FC46F0B22D175325004020A9 /* consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consts.swift; sourceTree = "<group>"; };
+		FC46F0B42D175343004020A9 /* types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = types.swift; sourceTree = "<group>"; };
+		FC46F0B62D175434004020A9 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		FC46F0BA2D176FD6004020A9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC1C152F22B8E27B00367496 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A445896ECD70EC69ED14AA1D /* Pods_VoiceAssistant.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0A67AA68C06C9D58D04E0DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A27D01DB510CC0411ADB4 /* Pods-VoiceAssistant.debug.xcconfig */,
+				9FB79C1FE665D71D938E5959 /* Pods-VoiceAssistant.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DC1C152922B8E27B00367496 = {
+			isa = PBXGroup;
+			children = (
+				DC1C153422B8E27B00367496 /* VoiceAssistant */,
+				DC1C153322B8E27B00367496 /* Products */,
+				D0A67AA68C06C9D58D04E0DA /* Pods */,
+				FD7E0C8024E8F50E54C59A30 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DC1C153322B8E27B00367496 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC1C153222B8E27B00367496 /* VoiceAssistant.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC1C153422B8E27B00367496 /* VoiceAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
+				FC46F0B62D175434004020A9 /* AudioManager.swift */,
+				FC46F0B42D175343004020A9 /* types.swift */,
+				FC46F0B22D175325004020A9 /* consts.swift */,
+				FC46F0B02D1752C8004020A9 /* extensions.swift */,
+				DC1C153522B8E27B00367496 /* AppDelegate.swift */,
+				DC1C153722B8E27B00367496 /* ViewController.swift */,
+				DC1C153922B8E27B00367496 /* Main.storyboard */,
+				DC1C153C22B8E27D00367496 /* Assets.xcassets */,
+				DC1C153E22B8E27D00367496 /* LaunchScreen.storyboard */,
+				DC1C154122B8E27D00367496 /* Info.plist */,
+				DC1C154722B8E4B700367496 /* MicrosoftCognitiveServicesSpeech-Bridging-Header.h */,
+			);
+			path = VoiceAssistant;
+			sourceTree = "<group>";
+		};
+		FD7E0C8024E8F50E54C59A30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A20919475D0F81088F08CF2E /* Pods_VoiceAssistant.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC1C153122B8E27B00367496 /* VoiceAssistant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC1C154422B8E27D00367496 /* Build configuration list for PBXNativeTarget "VoiceAssistant" */;
+			buildPhases = (
+				7ECF68FDCDAB0F770E58B692 /* [CP] Check Pods Manifest.lock */,
+				DC1C152E22B8E27B00367496 /* Sources */,
+				DC1C152F22B8E27B00367496 /* Frameworks */,
+				DC1C153022B8E27B00367496 /* Resources */,
+				548B77DD875E1199742C0D05 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoiceAssistant;
+			productName = helloworld;
+			productReference = DC1C153222B8E27B00367496 /* VoiceAssistant.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC1C152A22B8E27B00367496 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = Microsoft;
+				TargetAttributes = {
+					DC1C153122B8E27B00367496 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = DC1C152D22B8E27B00367496 /* Build configuration list for PBXProject "VoiceAssistant" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC1C152922B8E27B00367496;
+			productRefGroup = DC1C153322B8E27B00367496 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC1C153122B8E27B00367496 /* VoiceAssistant */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC1C153022B8E27B00367496 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1C154022B8E27D00367496 /* LaunchScreen.storyboard in Resources */,
+				DC1C153D22B8E27D00367496 /* Assets.xcassets in Resources */,
+				DC1C153B22B8E27B00367496 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		548B77DD875E1199742C0D05 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceAssistant/Pods-VoiceAssistant-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceAssistant/Pods-VoiceAssistant-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoiceAssistant/Pods-VoiceAssistant-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7ECF68FDCDAB0F770E58B692 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceAssistant-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC1C152E22B8E27B00367496 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */,
+				FC46F0B72D17543C004020A9 /* AudioManager.swift in Sources */,
+				DC1C153822B8E27B00367496 /* ViewController.swift in Sources */,
+				FC46F0B32D17532A004020A9 /* consts.swift in Sources */,
+				FC46F0B52D175344004020A9 /* types.swift in Sources */,
+				DC1C153622B8E27B00367496 /* AppDelegate.swift in Sources */,
+				FC46F0B12D1752D2004020A9 /* extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DC1C153922B8E27B00367496 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC1C153A22B8E27B00367496 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DC1C153E22B8E27D00367496 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC1C153F22B8E27D00367496 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC1C154222B8E27D00367496 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		DC1C154322B8E27D00367496 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC1C154522B8E27D00367496 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC2A27D01DB510CC0411ADB4 /* Pods-VoiceAssistant.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 69L3789J9R;
+				INFOPLIST_FILE = VoiceAssistant/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.voiceassistant;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VoiceAssistant/MicrosoftCognitiveServicesSpeech-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC1C154622B8E27D00367496 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FB79C1FE665D71D938E5959 /* Pods-VoiceAssistant.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 69L3789J9R;
+				INFOPLIST_FILE = VoiceAssistant/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.voiceassistant;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VoiceAssistant/MicrosoftCognitiveServicesSpeech-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC1C152D22B8E27B00367496 /* Build configuration list for PBXProject "VoiceAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1C154222B8E27D00367496 /* Debug */,
+				DC1C154322B8E27D00367496 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC1C154422B8E27D00367496 /* Build configuration list for PBXNativeTarget "VoiceAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1C154522B8E27D00367496 /* Debug */,
+				DC1C154622B8E27D00367496 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC1C152A22B8E27B00367496 /* Project object */;
+}

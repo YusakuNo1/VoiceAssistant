@@ -1,0 +1,6 @@
+azure-ai-inference
+azure-identity
+fastapi
+uvicorn
+python-dotenv
+pydantic

@@ -1,0 +1,5 @@
+target 'VoiceAssistant' do
+    platform :ios, '18.0'
+    pod 'MicrosoftCognitiveServicesSpeech-iOS', '~> 1.40'
+    use_frameworks!
+end
