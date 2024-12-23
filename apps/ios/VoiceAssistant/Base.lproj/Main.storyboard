@@ -52,8 +52,74 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Stc-V3-g1m">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell-user" id="err-M8-ovF">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="91.333335876464844"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="err-M8-ovF" id="ODZ-wS-v4k">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="91.333335876464844"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lMv-uV-fk3">
+                                                    <rect key="frame" x="4" y="4" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="Frc-IX-BWR"/>
+                                                        <constraint firstAttribute="width" constant="48" id="wAT-nc-eGS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZJ-X6-ngH">
+                                                    <rect key="frame" x="60" y="15" width="291.66666666666669" height="61"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="dZJ-X6-ngH" secondAttribute="bottom" priority="750" constant="4" id="47Q-FF-H0S"/>
+                                                <constraint firstItem="lMv-uV-fk3" firstAttribute="leading" secondItem="ODZ-wS-v4k" secondAttribute="leading" constant="4" id="8Go-8V-ekm"/>
+                                                <constraint firstItem="dZJ-X6-ngH" firstAttribute="top" secondItem="ODZ-wS-v4k" secondAttribute="topMargin" constant="4" id="9qQ-T3-jjl"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dZJ-X6-ngH" secondAttribute="trailing" constant="20" symbolic="YES" id="Jm5-uL-OW2"/>
+                                                <constraint firstItem="lMv-uV-fk3" firstAttribute="top" secondItem="ODZ-wS-v4k" secondAttribute="top" constant="4" id="Jon-xh-qio"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lMv-uV-fk3" secondAttribute="bottom" priority="750" constant="4" id="dNj-nC-n0o"/>
+                                                <constraint firstItem="dZJ-X6-ngH" firstAttribute="leading" secondItem="lMv-uV-fk3" secondAttribute="trailing" constant="8" id="e4p-Ea-Otq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell-assistant" id="Bta-p6-YBa">
+                                        <rect key="frame" x="0.0" y="141.33333587646484" width="393" height="91.333335876464844"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bta-p6-YBa" id="evN-JB-aF9">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="91.333335876464844"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Ud-EV-Dmf">
+                                                    <rect key="frame" x="341" y="4" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="OQZ-pK-5sS"/>
+                                                        <constraint firstAttribute="width" constant="48" id="dXp-vy-rII"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label Label  Label  Label " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvd-VU-fcV">
+                                                    <rect key="frame" x="41.333333333333343" y="15" width="291.66666666666663" height="61"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="Mvd-VU-fcV" secondAttribute="bottom" priority="750" constant="4" id="1ko-92-Dod"/>
+                                                <constraint firstItem="Mvd-VU-fcV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="evN-JB-aF9" secondAttribute="leading" constant="4" id="6sB-bU-eF3"/>
+                                                <constraint firstItem="8Ud-EV-Dmf" firstAttribute="leading" secondItem="Mvd-VU-fcV" secondAttribute="trailing" constant="8" id="FvH-5a-pKN"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8Ud-EV-Dmf" secondAttribute="bottom" priority="750" constant="4" id="lZg-s0-d9k"/>
+                                                <constraint firstItem="8Ud-EV-Dmf" firstAttribute="top" secondItem="evN-JB-aF9" secondAttribute="top" constant="4" id="xTF-qZ-wxk"/>
+                                                <constraint firstItem="Mvd-VU-fcV" firstAttribute="top" secondItem="evN-JB-aF9" secondAttribute="topMargin" constant="4" id="yKv-WL-oPx"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Ud-EV-Dmf" secondAttribute="trailing" constant="4" id="yw2-9w-ZGT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
-                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CC4-Cr-2vm">
+                            <view hidden="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CC4-Cr-2vm">
                                 <rect key="frame" x="0.0" y="753" width="393" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgo-U6-P8v">
