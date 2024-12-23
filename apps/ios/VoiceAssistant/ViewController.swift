@@ -4,60 +4,63 @@ import MicrosoftCognitiveServicesSpeech
 
 
 class ViewController: UIViewController {
-    var label: UILabel!
-    var fromMicButton: UIButton!
-    var testButton: UIButton!
-    var audioManager: AudioManager!
-    var _apiManager: ApiManager!
-        
+    private var audioManager: AudioManager!
+    private var apiManager: ApiManager!
+
+    @IBOutlet weak var mainActionButton: UIButton!    
+    @IBOutlet weak var testActionButton: UIButton!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressLabelContainer: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let apiManager = ApiManager()
-        self._apiManager = apiManager
-        self.audioManager = AudioManager(apiManager: apiManager, updateLabel: self.updateLabel)
-        
-        label = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
-        label.textColor = UIColor.black
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.text = "Recognition Result"
-        
-        fromMicButton = UIButton(frame: CGRect(x: 100, y: 400, width: 200, height: 50))
-        fromMicButton.setTitle("Recognize", for: .normal)
-        fromMicButton.addTarget(self, action:#selector(self.fromMicButtonClicked), for: .touchUpInside)
-        fromMicButton.setTitleColor(UIColor.black, for: .normal)
-        
-        testButton = UIButton(frame: CGRect(x: 100, y: 500, width: 200, height: 50))
-        testButton.setTitle("Play", for: .normal)
-        testButton.addTarget(self, action:#selector(self.testButtonClicked), for: .touchUpInside)
-        testButton.setTitleColor(UIColor.black, for: .normal)
+        self.apiManager = apiManager
+        self.audioManager = AudioManager(apiManager: apiManager, updateProgress: self.updateProgress)
+        self.updateProgress(.Idle)
+    }
+    
+    @IBAction func onMainActionButtonClicked(_ sender: Any) {
+        self.updateProgress(.Init)
+        Task {
+            await self.audioManager.recognizeFromMic()
+        }
+    }
 
-        self.view.addSubview(label)
-        self.view.addSubview(fromMicButton)
-        self.view.addSubview(testButton)
-    }
-    
-    @objc func fromMicButtonClicked() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            Task {
-                await self.audioManager.recognizeFromMic()
-            }
+    @IBAction func onTestActionButtonClicked(_ sender: Any) {
+        Task {
+            await self.audioManager.synthesize(inputText: "where is redmond?")
         }
     }
-    
-    @objc func testButtonClicked() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            Task {
-                await self.audioManager.synthesize(inputText: "where is redmond?")
-            }
-        }
-    }
-    
-    func updateLabel(text: String?, color: UIColor) {
+
+    func updateProgress(_ progressState: ProgressState) {
         DispatchQueue.main.async {
-            self.label.text = text
-            self.label.textColor = color
+            switch progressState {
+            case ProgressState.Idle:
+                self.progressLabelContainer.isHidden = true
+                self.mainActionButton.isEnabled = true
+                self.mainActionButton.titleLabel?.text = "  Start  "
+            case ProgressState.Init:
+                self.progressLabelContainer.isHidden = false
+                self.progressLabel.text = "Initializing..."
+                self.mainActionButton.isEnabled = false
+                self.mainActionButton.titleLabel?.text = "..."
+            case ProgressState.Listen:
+                self.progressLabelContainer.isHidden = false
+                self.progressLabel.text = "Listening..."
+                self.mainActionButton.isEnabled = true
+                self.mainActionButton.titleLabel?.text = "Cancel"
+            case ProgressState.WaitForRes:
+                self.progressLabelContainer.isHidden = false
+                self.progressLabel.text = "Waiting for response..."
+                self.mainActionButton.isEnabled = true
+                self.mainActionButton.titleLabel?.text = "Cancel"
+            case ProgressState.Speak:
+                self.progressLabelContainer.isHidden = true
+                self.mainActionButton.isEnabled = true
+                self.mainActionButton.titleLabel?.text = "Cancel"
+            }
         }
     }
 }

@@ -7,4 +7,12 @@ enum AudioMode {
     case Playback
 }
 
+enum ProgressState {
+    case Idle
+    case Init
+    case Listen
+    case WaitForRes
+    case Speak
+}
+
 let SYSTEM_PROMPT = "you are a helpful assistant"
