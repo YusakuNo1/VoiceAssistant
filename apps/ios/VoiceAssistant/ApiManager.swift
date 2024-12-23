@@ -44,7 +44,6 @@ class ApiManager {
         var httpBody: Data!
         do {
             let lmRequestBody = LanguageModelRequestBody(messages: [
-                Message(role: "system", content: SYSTEM_PROMPT),
                 Message(role: "user", content: message)
             ])
             httpBody = try JSONEncoder().encode(lmRequestBody)

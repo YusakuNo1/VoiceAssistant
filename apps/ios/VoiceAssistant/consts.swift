@@ -14,5 +14,3 @@ enum ProgressState {
     case WaitForRes
     case Speak
 }
-
-let SYSTEM_PROMPT = "you are a helpful assistant"

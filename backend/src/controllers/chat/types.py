@@ -9,7 +9,3 @@ class Message:
 @dataclass
 class Request:
     messages: list[Message]
-
-@dataclass
-class History:
-    messages: list[Message]

@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import FastAPI, Header
 
-import src.controllers.chat.chat
+import src.controllers.chat.controller
 import src.controllers.config
 from src.config.app import app
 

@@ -3,3 +3,4 @@ azure-identity
 fastapi
 uvicorn
 python-dotenv
+Jinja2
