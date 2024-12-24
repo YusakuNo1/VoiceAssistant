@@ -6,7 +6,7 @@ from fastapi.responses import StreamingResponse
 from src.config.app import app
 from src.utils.loggers import log
 from .types import Request
-from .service import chat
+from .service import chat, chat_history
 
 
 # Sample query:
@@ -15,12 +15,17 @@ from .service import chat
 async def chat_controller(request: Request, chat_id: Annotated[str | None, Header()] = None):
     if chat_id is None:
         chat_id = uuid.uuid4().hex
-        log(f"* Create chat_id: {chat_id}")
-    else:
-        log(f"* Request chat_id: {chat_id}")
     
     headers = {
         "Content-Type": "text/html", # "text/plain" can't support streaming in browser, while "text/html" can
         "chat-id": chat_id,
     }
     return StreamingResponse(chat(chat_id, request), headers=headers)
+
+
+# Sample query:
+#   curl -X GET http://127.0.0.1:8000/chat_history --header "Content-Type: application/json" --header "chat-id: test-chat-id"
+from fastapi.responses import JSONResponse
+@app.get("/chat_history", response_class=JSONResponse)
+def chat_history_controller(chat_id: Annotated[str | None, Header()] = None):
+    return chat_history(chat_id)

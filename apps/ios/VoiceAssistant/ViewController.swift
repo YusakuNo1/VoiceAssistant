@@ -6,8 +6,10 @@ import MicrosoftCognitiveServicesSpeech
 class ViewController: UIViewController {
     private var audioManager: AudioManager!
     private var apiManager: ApiManager!
+    private var chatTable = ChatTable()
 
-    @IBOutlet weak var mainActionButton: UIButton!    
+    @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var mainActionButton: UIButton!
     @IBOutlet weak var testActionButton: UIButton!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressLabelContainer: UIView!
@@ -15,10 +17,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let apiManager = ApiManager()
+        let apiManager = ApiManager(appendChatMessages: self.appendChatMessages)
         self.apiManager = apiManager
         self.audioManager = AudioManager(apiManager: apiManager, updateProgress: self.updateProgress)
         self.updateProgress(.Idle)
+        self.chatTableView.dataSource = self.chatTable
+        self.chatTableView.delegate = self.chatTable
     }
     
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
@@ -29,12 +33,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTestActionButtonClicked(_ sender: Any) {
-        Task {
-            await self.audioManager.synthesize(inputText: "where is redmond?")
-        }
+        // Test
     }
 
-    func updateProgress(_ progressState: ProgressState) {
+    private func updateProgress(_ progressState: ProgressState) {
         DispatchQueue.main.async {
             switch progressState {
             case ProgressState.Idle:
@@ -62,5 +64,10 @@ class ViewController: UIViewController {
                 self.mainActionButton.titleLabel?.text = "Cancel"
             }
         }
+    }
+    
+    private func appendChatMessages(_ chatId: String, _ messages: [Message]) {
+        self.chatTable.appendChatMessages(chatId, messages)
+        self.chatTableView.reloadData()
     }
 }

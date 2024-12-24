@@ -1,6 +1,16 @@
+enum Role: String, Codable {
+    case user = "user"
+    case assistant = "assistant"
+    case system = "system"
+}
+
 struct Message: Codable {
-    let role: String
+    let role: Role
     let content: String
+}
+
+struct ChatHistoryResponse: Codable {
+    let messages: [Message]
 }
 
 struct LanguageModelRequestBody: Codable {

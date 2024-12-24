@@ -13,6 +13,11 @@ struct ResponseData {
 class ApiManager {
     private var credentials: Credentials?
     private var chatId: String?
+    private var appendChatMessages: (String, [Message]) -> Void
+    
+    init(appendChatMessages: @escaping (String, [Message]) -> Void) {
+        self.appendChatMessages = appendChatMessages
+    }
 
     func getCredentials(completion: @escaping (Result<Credentials, Error>) -> Void) {
         if let credentials = self.credentials {
@@ -23,7 +28,7 @@ class ApiManager {
         let headers: [String: String] = [
             "Content-Type": "application/json",
         ]
-        return self._request(method: HttpMethod.get, endpoint: "/credentials", headers: headers, httpBody: nil) { result in
+        return self.request(method: HttpMethod.get, endpoint: "/credentials", headers: headers, httpBody: nil) { result in
             switch result {
             case .success(let responseData):
                 do {
@@ -44,7 +49,7 @@ class ApiManager {
         var httpBody: Data!
         do {
             let lmRequestBody = LanguageModelRequestBody(messages: [
-                Message(role: "user", content: message)
+                Message(role: Role.user, content: message)
             ])
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
@@ -52,6 +57,7 @@ class ApiManager {
             return
         }
 
+        let isNewChat = self.chatId == nil
         var headers: [String: String] = [
             "Content-Type": "application/json",
         ]
@@ -59,25 +65,60 @@ class ApiManager {
             headers["chat-id"] = self.chatId
         }
 
-        self._request(method: HttpMethod.post, endpoint: "/chat", headers: headers, httpBody: httpBody) { result in
+        self.request(method: .post, endpoint: "/chat", headers: headers, httpBody: httpBody) { result in
             switch result {
             case .success(let responseData):
-                if let chatId = responseData.headers["chat-id"] {
-                    self.chatId = chatId
-                }
-                
-                guard let responseString = String(data: responseData.data, encoding: .utf8) else {
+                guard let chatId = responseData.headers["chat-id"], let responseString = String(data: responseData.data, encoding: .utf8) else {
                     completion(.failure(URLError(.badServerResponse)))
                     return
                 }
-                completion(.success(responseString))
+                self.chatId = chatId
+                
+                if !isNewChat {
+                    self.appendChatMessages(chatId, [
+                        Message(role: Role.user, content: message),
+                        Message(role: Role.assistant, content: responseString),
+                    ])
+                    completion(.success(responseString))
+                } else {
+                    self.getChatHistory(chatId: chatId) { result in
+                        switch result {
+                        case .success(let messages):
+                            self.appendChatMessages(chatId, messages)
+                            completion(.success(responseString))
+                        case.failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
+                }                
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
     
-    private func _request(method: HttpMethod, endpoint: String, headers: [String: String], httpBody: Data?, completion: @escaping (Result<ResponseData, Error>) -> Void) {
+    private func getChatHistory(chatId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+        let headers: [String: String] = [
+            "Content-Type": "application/json",
+            "chat-id": chatId,
+        ]
+
+        self.request(method: .get, endpoint: "/chat_history", headers: headers, httpBody: nil) { result in
+            switch result {
+            case .success(let responseData):
+                let chatHistoryResponseString = String(data: responseData.data, encoding: .utf8)!
+                if let response = try? JSONDecoder().decode(ChatHistoryResponse.self, from: Data(chatHistoryResponseString.utf8)) {
+                    completion(.success(response.messages))
+                } else {
+                    completion(.failure(URLError(.badServerResponse)))
+                }
+            case.failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func request(method: HttpMethod, endpoint: String, headers: [String: String], httpBody: Data?, completion: @escaping (Result<ResponseData, Error>) -> Void) {
         guard let url = URL(string: "\(API_HOST)\(endpoint)") else {
             DispatchQueue.main.async {
                 completion(.failure(URLError(.badURL)))

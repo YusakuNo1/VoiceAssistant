@@ -4,6 +4,7 @@ from dataclasses import asdict
 from src.config.env import aoai_chat_endpoint
 from src.utils.loggers import log
 from .types import Message, Request
+from src.utils.str_utils import escape_json_string
 
 
 system_prompt = """You are a helpful assistant.
@@ -12,6 +13,7 @@ system_prompt = """You are a helpful assistant.
 
 # The key is chat_id, the value is a list of messages
 hisotry_dict: dict[str, list[Message]] = {}
+# hisotry_dict["test-chat-id"] = [Message(role="system", content="first line\n\"second line\"")]
 
 
 def _get_history_messages(chat_id: str) -> list[Message]:
@@ -20,8 +22,8 @@ def _get_history_messages(chat_id: str) -> list[Message]:
         return messages
 
     # Build the initial message, including RAG (if required)
-    template = Template(system_prompt.strip())
-    return [Message(role="system", content=template.render(context=""))]
+    template = Template(system_prompt)
+    return [Message(role="system", content=template.render(context="").strip())]
 
 
 async def chat(chat_id: str, request: Request):
@@ -41,13 +43,6 @@ async def chat(chat_id: str, request: Request):
     for message in (history_messages + request_messages):
         messages.append(asdict(message))
 
-
-    # print chat history
-    log("* chat history & request:")
-    for message in messages:
-        log("  * " + message["role"] + ": " + message["content"])
-
-
     response = client.complete(
         stream=True,
         messages=messages,
@@ -65,3 +60,11 @@ async def chat(chat_id: str, request: Request):
     history_messages.extend([Message(role="assistant", content=response_str)])
     hisotry_dict[chat_id] = history_messages
     
+
+def chat_history(chat_id: str):
+    messages = []
+    for message in hisotry_dict.get(chat_id, []):
+        message_dict = asdict(message)
+        message_dict["content"] = escape_json_string(message_dict["content"])
+        messages.append(message_dict)
+    return { "messages": messages }
