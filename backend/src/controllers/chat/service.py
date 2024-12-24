@@ -64,6 +64,9 @@ async def chat(chat_id: str, request: Request):
 def chat_history(chat_id: str):
     messages = []
     for message in hisotry_dict.get(chat_id, []):
+        if message.role == "system":
+            continue # Skip system messages
+
         message_dict = asdict(message)
         message_dict["content"] = escape_json_string(message_dict["content"])
         messages.append(message_dict)
