@@ -44,8 +44,18 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
+                                    <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="wpk-bD-jFt"/>
+                                    <barButtonItem title="Upload" image="square.and.arrow.up" catalog="system" id="jb2-MM-VMl">
+                                        <connections>
+                                            <action selector="onUploadActionButtonClicked:" destination="BYZ-38-t0r" id="Qri-ev-kgc"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="o0E-XU-vBJ"/>
-                                    <barButtonItem title="Upload" image="square.and.arrow.up" catalog="system" id="jb2-MM-VMl"/>
+                                    <barButtonItem title="Reset" image="arrow.clockwise" catalog="system" id="MlY-bd-UdM">
+                                        <connections>
+                                            <action selector="onResetActionButtonClicked:" destination="BYZ-38-t0r" id="taj-MS-UH7"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="haY-1T-QiM"/>
                                 </items>
                             </toolbar>
@@ -204,6 +214,7 @@
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
         <image name="IconUser" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

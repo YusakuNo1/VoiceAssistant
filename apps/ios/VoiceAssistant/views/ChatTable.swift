@@ -45,4 +45,8 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
             chatHistory.append(message)
         }
     }
+    
+    func reset() {
+        chatHistory.removeAll()
+    }
 }

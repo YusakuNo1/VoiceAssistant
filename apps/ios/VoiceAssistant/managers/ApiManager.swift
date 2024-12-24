@@ -97,6 +97,10 @@ class ApiManager {
         }
     }
     
+    func resetChatId() {
+        self.chatId = nil
+    }
+    
     private func getChatHistory(chatId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
         let headers: [String: String] = [
             "Content-Type": "application/json",

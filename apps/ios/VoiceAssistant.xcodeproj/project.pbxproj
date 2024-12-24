@@ -111,16 +111,13 @@
 		DC1C153422B8E27B00367496 /* VoiceAssistant */ = {
 			isa = PBXGroup;
 			children = (
-				FC3EF7A22D1B18CC0088B897 /* Utils.swift */,
-				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
-				FC46F0B62D175434004020A9 /* AudioManager.swift */,
+				FCC38B452D1B696D007C8159 /* managers */,
+				FCC38B432D1B6936007C8159 /* utils */,
+				FCC38B422D1B6918007C8159 /* views */,
 				FC46F0B42D175343004020A9 /* types.swift */,
 				FC46F0B22D175325004020A9 /* consts.swift */,
 				FC46F0B02D1752C8004020A9 /* extensions.swift */,
 				DC1C153522B8E27B00367496 /* AppDelegate.swift */,
-				FC3EF79E2D1A094B0088B897 /* ChatTable.swift */,
-				FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */,
-				DC1C153722B8E27B00367496 /* ViewController.swift */,
 				DC1C153922B8E27B00367496 /* Main.storyboard */,
 				DC1C153C22B8E27D00367496 /* Assets.xcassets */,
 				DC1C153E22B8E27D00367496 /* LaunchScreen.storyboard */,
@@ -128,6 +125,33 @@
 				DC1C154722B8E4B700367496 /* MicrosoftCognitiveServicesSpeech-Bridging-Header.h */,
 			);
 			path = VoiceAssistant;
+			sourceTree = "<group>";
+		};
+		FCC38B422D1B6918007C8159 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				FC3EF79E2D1A094B0088B897 /* ChatTable.swift */,
+				FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */,
+				DC1C153722B8E27B00367496 /* ViewController.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		FCC38B432D1B6936007C8159 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				FC3EF7A22D1B18CC0088B897 /* Utils.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		FCC38B452D1B696D007C8159 /* managers */ = {
+			isa = PBXGroup;
+			children = (
+				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
+				FC46F0B62D175434004020A9 /* AudioManager.swift */,
+			);
+			path = managers;
 			sourceTree = "<group>";
 		};
 		FD7E0C8024E8F50E54C59A30 /* Frameworks */ = {

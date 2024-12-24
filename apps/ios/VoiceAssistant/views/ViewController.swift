@@ -32,6 +32,16 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func onUploadActionButtonClicked(_ sender: Any) {
+        // Upload
+    }
+
+    @IBAction func onResetActionButtonClicked(_ sender: Any) {
+        self.chatTable.reset()
+        self.chatTableView.reloadData()
+        self.apiManager.resetChatId()
+    }
+
     @IBAction func onTestActionButtonClicked(_ sender: Any) {
         // Test
     }
