@@ -9,8 +9,10 @@ from .types import Request
 from .service import chat, chat_history
 
 
-# Sample query:
-#   curl -X POST http://127.0.0.1:8000/chat --header "Content-Type: application/json" --header "chat-id: my-id-123" --data '{ "messages": [{ "role": "system", "content": "you are a helpful assistant" }, { "role": "user", "content": "where is the headquarter of microsoft" }] }'
+# Sample query for string only:
+#   curl -X POST http://127.0.0.1:8000/chat --header "Content-Type: application/json" --header "chat-id: my-id-123" --data '{ "messages": [{ "role": "user", "content": "where is the headquarter of microsoft" }] }'
+# Sample query for string in array:
+#   curl -X POST http://127.0.0.1:8000/chat --header "Content-Type: application/json" --header "chat-id: my-id-123" --data '{ "messages": [{ "role": "user", "content": [{ "type": "text", "text": "where is the headquarter of microsoft" }] }] }'
 @app.post("/chat")
 async def chat_controller(request: Request, chat_id: Annotated[str | None, Header()] = None):
     if chat_id is None:
