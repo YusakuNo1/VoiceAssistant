@@ -31,7 +31,15 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.contentLabelContainer.layer.backgroundColor = UIColor.yellow.cgColor
         cell.contentLabelContainer.layer.borderColor = UIColor.lightGray.cgColor
         cell.contentLabelContainer.layer.masksToBounds = true
-        cell.contentLabel.text = chatHistory[indexPath.row].content
+        
+        // TODO: this line only get the text content for now
+        for content in chatHistory[indexPath.row].content {
+            if content.type != .text {
+                continue
+            }
+            
+            cell.contentLabel.text = content.text ?? ""
+        }
         return cell
     }
     

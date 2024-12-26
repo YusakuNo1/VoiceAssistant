@@ -50,6 +50,11 @@
                                             <action selector="onUploadActionButtonClicked:" destination="BYZ-38-t0r" id="Qri-ev-kgc"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Photo" image="photo.artframe" catalog="system" id="Blm-7q-xV8">
+                                        <connections>
+                                            <action selector="onPhotoActionButtonClicked:" destination="BYZ-38-t0r" id="1p3-lH-LXH"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="o0E-XU-vBJ"/>
                                     <barButtonItem title="Reset" image="arrow.clockwise" catalog="system" id="MlY-bd-UdM">
                                         <connections>
@@ -201,6 +206,7 @@
                     <connections>
                         <outlet property="chatTableView" destination="Stc-V3-g1m" id="j0H-mf-LIP"/>
                         <outlet property="mainActionButton" destination="vhw-yv-5QT" id="gMG-yB-3w9"/>
+                        <outlet property="photoActionButtonItem" destination="Blm-7q-xV8" id="zkW-7g-rfT"/>
                         <outlet property="progressLabel" destination="Kgo-U6-P8v" id="waV-B9-iLS"/>
                         <outlet property="progressLabelContainer" destination="CC4-Cr-2vm" id="hfW-Z3-1Da"/>
                         <outlet property="testActionButton" destination="rub-qH-tdO" id="zf6-Ol-pgg"/>
@@ -215,6 +221,7 @@
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
         <image name="IconUser" width="170.66667175292969" height="170.66667175292969"/>
         <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
+        <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

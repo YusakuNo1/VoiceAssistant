@@ -7,13 +7,15 @@ class ViewController: UIViewController {
     private var audioManager: AudioManager!
     private var apiManager: ApiManager!
     private var chatTable = ChatTable()
+    private let mediaManager = MediaManager()
 
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var mainActionButton: UIButton!
     @IBOutlet weak var testActionButton: UIButton!
+    @IBOutlet weak var photoActionButtonItem: UIBarButtonItem!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressLabelContainer: UIView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,7 +26,7 @@ class ViewController: UIViewController {
         self.chatTableView.dataSource = self.chatTable
         self.chatTableView.delegate = self.chatTable
     }
-    
+
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
         self.updateProgress(.Init)
         Task {
@@ -33,7 +35,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onUploadActionButtonClicked(_ sender: Any) {
-        // Upload
+        self.mediaManager.showOption(vc: self)
+    }
+
+    @IBAction func onPhotoActionButtonClicked(_ sender: Any) {
     }
 
     @IBAction func onResetActionButtonClicked(_ sender: Any) {
@@ -75,7 +80,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+
     private func appendChatMessages(_ chatId: String, _ messages: [Message]) {
         self.chatTable.appendChatMessages(chatId, messages)
         self.chatTableView.reloadData()

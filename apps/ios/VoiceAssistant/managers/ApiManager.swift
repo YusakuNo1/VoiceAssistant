@@ -49,7 +49,7 @@ class ApiManager {
         var httpBody: Data!
         do {
             let lmRequestBody = LanguageModelRequestBody(messages: [
-                Message(role: Role.user, content: message)
+                Message(role: Role.user, content: [MessageContent(text: message)])
             ])
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
@@ -76,8 +76,8 @@ class ApiManager {
                 
                 if !isNewChat {
                     self.appendChatMessages(chatId, [
-                        Message(role: Role.user, content: message),
-                        Message(role: Role.assistant, content: responseString),
+                        Message(role: Role.user, content: [MessageContent(text: message)]),
+                        Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
                     ])
                     completion(.success(responseString))
                 } else {

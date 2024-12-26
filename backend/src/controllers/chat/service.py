@@ -68,6 +68,13 @@ def chat_history(chat_id: str):
             continue # Skip system messages
 
         message_dict = asdict(message)
-        message_dict["content"] = escape_json_string(message_dict["content"])
+        if isinstance(message_dict["content"], list):
+            for content in message_dict["content"]:
+                if content["type"] == "text":
+                    content["text"] = escape_json_string(content["text"])
+                # elif content["type"] == "image_url":
+                #     content["image_url"]["url"] = escape_json_string(content["image_url"]["url"])
+        else:
+            message_dict["content"] = escape_json_string(message_dict["content"])
         messages.append(message_dict)
     return { "messages": messages }
