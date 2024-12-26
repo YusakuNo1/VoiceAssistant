@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cc1-Ea-8dD">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -8,6 +8,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="YrP-AA-BiP">
+            <objects>
+                <navigationController id="cc1-Ea-8dD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fxq-52-ifK">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3s2-KE-aya"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i7o-qx-CNG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-709" y="-28"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -50,9 +66,10 @@
                                             <action selector="onUploadActionButtonClicked:" destination="BYZ-38-t0r" id="Qri-ev-kgc"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Photo" image="photo.artframe" catalog="system" id="Blm-7q-xV8">
+                                    <barButtonItem title="Photo" image="photo.artframe" catalog="system" hidden="YES" id="Blm-7q-xV8">
                                         <connections>
                                             <action selector="onPhotoActionButtonClicked:" destination="BYZ-38-t0r" id="1p3-lH-LXH"/>
+                                            <segue destination="n7u-AW-d7D" kind="show" id="VKd-Pd-Uwu"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="o0E-XU-vBJ"/>
@@ -203,6 +220,7 @@
                             <constraint firstItem="CC4-Cr-2vm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="y5e-34-m1A"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Bmr-wG-RLU"/>
                     <connections>
                         <outlet property="chatTableView" destination="Stc-V3-g1m" id="j0H-mf-LIP"/>
                         <outlet property="mainActionButton" destination="vhw-yv-5QT" id="gMG-yB-3w9"/>
@@ -214,7 +232,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.53435114503816" y="-28.169014084507044"/>
+            <point key="canvasLocation" x="144" y="-28"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="bnW-hf-9UN">
+            <objects>
+                <tableViewController id="n7u-AW-d7D" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="KL1-kp-FPR">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="910-eT-9VM">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="910-eT-9VM" id="oZb-0I-3Pu">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="n7u-AW-d7D" id="wq9-H7-ksJ"/>
+                            <outlet property="delegate" destination="n7u-AW-d7D" id="cD7-cn-XQY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cUq-ec-yEe"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g0D-wk-Hyy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1018" y="-28"/>
         </scene>
     </scenes>
     <resources>

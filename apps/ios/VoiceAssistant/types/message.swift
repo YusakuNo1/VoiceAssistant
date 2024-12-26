@@ -16,29 +16,35 @@ struct MessageContentImageUrlContent: Codable, Equatable {
 struct MessageContent: Codable, Equatable {
     enum ContentType: String, Codable {
         case text = "text"
-        case imageUrl = "image_url"
+        case image_url = "image_url"
     }
 
     let type: ContentType
     let text: String?
-    let imageUrl: MessageContentImageUrlContent?
+    let image_url: MessageContentImageUrlContent?
     
     init(text: String) {
         self.type = .text
         self.text = text
-        self.imageUrl = nil
+        self.image_url = nil
     }
     
-    init(imageUrl: String) {
-        self.type = .imageUrl
+    init(image_url: String) {
+        self.type = .image_url
         self.text = nil
-        self.imageUrl = MessageContentImageUrlContent(url: imageUrl)
+        self.image_url = MessageContentImageUrlContent(url: image_url)
+    }
+    
+    init(image: Image) {
+        self.type = .image_url
+        self.text = nil
+        self.image_url = MessageContentImageUrlContent(url: image.toDataURL())
     }
     
     private enum CodingKeys: String, CodingKey {
         case type
         case text
-        case imageUrl
+        case image_url
     }
     
     init(from decoder: Decoder) throws {
@@ -48,10 +54,10 @@ struct MessageContent: Codable, Equatable {
         switch type {
         case .text:
             self.text = try container.decode(String.self, forKey: .text)
-            self.imageUrl = nil
-        case .imageUrl:
+            self.image_url = nil
+        case .image_url:
             self.text = nil
-            self.imageUrl = try container.decode(MessageContentImageUrlContent.self, forKey: .imageUrl)
+            self.image_url = try container.decode(MessageContentImageUrlContent.self, forKey: .image_url)
         }
     }
     
@@ -62,8 +68,8 @@ struct MessageContent: Codable, Equatable {
         switch self.type {
         case .text:
             try container.encode(text, forKey: .text)
-        case .imageUrl:
-            try container.encode(imageUrl, forKey: .imageUrl)
+        case .image_url:
+            try container.encode(image_url, forKey: .image_url)
         }
     }
 }

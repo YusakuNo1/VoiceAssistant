@@ -21,7 +21,7 @@ class AudioManager {
         self.updateProgress = updateProgress
     }
     
-    func recognizeFromMic() async {
+    func recognizeFromMic(imageList: [Image]) async {
         self._setAudioMode(mode: .Record)
 
         self.apiManager.getCredentials() { result in
@@ -40,7 +40,7 @@ class AudioManager {
                         
                         if let message = evt.result.text {
                             self.updateProgress(.WaitForRes)
-                            self.apiManager.sendChatMessages(message: message) { (result) -> Void in
+                            self.apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
                                 switch result {
                                 case .success(let respnoseString):
 //                                    print("LLM Response: \(respnoseString)")

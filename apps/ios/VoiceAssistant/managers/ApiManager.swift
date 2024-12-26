@@ -45,11 +45,16 @@ class ApiManager {
         }
     }
     
-    func sendChatMessages(message: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func sendChatMessages(message: String, imageList: [Image], completion: @escaping (Result<String, Error>) -> Void) {
         var httpBody: Data!
         do {
+            var messageContentList: [MessageContent] = [MessageContent(text: message)]
+            for image in imageList {
+                messageContentList.append(MessageContent(image: image))
+            }
+
             let lmRequestBody = LanguageModelRequestBody(messages: [
-                Message(role: Role.user, content: [MessageContent(text: message)])
+                Message(role: Role.user, content: messageContentList)
             ])
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {

@@ -16,13 +16,17 @@
 		FC3EF79F2D1A09520088B897 /* ChatTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF79E2D1A094B0088B897 /* ChatTable.swift */; };
 		FC3EF7A12D1A12A70088B897 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */; };
 		FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF7A22D1B18CC0088B897 /* Utils.swift */; };
-		FC46F0B12D1752D2004020A9 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B02D1752C8004020A9 /* extensions.swift */; };
+		FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */; };
 		FC46F0B32D17532A004020A9 /* consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B22D175325004020A9 /* consts.swift */; };
 		FC46F0B52D175344004020A9 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B42D175343004020A9 /* common.swift */; };
 		FC46F0B72D17543C004020A9 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B62D175434004020A9 /* AudioManager.swift */; };
 		FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0BA2D176FD6004020A9 /* ApiManager.swift */; };
 		FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B462D1B6A22007C8159 /* MediaManager.swift */; };
 		FCC38B802D1C8338007C8159 /* message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B7F2D1C832C007C8159 /* message.swift */; };
+		FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B8D2D1CED65007C8159 /* UIImage.swift */; };
+		FCC38B902D1CF082007C8159 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B8F2D1CF080007C8159 /* Logger.swift */; };
+		FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B912D1D187B007C8159 /* ImageUtils.swift */; };
+		FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +55,17 @@
 		FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableCell.swift; sourceTree = "<group>"; };
 		FC3EF7A22D1B18CC0088B897 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FC3EF7C02D1B1DD30088B897 /* VoiceAssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceAssistantTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC46F0B02D1752C8004020A9 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioPCMBuffer.swift; sourceTree = "<group>"; };
 		FC46F0B22D175325004020A9 /* consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consts.swift; sourceTree = "<group>"; };
 		FC46F0B42D175343004020A9 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		FC46F0B62D175434004020A9 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		FC46F0BA2D176FD6004020A9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FCC38B462D1B6A22007C8159 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		FCC38B7F2D1C832C007C8159 /* message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = message.swift; sourceTree = "<group>"; };
+		FCC38B8D2D1CED65007C8159 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		FCC38B8F2D1CF080007C8159 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		FCC38B912D1D187B007C8159 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -119,8 +127,8 @@
 				FCC38B432D1B6936007C8159 /* utils */,
 				FCC38B422D1B6918007C8159 /* views */,
 				FCC38B7E2D1C8313007C8159 /* types */,
+				FCC38B8C2D1CED4A007C8159 /* extensions */,
 				FC46F0B22D175325004020A9 /* consts.swift */,
-				FC46F0B02D1752C8004020A9 /* extensions.swift */,
 				DC1C153522B8E27B00367496 /* AppDelegate.swift */,
 				DC1C153922B8E27B00367496 /* Main.storyboard */,
 				DC1C153C22B8E27D00367496 /* Assets.xcassets */,
@@ -134,6 +142,7 @@
 		FCC38B422D1B6918007C8159 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */,
 				FC3EF79E2D1A094B0088B897 /* ChatTable.swift */,
 				FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */,
 				DC1C153722B8E27B00367496 /* ViewController.swift */,
@@ -144,6 +153,8 @@
 		FCC38B432D1B6936007C8159 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				FCC38B912D1D187B007C8159 /* ImageUtils.swift */,
+				FCC38B8F2D1CF080007C8159 /* Logger.swift */,
 				FC3EF7A22D1B18CC0088B897 /* Utils.swift */,
 			);
 			path = utils;
@@ -166,6 +177,15 @@
 				FC46F0B42D175343004020A9 /* common.swift */,
 			);
 			path = types;
+			sourceTree = "<group>";
+		};
+		FCC38B8C2D1CED4A007C8159 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FCC38B8D2D1CED65007C8159 /* UIImage.swift */,
+				FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		FD7E0C8024E8F50E54C59A30 /* Frameworks */ = {
@@ -326,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */,
 				FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */,
 				FC3EF79F2D1A09520088B897 /* ChatTable.swift in Sources */,
 				FC46F0B72D17543C004020A9 /* AudioManager.swift in Sources */,
@@ -334,9 +355,12 @@
 				FCC38B802D1C8338007C8159 /* message.swift in Sources */,
 				FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */,
 				FC46F0B32D17532A004020A9 /* consts.swift in Sources */,
+				FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */,
 				FC46F0B52D175344004020A9 /* common.swift in Sources */,
 				DC1C153622B8E27B00367496 /* AppDelegate.swift in Sources */,
-				FC46F0B12D1752D2004020A9 /* extensions.swift in Sources */,
+				FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */,
+				FCC38B902D1CF082007C8159 /* Logger.swift in Sources */,
+				FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */,
 				FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,3 +14,6 @@ enum ProgressState {
     case WaitForRes
     case Speak
 }
+
+let IMAGE_SIZE: CGFloat = 64
+let IMAGE_JPEG_QUALITY: CGFloat = 0.8

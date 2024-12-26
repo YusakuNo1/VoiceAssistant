@@ -1,5 +1,4 @@
 import UIKit
-import PhotosUI
 
 
 enum MediaSourceType {
@@ -7,8 +6,31 @@ enum MediaSourceType {
     case camera
 }
 
-class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
-    private var imageList: [Image] = []
+class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private var _imageList: [Image] = []
+    var imageList: [Image] {
+        get {
+            return _imageList
+        }
+    }
+    
+    func resetImageList() {
+        self._imageList.removeAll()
+        self.dispatchUpdateEvent()
+    }
+    
+    private var updatedListener: [(([Image]) -> Void)] = []
+    func registerUpdatedListener(listener: @escaping ([Image]) -> Void) {
+        updatedListener.append(listener)
+    }
+    
+    func dispatchUpdateEvent() {
+        DispatchQueue.main.async {
+            self.updatedListener.forEach { (listener) in
+                listener(self._imageList)
+            }
+        }
+    }
     
     func showOption(vc: ViewController) {
         let alertController = UIAlertController(title: "Select Image", message: "Choose an option", preferredStyle: .actionSheet)
@@ -28,11 +50,9 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     private func openImagePicker(_ vc: ViewController, _ mediaSourceType: MediaSourceType) {
         if mediaSourceType == .photoLibrary {
-            var configuration = PHPickerConfiguration()
-            configuration.filter = .images
-            configuration.selectionLimit = 1
-            
-            let picker = PHPickerViewController(configuration: configuration)
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
             picker.delegate = self
             vc.present(picker, animated: true)
         } else {
@@ -44,32 +64,19 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             vc.present(picker, animated: true)
         }
     }
-    
-    // MARK: - PHPickerViewControllerDelegate methods
 
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        
-        guard let provider = results.first?.itemProvider else { return }
-        
-        if provider.canLoadObject(ofClass: UIImage.self) {
-            provider.loadObject(ofClass: UIImage.self) { image, error in
-                DispatchQueue.main.async {
-//                    self.selectedImageView.image = image as? UIImage
-                }
-            }
-        }
-    }
-    
     // MARK: - UIImagePickerControllerDelegate methods
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info["UIImagePickerControllerEditedImage"] as? UIImage ?? info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            print("Image: \(image)")
+        self._imageList.removeAll()
+        let uiImage = info["UIImagePickerControllerEditedImage"] as? UIImage ?? info["UIImagePickerControllerOriginalImage"] as? UIImage
+        if let uiImage = uiImage, let image = uiImage.toSquareImage(format: .jpeg, size: IMAGE_SIZE) {
+            self._imageList.append(image)
+        } else {
+            Logger.log(.error, "Error converting UIImage to Image")
         }
-
+        self.dispatchUpdateEvent()
         picker.dismiss(animated: true)
-
     }
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

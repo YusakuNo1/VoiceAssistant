@@ -21,8 +21,8 @@ enum ImageFormat: String, Codable {
 }
 
 struct Image: Codable {
-    let width: Int
-    let height: Int
+    let width: CGFloat
+    let height: CGFloat
     let format: ImageFormat
     let data: Data
     
