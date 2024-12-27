@@ -32,21 +32,53 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.contentLabelContainer.layer.borderColor = UIColor.lightGray.cgColor
         cell.contentLabelContainer.layer.masksToBounds = true
         
-        // TODO: this line only get the text content for now
+        // Assumption: only 1 "text" type
+        var imageContentList: [MessageContent] = []
         for content in chatHistory[indexPath.row].content {
-            if content.type != .text {
-                continue
+            if content.type == .text {
+                cell.contentLabel.text = content.text ?? ""
+            } else if content.type == .image_url {
+                imageContentList.append(content)
             }
-            
-            cell.contentLabel.text = content.text ?? ""
         }
+        
+        if imageContentList.count == 0 {
+            cell.thumbnailContainerHeight.isActive = true
+        } else {
+            cell.thumbnailContainerHeight.isActive = false
+            for index in 0..<MAX_CELL_THUMBNAILS {
+                let imageView = switch index {
+                case 0: cell.thumbnail0
+                case 1: cell.thumbnail1
+                case 2: cell.thumbnail2
+                case 3: cell.thumbnail3
+                case 4: cell.thumbnail4
+                default : cell.thumbnail0
+                }
+
+                if let imageView = imageView {
+                    if index < imageContentList.count {
+                        imageView.isHidden = false
+                        if let dataUrl = imageContentList[index].image_url?.url, let image = ImageUtils.imageFromDataUrl(dataUrl: dataUrl) {
+                            imageView.image = image
+                        }
+                    } else {
+                        imageView.isHidden = true
+                    }
+                }
+            }
+        }
+        
         return cell
     }
     
-    func appendChatMessages(_ chatId: String, _ messages: [Message]) {
+    func appendChatMessages(_ chatId: String?, _ messages: [Message]) {
         if chatId != self.chatId {
+            if self.chatId != nil {
+                // If the previous chat is available, clear the history
+                self.chatHistory.removeAll()
+            }
             self.chatId = chatId
-            self.chatHistory.removeAll()
         }
 
         for message in messages {

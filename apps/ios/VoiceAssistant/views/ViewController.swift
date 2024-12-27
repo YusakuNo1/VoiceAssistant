@@ -92,9 +92,11 @@ class ViewController: UIViewController {
         }
     }
     
-    private func appendChatMessages(_ chatId: String, _ messages: [Message]) {
-        self.chatTable.appendChatMessages(chatId, messages)
-        self.chatTableView.reloadData()
+    private func appendChatMessages(_ chatId: String?, _ messages: [Message]) {
+        DispatchQueue.main.async {
+            self.chatTable.appendChatMessages(chatId, messages)
+            self.chatTableView.reloadData()
+        }
     }
     
     private func mediaManagerUpdated(_ imageList: [Image]) {

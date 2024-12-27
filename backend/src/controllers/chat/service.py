@@ -1,7 +1,7 @@
 from jinja2 import Template
 from dataclasses import asdict
 
-from src.config.env import aoai_chat_endpoint
+from src.config.env import aoai_chat_endpoint, aoai_vision_endpoint
 from src.utils.loggers import log
 from .types import Message, Request
 from src.utils.str_utils import escape_json_string
@@ -25,13 +25,27 @@ def _get_history_messages(chat_id: str) -> list[Message]:
     template = Template(system_prompt)
     return [Message(role="system", content=template.render(context="").strip())]
 
+def _use_vision_model(request: Request) -> bool:
+    for message in request.messages:
+        if message.role != "user":
+            continue
+        for item in message.content:
+            if item.type == "image_url":
+                return True
+    return False
 
 async def chat(chat_id: str, request: Request):
     from azure.ai.inference import ChatCompletionsClient
     from azure.identity import DefaultAzureCredential
 
+    # As of now (2024.12.26), the token price for vision is very different and opposite to the chat token price:
+    #  * GPT-4o-mini costs $0.001275 for 150px x 150px image
+    #  * GPT-4o costs $0.000638 for 150px x 150px image
+    use_vision = _use_vision_model(request)
+    log(f"Using vision model: {use_vision}")
+
     client = ChatCompletionsClient(
-        endpoint=aoai_chat_endpoint,
+        endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),
         credential=DefaultAzureCredential(exclude_interactive_browser_credential=False),
         credential_scopes=["https://cognitiveservices.azure.com/.default"],
         api_version="2024-06-01",  # Azure OpenAI api-version. See https://aka.ms/azsdk/azure-ai-inference/azure-openai-api-versions
@@ -43,18 +57,26 @@ async def chat(chat_id: str, request: Request):
     for message in (history_messages + request_messages):
         messages.append(asdict(message))
 
+    # ISSUE: sometimes streaming stuck when uploading image
+    is_streaming = False
     response = client.complete(
-        stream=True,
+        # stream=True,
+        stream=is_streaming,
         messages=messages,
     )
 
     response_str = ""
-    for update in response:
-        chunk = update.choices[0].delta.content
-        if chunk: # Avoid None to be sent to the response
-            response_str += chunk
-            yield chunk
-        # await asyncio.sleep(1) # Simulate a delay
+
+    if is_streaming:
+        for update in response:
+            chunk = update.choices[0].delta.content
+            if chunk: # Avoid None to be sent to the response
+                response_str += chunk
+                yield chunk
+            # await asyncio.sleep(1) # Simulate a delay
+    else:
+        response_str = response.choices[0].message.content
+        yield response_str
 
     history_messages.extend(request_messages)
     history_messages.extend([Message(role="assistant", content=response_str)])

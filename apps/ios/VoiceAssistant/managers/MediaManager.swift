@@ -13,12 +13,12 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             return _imageList
         }
     }
-    
+
     func resetImageList() {
         self._imageList.removeAll()
         self.dispatchUpdateEvent()
     }
-    
+
     private var updatedListener: [(([Image]) -> Void)] = []
     func registerUpdatedListener(listener: @escaping ([Image]) -> Void) {
         updatedListener.append(listener)

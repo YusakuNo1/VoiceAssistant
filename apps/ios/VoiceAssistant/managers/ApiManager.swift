@@ -13,9 +13,9 @@ struct ResponseData {
 class ApiManager {
     private var credentials: Credentials?
     private var chatId: String?
-    private var appendChatMessages: (String, [Message]) -> Void
+    private var appendChatMessages: (String?, [Message]) -> Void
     
-    init(appendChatMessages: @escaping (String, [Message]) -> Void) {
+    init(appendChatMessages: @escaping (String?, [Message]) -> Void) {
         self.appendChatMessages = appendChatMessages
     }
 
@@ -56,13 +56,17 @@ class ApiManager {
             let lmRequestBody = LanguageModelRequestBody(messages: [
                 Message(role: Role.user, content: messageContentList)
             ])
+
+            // Attach user meesage first
+            self.appendChatMessages(chatId, lmRequestBody.messages)
+
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
             completion(.failure(error))
             return
         }
 
-        let isNewChat = self.chatId == nil
+//        let isNewChat = self.chatId == nil
         var headers: [String: String] = [
             "Content-Type": "application/json",
         ]
@@ -79,23 +83,23 @@ class ApiManager {
                 }
                 self.chatId = chatId
                 
-                if !isNewChat {
+//                if !isNewChat {
                     self.appendChatMessages(chatId, [
-                        Message(role: Role.user, content: [MessageContent(text: message)]),
+//                        Message(role: Role.user, content: [MessageContent(text: message)]),
                         Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
                     ])
                     completion(.success(responseString))
-                } else {
-                    self.getChatHistory(chatId: chatId) { result in
-                        switch result {
-                        case .success(let messages):
-                            self.appendChatMessages(chatId, messages)
-                            completion(.success(responseString))
-                        case.failure(let error):
-                            completion(.failure(error))
-                        }
-                    }
-                }                
+//                } else {
+//                    self.getChatHistory(chatId: chatId) { result in
+//                        switch result {
+//                        case .success(let messages):
+//                            self.appendChatMessages(chatId, messages)
+//                            completion(.success(responseString))
+//                        case.failure(let error):
+//                            completion(.failure(error))
+//                        }
+//                    }
+//                }                
             case .failure(let error):
                 completion(.failure(error))
             }

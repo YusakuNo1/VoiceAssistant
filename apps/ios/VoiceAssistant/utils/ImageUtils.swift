@@ -36,4 +36,10 @@ class ImageUtils {
 //
 //        return UIImage(ciImage: newImage)
 //    }
+    
+    static func imageFromDataUrl(dataUrl: String) -> UIImage? {
+        guard let url = URL(string: dataUrl) else { return nil }
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return UIImage(data: data)
+    }
 }
