@@ -62,6 +62,13 @@ class ViewController: UIViewController {
         // Test
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "show-textdrawingvc" {
+            let vc = segue.destination as! TextDrawingVC
+            vc.mediaManager = self.mediaManager
+        }
+    }
+    
     private func updateProgress(_ progressState: ProgressState) {
         DispatchQueue.main.async {
             switch progressState {

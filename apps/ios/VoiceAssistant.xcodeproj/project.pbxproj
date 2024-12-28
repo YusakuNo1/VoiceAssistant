@@ -27,6 +27,7 @@
 		FCC38B902D1CF082007C8159 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B8F2D1CF080007C8159 /* Logger.swift */; };
 		FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B912D1D187B007C8159 /* ImageUtils.swift */; };
 		FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */; };
+		FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		FCC38B8F2D1CF080007C8159 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FCC38B912D1D187B007C8159 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryVC.swift; sourceTree = "<group>"; };
+		FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDrawingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -142,6 +144,7 @@
 		FCC38B422D1B6918007C8159 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */,
 				FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */,
 				FC3EF79E2D1A094B0088B897 /* ChatTable.swift */,
 				FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */,
@@ -361,6 +364,7 @@
 				FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */,
 				FCC38B902D1CF082007C8159 /* Logger.swift in Sources */,
 				FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */,
+				FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */,
 				FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

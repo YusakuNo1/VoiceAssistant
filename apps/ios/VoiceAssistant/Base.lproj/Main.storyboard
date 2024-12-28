@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -56,7 +57,7 @@
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="Test"/>
                                             <connections>
-                                                <action selector="onTestActionButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ohj-Gl-Rqt"/>
+                                                <segue destination="3oi-Nl-L6P" kind="show" identifier="show-textdrawingvc" id="QUh-5I-UVq"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -341,7 +342,6 @@
                         <outlet property="photoActionButtonItem" destination="Blm-7q-xV8" id="zkW-7g-rfT"/>
                         <outlet property="progressLabel" destination="Kgo-U6-P8v" id="waV-B9-iLS"/>
                         <outlet property="progressLabelContainer" destination="CC4-Cr-2vm" id="hfW-Z3-1Da"/>
-                        <outlet property="testActionButton" destination="rub-qH-tdO" id="zf6-Ol-pgg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -377,15 +377,94 @@
             </objects>
             <point key="canvasLocation" x="1018" y="-28"/>
         </scene>
+        <!--Text DrawingVC-->
+        <scene sceneID="zFE-M1-uMd">
+            <objects>
+                <viewController id="3oi-Nl-L6P" customClass="TextDrawingVC" customModule="VoiceAssistant" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i6B-09-fje">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YfM-2E-QIa">
+                                <rect key="frame" x="0.0" y="769" width="393" height="49"/>
+                                <items>
+                                    <barButtonItem title="Draw" image="hand.draw" catalog="system" id="GaS-QO-g2s">
+                                        <connections>
+                                            <action selector="onDrawButtonClicked:" destination="3oi-Nl-L6P" id="kPU-6B-RLR"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Erase" id="ynu-BS-ox1">
+                                        <imageReference key="image" image="eraser" catalog="system" renderingMode="hierarchical-single">
+                                            <hierarchicalColors>
+                                                <color systemColor="labelColor"/>
+                                                <color systemColor="secondaryLabelColor"/>
+                                                <color systemColor="tertiaryLabelColor"/>
+                                            </hierarchicalColors>
+                                        </imageReference>
+                                        <connections>
+                                            <action selector="onEraseButtonClicked:" destination="3oi-Nl-L6P" id="ms8-sv-6b4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VgM-CY-gyW"/>
+                                    <barButtonItem title="Done" id="5ol-HK-SGk">
+                                        <connections>
+                                            <action selector="onConfirmButtonClicked:" destination="3oi-Nl-L6P" id="cRi-is-qqk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQG-bU-ar7" customClass="TextDrawingView" customModule="VoiceAssistant" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fQG-bU-ar7" secondAttribute="height" multiplier="393:393" id="WWb-J7-zrD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SQC-CG-6Uk"/>
+                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                        <constraints>
+                            <constraint firstItem="YfM-2E-QIa" firstAttribute="leading" secondItem="SQC-CG-6Uk" secondAttribute="leading" id="87x-Xq-PxA"/>
+                            <constraint firstItem="YfM-2E-QIa" firstAttribute="bottom" secondItem="SQC-CG-6Uk" secondAttribute="bottom" id="8qX-Xv-gFj"/>
+                            <constraint firstItem="YfM-2E-QIa" firstAttribute="trailing" secondItem="SQC-CG-6Uk" secondAttribute="trailing" id="D9c-h9-C55"/>
+                            <constraint firstItem="fQG-bU-ar7" firstAttribute="centerY" secondItem="i6B-09-fje" secondAttribute="centerY" id="p4k-yH-W0q"/>
+                            <constraint firstItem="fQG-bU-ar7" firstAttribute="leading" secondItem="SQC-CG-6Uk" secondAttribute="leading" id="uPb-Nz-hwF"/>
+                            <constraint firstItem="SQC-CG-6Uk" firstAttribute="trailing" secondItem="fQG-bU-ar7" secondAttribute="trailing" id="zig-5N-YJt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="jbc-9q-zib"/>
+                    <connections>
+                        <outlet property="drawButton" destination="GaS-QO-g2s" id="OFC-bf-bVC"/>
+                        <outlet property="eraseButton" destination="ynu-BS-ox1" id="OMq-bX-dy9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3qO-JM-o64" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="143" y="689"/>
+        </scene>
     </scenes>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
         <image name="IconUser" width="170.66667175292969" height="170.66667175292969"/>
         <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
+        <image name="eraser" catalog="system" width="128" height="119"/>
+        <image name="hand.draw" catalog="system" width="128" height="126"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

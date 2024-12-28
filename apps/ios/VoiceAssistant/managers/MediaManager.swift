@@ -40,14 +40,27 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         let cameraAction = UIAlertAction(title: "From Camera", style: .default) { _ in
             self.openImagePicker(vc, .camera)
         }
+        let drawAction = UIAlertAction(title: "Draw Text", style: .default) { _ in
+            self.showTextDrawingVC(vc)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
         alertController.addAction(photoLibraryAction)
         alertController.addAction(cameraAction)
+        alertController.addAction(drawAction)
         alertController.addAction(cancelAction)
         vc.present(alertController, animated: true, completion: nil)
     }
     
+    func setImageList(_ imageList: [Image]) {
+        _imageList = imageList
+        dispatchUpdateEvent()
+    }
+
+    private func showTextDrawingVC(_ vc: ViewController) {
+        vc.performSegue(withIdentifier: "show-textdrawingvc", sender: vc)
+    }
+
     private func openImagePicker(_ vc: ViewController, _ mediaSourceType: MediaSourceType) {
         if mediaSourceType == .photoLibrary {
             let picker = UIImagePickerController()
