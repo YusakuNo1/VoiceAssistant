@@ -47,24 +47,14 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.thumbnailContainerHeight.isActive = false
             for index in 0..<MAX_CELL_THUMBNAILS {
-                let imageView = switch index {
-                case 0: cell.thumbnail0
-                case 1: cell.thumbnail1
-                case 2: cell.thumbnail2
-                case 3: cell.thumbnail3
-                case 4: cell.thumbnail4
-                default : cell.thumbnail0
-                }
-
-                if let imageView = imageView {
-                    if index < imageContentList.count {
-                        imageView.isHidden = false
-                        if let dataUrl = imageContentList[index].image_url?.url, let image = ImageUtils.imageFromDataUrl(dataUrl: dataUrl) {
-                            imageView.image = image
-                        }
-                    } else {
-                        imageView.isHidden = true
+                let imageView = cell.thumbnails[index]
+                if index < imageContentList.count {
+                    imageView.isHidden = false
+                    if let dataUrl = imageContentList[index].image_url?.url, let image = ImageUtils.imageFromDataUrl(dataUrl: dataUrl) {
+                        imageView.image = image
                     }
+                } else {
+                    imageView.isHidden = true
                 }
             }
         }

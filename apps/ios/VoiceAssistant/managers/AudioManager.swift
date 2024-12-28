@@ -12,7 +12,7 @@ class AudioManager {
     var audioConfig: SPXAudioConfiguration!
     var reco: SPXSpeechRecognizer!
     var pushStream: SPXPushAudioInputStream!
-
+    
     let apiManager: ApiManager!
     let updateProgress: (ProgressState) -> Void
     
@@ -23,51 +23,30 @@ class AudioManager {
     
     func recognizeFromMic(imageList: [Image]) async {
         self._setAudioMode(mode: .Record)
-
+        
         self.apiManager.getCredentials() { result in
             switch result {
-                case .success(let credentials):
-                    try! self.speechConfig = SPXSpeechConfiguration(subscription: credentials.speech.key, region: credentials.speech.region)
-                    self.speechConfig?.speechRecognitionLanguage = "en-US"
-                    
-                    self.pushStream = SPXPushAudioInputStream()
-                    self.audioConfig = SPXAudioConfiguration(streamInput: self.pushStream)
-                    self.reco = try! SPXSpeechRecognizer(speechConfiguration: self.speechConfig!, audioConfiguration: self.audioConfig!)
-
-                    self.reco.addRecognizedEventHandler() {reco, evt in
-                        print("Final recognition result: \(evt.result.text ?? "(no result)")")
-                        //            self.updateLabel(text: evt.result.text, color: .gray)
-                        
-                        if let message = evt.result.text {
-                            self.updateProgress(.WaitForRes)
-                            self.apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
-                                switch result {
-                                case .success(let respnoseString):
-//                                    print("LLM Response: \(respnoseString)")
-                                    Task {
-                                        await self.synthesize(inputText: respnoseString)
-                                    }
-                                case .failure(let error):
-                                    print("Error sending message: \(error)")
-                                }
-                            }
-                        }
-                    }
-                    
-                    self.reco.addCanceledEventHandler { reco, evt in
-                        print("Recognition canceled: \(evt.errorDetails?.description ?? "(no result)")")
-                        self.updateProgress(.Idle)
-                    }
-                    
-                    try! self.reco.recognizeOnceAsync({ srresult in
-                        self.audioEngine.stop()
-                        self.audioEngine.inputNode.removeTap(onBus: 0)
-                        self.pushStream.close()
-                    })
-                    self._readDataFromMicrophone()
-                    self.updateProgress(.Listen)
-                case .failure(let error):
-                    print("Error: \(error)")
+            case .success(let credentials):
+                try! self.speechConfig = SPXSpeechConfiguration(subscription: credentials.speech.key, region: credentials.speech.region)
+                self.speechConfig?.speechRecognitionLanguage = "en-US"
+                
+                self.pushStream = SPXPushAudioInputStream()
+                self.audioConfig = SPXAudioConfiguration(streamInput: self.pushStream)
+                self.reco = try! SPXSpeechRecognizer(speechConfiguration: self.speechConfig!, audioConfiguration: self.audioConfig!)
+                self.reco.addRecognizedEventHandler() { reco, evt in self._onSpeechRecognized(message: evt.result.text, imageList: imageList) }
+                self.reco.addCanceledEventHandler { reco, evt in
+                    print("Recognition canceled: \(evt.errorDetails?.description ?? "(no result)")")
+                    self.updateProgress(.Idle)
+                }
+                try! self.reco.recognizeOnceAsync({ srresult in
+                    self.audioEngine.stop()
+                    self.audioEngine.inputNode.removeTap(onBus: 0)
+                    self.pushStream.close()
+                })
+                self._readDataFromMicrophone()
+                self.updateProgress(.Listen)
+            case .failure(let error):
+                print("Error: \(error)")
             }
         }
     }
@@ -75,7 +54,7 @@ class AudioManager {
     func synthesize(inputText: String) async {
         self._setAudioMode(mode: .Playback)
         self.updateProgress(.Speak)
-
+        
         self.apiManager.getCredentials() { result in
             switch result {
             case .success(let credentials):
@@ -109,8 +88,8 @@ class AudioManager {
             }
         }
     }
-
-        
+    
+    
     private func _setAudioMode(mode: AudioMode) {
         do {
             if mode == AudioMode.Playback {
@@ -166,6 +145,26 @@ class AudioManager {
         }
         catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    private func _onSpeechRecognized(message: String?, imageList: [Image]) {
+        print("Final recognition result: \(message ?? "(no result)")")
+        
+        if let message = message {
+            self.updateProgress(.WaitForRes)
+            self.apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
+                switch result {
+                case .success(let respnoseString):
+                    Task {
+                        await self.synthesize(inputText: respnoseString)
+                    }
+                case .failure(let error):
+                    print("Error sending message: \(error)")
+                }
+            }
+        } else {
+            // TODO: handle errors here
         }
     }
 }

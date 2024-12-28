@@ -183,12 +183,12 @@
                                             <outlet property="contentLabel" destination="dZJ-X6-ngH" id="4Dq-gt-Y23"/>
                                             <outlet property="contentLabelContainer" destination="JFh-rR-uAP" id="4na-Fd-ZJd"/>
                                             <outlet property="profileImageView" destination="lMv-uV-fk3" id="Hy6-aI-BKe"/>
-                                            <outlet property="thumbnail0" destination="qfb-Sa-otP" id="nSX-fR-4YV"/>
-                                            <outlet property="thumbnail1" destination="kcZ-xk-QaS" id="U4k-Uz-ICc"/>
-                                            <outlet property="thumbnail2" destination="XT6-Aa-dXB" id="Qyq-dZ-xoE"/>
-                                            <outlet property="thumbnail3" destination="UMZ-42-lic" id="LT4-7a-QvW"/>
-                                            <outlet property="thumbnail4" destination="JH7-QB-AHV" id="GEa-ZB-aTG"/>
                                             <outlet property="thumbnailContainerHeight" destination="kpF-iG-rw1" id="5XZ-xL-BuQ"/>
+                                            <outletCollection property="thumbnails" destination="qfb-Sa-otP" collectionClass="NSMutableArray" id="mZw-C7-5w5"/>
+                                            <outletCollection property="thumbnails" destination="kcZ-xk-QaS" collectionClass="NSMutableArray" id="rsv-ds-KTq"/>
+                                            <outletCollection property="thumbnails" destination="XT6-Aa-dXB" collectionClass="NSMutableArray" id="uB1-Pz-rl8"/>
+                                            <outletCollection property="thumbnails" destination="UMZ-42-lic" collectionClass="NSMutableArray" id="s8T-Uv-bNV"/>
+                                            <outletCollection property="thumbnails" destination="JH7-QB-AHV" collectionClass="NSMutableArray" id="zZP-b4-a77"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell-assistant" id="Bta-p6-YBa" customClass="ChatTableCell" customModule="VoiceAssistant" customModuleProvider="target">
@@ -289,12 +289,12 @@
                                             <outlet property="contentLabel" destination="Mvd-VU-fcV" id="1Lu-fQ-NOc"/>
                                             <outlet property="contentLabelContainer" destination="ca7-oZ-Mcf" id="ocE-FR-ZB0"/>
                                             <outlet property="profileImageView" destination="8Ud-EV-Dmf" id="lIb-Ir-bJ5"/>
-                                            <outlet property="thumbnail0" destination="br9-aN-S4b" id="gRs-Vc-6XG"/>
-                                            <outlet property="thumbnail1" destination="jds-69-fiT" id="Y0g-k2-Fzo"/>
-                                            <outlet property="thumbnail2" destination="hYg-OH-JWD" id="cRU-3J-eFD"/>
-                                            <outlet property="thumbnail3" destination="zIn-MY-FkS" id="V6x-Gv-88k"/>
-                                            <outlet property="thumbnail4" destination="Mja-sN-k2X" id="zZs-cH-2fM"/>
                                             <outlet property="thumbnailContainerHeight" destination="zuz-L7-T0k" id="bSh-vE-za2"/>
+                                            <outletCollection property="thumbnails" destination="br9-aN-S4b" collectionClass="NSMutableArray" id="C4V-Tz-rmN"/>
+                                            <outletCollection property="thumbnails" destination="jds-69-fiT" collectionClass="NSMutableArray" id="nKa-x6-th8"/>
+                                            <outletCollection property="thumbnails" destination="hYg-OH-JWD" collectionClass="NSMutableArray" id="mns-FH-vb4"/>
+                                            <outletCollection property="thumbnails" destination="zIn-MY-FkS" collectionClass="NSMutableArray" id="zm6-Fb-P5Z"/>
+                                            <outletCollection property="thumbnails" destination="Mja-sN-k2X" collectionClass="NSMutableArray" id="1rM-Bc-mzI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
