@@ -7,7 +7,7 @@ class ViewController: UIViewController {
     private var audioManager: AudioManager!
     private var apiManager: ApiManager!
     private var mediaManager: MediaManager!
-    private var chatTable = ChatTable()
+    private var chatTable: ChatTable!
     
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var mainActionButton: UIButton!
@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Chat"
+        
+        self.chatTable = ChatTable(parentVC: self)
         
         let apiManager = ApiManager(appendChatMessages: self.appendChatMessages)
         self.apiManager = apiManager
@@ -66,6 +68,19 @@ class ViewController: UIViewController {
         if segue.identifier == "show-textdrawingvc" {
             let vc = segue.destination as! TextDrawingVC
             vc.mediaManager = self.mediaManager
+        } else if segue.identifier == "show-imagegalleryvc" {
+            let vc = segue.destination as! ImageGalleryVC
+            var uiImageList: [UIImage] = []
+            for image in self.mediaManager.imageList {
+                if let uiImage = ImageUtils.imageToUIImage(image: image) {
+                    uiImageList.append(uiImage)
+                }
+            }
+            vc.uiImageList = uiImageList
+        } else if segue.identifier == "show-imagegalleryvc-from-cell" {
+            let vc = segue.destination as! ImageGalleryVC
+            let uiImageList = sender as! [UIImage]
+            vc.uiImageList = uiImageList
         }
     }
     

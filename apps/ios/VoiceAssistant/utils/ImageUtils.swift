@@ -42,4 +42,9 @@ class ImageUtils {
         guard let data = try? Data(contentsOf: url) else { return nil }
         return UIImage(data: data)
     }
+    
+    static func imageToUIImage(image: Image?) -> UIImage? {
+        guard let image = image, let uiImage = UIImage(data: image.data) else { return nil }
+        return uiImage
+    }
 }

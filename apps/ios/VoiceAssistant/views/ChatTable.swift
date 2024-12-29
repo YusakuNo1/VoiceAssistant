@@ -8,6 +8,11 @@ enum CellId: String {
 class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
     private var chatId: String?
     private var chatHistory: [Message] = []
+    private var parentVC: UIViewController
+
+    init(parentVC: UIViewController) {
+        self.parentVC = parentVC
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatHistory.count
@@ -62,6 +67,21 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    // MARK: - Table view delegate
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let messageContent = self.chatHistory[indexPath.row].content
+        var uiImageList: [UIImage] = []
+        for item in messageContent {
+            if item.type == .image_url, let imageUrl = item.image_url?.url, let uiImage = ImageUtils.imageFromDataUrl(dataUrl: imageUrl) {
+                uiImageList.append(uiImage)
+            }
+        }
+        self.parentVC.performSegue(withIdentifier: "show-textdrawingvc", sender: uiImageList)
+    }
+
+    // MARK: - Public
+
     func appendChatMessages(_ chatId: String?, _ messages: [Message]) {
         if chatId != self.chatId {
             if self.chatId != nil {

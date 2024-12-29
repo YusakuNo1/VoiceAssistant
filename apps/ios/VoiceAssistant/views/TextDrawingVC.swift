@@ -8,6 +8,7 @@ enum Mode {
 class TextDrawingVC: UIViewController {
     @IBOutlet weak var drawButton: UIBarButtonItem!
     @IBOutlet weak var eraseButton: UIBarButtonItem!
+    @IBOutlet weak var textDrawingView: TextDrawingView!
 
     private var _mode: Mode = .draw
     private var _mediaManager: MediaManager?
@@ -37,7 +38,7 @@ class TextDrawingVC: UIViewController {
         DispatchQueue.main.async {
             let renderer = UIGraphicsImageRenderer(bounds: self.view.bounds)
             let image = renderer.image { rendererContext in
-                self.view.layer.render(in: rendererContext.cgContext)
+                self.textDrawingView.layer.render(in: rendererContext.cgContext)
             }
             
             if let image = image.toSquareImage(format: .png, size: IMAGE_SIZE) {
