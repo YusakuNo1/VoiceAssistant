@@ -57,7 +57,7 @@
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="Test"/>
                                             <connections>
-                                                <segue destination="3oi-Nl-L6P" kind="show" identifier="show-textdrawingvc" id="QUh-5I-UVq"/>
+                                                <action selector="onTestActionButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YLl-tu-oAA"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -343,6 +343,7 @@
                         <outlet property="progressLabel" destination="Kgo-U6-P8v" id="waV-B9-iLS"/>
                         <outlet property="progressLabelContainer" destination="CC4-Cr-2vm" id="hfW-Z3-1Da"/>
                         <segue destination="Bd8-vQ-jNW" kind="show" identifier="show-imagegalleryvc-from-cell" id="SBU-Fu-1XO"/>
+                        <segue destination="3oi-Nl-L6P" kind="show" identifier="show-textdrawingvc" id="XIK-TC-cRn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
