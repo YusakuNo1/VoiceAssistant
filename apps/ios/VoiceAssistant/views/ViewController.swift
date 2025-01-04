@@ -4,9 +4,7 @@ import MicrosoftCognitiveServicesSpeech
 
 
 class ViewController: UIViewController {
-    private var speechManager: AbstractSpeechManager!
-    private var apiManager: ApiManager!
-    private var mediaManager: MediaManager!
+    private var speechManager: SpeechManager!
     private var chatTable: ChatTable!
     
     @IBOutlet weak var chatTableView: UITableView!
@@ -20,14 +18,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Chat"
         
-        self.chatTable = ChatTable(parentVC: self)
-        
-        let apiManager = ApiManager(appendChatMessages: self.appendChatMessages)
-        self.apiManager = apiManager
-//        self.speechManager = LocalSpeechManager(apiManager: apiManager, updateProgress: self.updateProgress)
-        self.speechManager = RemoteSpeechManager(apiManager: apiManager, updateProgress: self.updateProgress)
-        self.mediaManager = MediaManager()
-        self.mediaManager.registerUpdatedListener(listener: self.mediaManagerUpdated)
+        self.chatTable = ChatTable(parentVC: self)        
+        self.speechManager = SpeechManager(appendChatMessages: self.appendChatMessages, updateProgress: self.updateProgress)
+        self.speechManager.mediaManager.registerUpdatedListener(listener: self.mediaManagerUpdated)
         
         self.updateProgress(.Idle)
         self.chatTableView.dataSource = self.chatTable
@@ -37,14 +30,14 @@ class ViewController: UIViewController {
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
         self.updateProgress(.Init)
         Task {
-            let imageList = self.mediaManager.imageList
+            let imageList = self.speechManager.mediaManager.imageList
             self.speechManager.recognize(imageList: imageList)
-            mediaManager.resetImageList()
+            self.speechManager.mediaManager.resetImageList()
         }
     }
     
     @IBAction func onUploadActionButtonClicked(_ sender: Any) {
-        self.mediaManager.showOption(vc: self)
+        self.speechManager.mediaManager.showOption(vc: self)
     }
     
     @IBAction func onPhotoActionButtonClicked(_ sender: Any) {
@@ -56,7 +49,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
             self.chatTable.reset()
             self.chatTableView.reloadData()
-            self.apiManager.resetChatId()
+            self.speechManager.apiManager.resetChatId()
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -66,23 +59,23 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onStartSpeechRecognition(_ sender: Any) {
-        let imageList = self.mediaManager.imageList
+        let imageList = self.speechManager.mediaManager.imageList
         self.speechManager.recognize(imageList: imageList)
     }
 
     @IBAction func onStopSpeechRecognition(_ sender: Any) {
-        let imageList = self.mediaManager.imageList
-        self.speechManager.stopSpeechRecognize(imageList: imageList)
+//        let imageList = self.speechManager.mediaManager.imageList
+//        self.speechManager.stopSpeechRecognize(imageList: imageList)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show-textdrawingvc" {
             let vc = segue.destination as! TextDrawingVC
-            vc.mediaManager = self.mediaManager
+            vc.mediaManager = self.speechManager.mediaManager
         } else if segue.identifier == "show-imagegalleryvc" {
             let vc = segue.destination as! ImageGalleryVC
             var uiImageList: [UIImage] = []
-            for image in self.mediaManager.imageList {
+            for image in self.speechManager.mediaManager.imageList {
                 if let uiImage = ImageUtils.imageToUIImage(image: image) {
                     uiImageList.append(uiImage)
                 }

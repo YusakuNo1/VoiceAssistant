@@ -32,7 +32,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         }
     }
     
-    func showOption(vc: ViewController) {
+    func showOption(vc: UIViewController) {
         let alertController = UIAlertController(title: "Select Image", message: "Choose an option", preferredStyle: .actionSheet)
         let photoLibraryAction = UIAlertAction(title: "From Photo Library", style: .default) { _ in
             self.openImagePicker(vc, .photoLibrary)
@@ -57,11 +57,11 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         dispatchUpdateEvent()
     }
 
-    private func showTextDrawingVC(_ vc: ViewController) {
+    private func showTextDrawingVC(_ vc: UIViewController) {
         vc.performSegue(withIdentifier: "show-textdrawingvc", sender: vc)
     }
 
-    private func openImagePicker(_ vc: ViewController, _ mediaSourceType: MediaSourceType) {
+    private func openImagePicker(_ vc: UIViewController, _ mediaSourceType: MediaSourceType) {
         if mediaSourceType == .photoLibrary {
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary

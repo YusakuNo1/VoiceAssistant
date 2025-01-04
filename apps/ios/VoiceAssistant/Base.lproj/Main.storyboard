@@ -23,7 +23,104 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7o-qx-CNG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-709" y="-28"/>
+            <point key="canvasLocation" x="-1564" y="-28"/>
+        </scene>
+        <!--SpeechVC-->
+        <scene sceneID="RZG-OM-dya">
+            <objects>
+                <viewController id="3DL-aV-Ibh" customClass="SpeechVC" customModule="VoiceAssistant" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="By7-oY-hi9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4i-Xq-Aob" userLabel="Main Container">
+                                <rect key="frame" x="136.66666666666666" y="266" width="119.99999999999997" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconWelcome" translatesAutoresizingMaskIntoConstraints="NO" id="0yW-ag-0xF">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="120" id="AlG-WA-oQo"/>
+                                            <constraint firstAttribute="width" constant="120" id="SzX-PY-7PO"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="5nW-Xw-c1z"/>
+                                    <constraint firstItem="0yW-ag-0xF" firstAttribute="centerY" secondItem="R4i-Xq-Aob" secondAttribute="centerY" id="Kln-zA-TqK"/>
+                                    <constraint firstAttribute="height" constant="120" id="MzO-yI-Z0R"/>
+                                    <constraint firstItem="0yW-ag-0xF" firstAttribute="centerX" secondItem="R4i-Xq-Aob" secondAttribute="centerX" id="T2N-zt-2Ps"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjG-OD-DM3" userLabel="Bottom Container">
+                                <rect key="frame" x="0.0" y="738" width="393" height="80"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconStart" translatesAutoresizingMaskIntoConstraints="NO" id="Hxn-tP-VdT">
+                                        <rect key="frame" x="176.66666666666666" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="9UM-2y-gsX"/>
+                                            <constraint firstAttribute="height" constant="40" id="rB2-52-38v"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconReset" translatesAutoresizingMaskIntoConstraints="NO" id="YgR-zU-tbc">
+                                        <rect key="frame" x="16" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="v4s-hI-P06"/>
+                                            <constraint firstAttribute="width" constant="40" id="z5c-92-wb5"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconAttachment" translatesAutoresizingMaskIntoConstraints="NO" id="xGM-gH-dcM">
+                                        <rect key="frame" x="337" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="1eC-pK-rMJ"/>
+                                            <constraint firstAttribute="width" constant="40" id="Rex-6J-Jqa"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="xGM-gH-dcM" secondAttribute="trailing" constant="16" id="5QM-LV-09O"/>
+                                    <constraint firstItem="YgR-zU-tbc" firstAttribute="leading" secondItem="bjG-OD-DM3" secondAttribute="leading" constant="16" id="5XX-0f-V9i"/>
+                                    <constraint firstItem="Hxn-tP-VdT" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="6dr-9Z-8DT"/>
+                                    <constraint firstItem="Hxn-tP-VdT" firstAttribute="centerX" secondItem="bjG-OD-DM3" secondAttribute="centerX" id="8Cm-iu-KyT"/>
+                                    <constraint firstAttribute="height" constant="80" id="NgK-bk-QyR"/>
+                                    <constraint firstItem="xGM-gH-dcM" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="O3N-7p-jck"/>
+                                    <constraint firstItem="YgR-zU-tbc" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="ugE-Rh-pKe"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYR-6N-FqC" userLabel="Top Container">
+                                <rect key="frame" x="0.0" y="59" width="393" height="80"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconSettings" translatesAutoresizingMaskIntoConstraints="NO" id="E0G-pu-2yY">
+                                        <rect key="frame" x="337" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="RXE-4J-L1A"/>
+                                            <constraint firstAttribute="height" constant="40" id="VlU-WQ-x41"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="E0G-pu-2yY" secondAttribute="trailing" constant="16" id="5Nw-Ig-6bL"/>
+                                    <constraint firstItem="E0G-pu-2yY" firstAttribute="centerY" secondItem="SYR-6N-FqC" secondAttribute="centerY" id="QeN-We-Arb"/>
+                                    <constraint firstAttribute="height" constant="80" id="dG1-vY-hHU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="93S-wZ-W94"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SYR-6N-FqC" firstAttribute="top" secondItem="93S-wZ-W94" secondAttribute="top" id="13E-hN-Cxk"/>
+                            <constraint firstItem="93S-wZ-W94" firstAttribute="trailing" secondItem="bjG-OD-DM3" secondAttribute="trailing" id="Mpu-1b-cOp"/>
+                            <constraint firstItem="SYR-6N-FqC" firstAttribute="leading" secondItem="93S-wZ-W94" secondAttribute="leading" id="Pac-8A-l9R"/>
+                            <constraint firstItem="bjG-OD-DM3" firstAttribute="leading" secondItem="93S-wZ-W94" secondAttribute="leading" id="Ptd-7L-956"/>
+                            <constraint firstItem="SYR-6N-FqC" firstAttribute="trailing" secondItem="93S-wZ-W94" secondAttribute="trailing" id="V0A-3U-5wS"/>
+                            <constraint firstItem="R4i-Xq-Aob" firstAttribute="centerY" secondItem="By7-oY-hi9" secondAttribute="centerY" constant="-100" id="jHB-wX-XSW"/>
+                            <constraint firstItem="bjG-OD-DM3" firstAttribute="bottom" secondItem="93S-wZ-W94" secondAttribute="bottom" id="mm5-rN-ZEu"/>
+                            <constraint firstItem="R4i-Xq-Aob" firstAttribute="centerX" secondItem="By7-oY-hi9" secondAttribute="centerX" id="oGr-1v-sL9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifb-Qj-wih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-692" y="-660"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -476,7 +573,12 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="IconAttachment" width="800" height="800"/>
+        <image name="IconReset" width="800" height="800"/>
+        <image name="IconSettings" width="800" height="800"/>
+        <image name="IconStart" width="800" height="800"/>
         <image name="IconUser" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="IconWelcome" width="800" height="800"/>
         <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
         <image name="hand.draw" catalog="system" width="128" height="126"/>

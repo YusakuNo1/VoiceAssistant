@@ -1,11 +1,10 @@
 import UIKit
 import AVFoundation
 
-class RemoteSpeechManager: AbstractSpeechManager {
-    private var audioPlayer: AVAudioPlayer? = nil
-    private var conversionQueue = DispatchQueue(label: "conversionQueue")
-    private var audioDataStream: Data = Data()
-    private var outputStream = OutputStream()
+class RemoteSpeech: AbstractSpeech {
+    private var _audioPlayer: AVAudioPlayer? = nil
+    private var _conversionQueue = DispatchQueue(label: "conversionQueue")
+    private var _audioDataStream: Data = Data()
     private var _speechRecognizing: Bool = false
 
     override func recognize(imageList: [Image]) {
@@ -16,12 +15,12 @@ class RemoteSpeechManager: AbstractSpeechManager {
         }
 
         self._setAudioMode(mode: .Record)
-        self.updateProgress(.Listen)
-        self.audioDataStream.removeAll()
+        self._updateProgress(.Listen)
+        self._audioDataStream.removeAll()
 
-        let inputNode = audioEngine.inputNode
-        let inputFormat = inputNode.outputFormat(forBus: self.busId)
-        let recordingFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: Double(self.sampleRate), channels: 1, interleaved: false)
+        let inputNode = self._audioEngine.inputNode
+        let inputFormat = inputNode.outputFormat(forBus: self._busId)
+        let recordingFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: Double(self._sampleRate), channels: 1, interleaved: false)
         
         guard let formatConverter =  AVAudioConverter(from:inputFormat, to: recordingFormat!)
         else {
@@ -30,8 +29,8 @@ class RemoteSpeechManager: AbstractSpeechManager {
         
         var noSoundDurationSum: TimeInterval = 0
         // Install a tap on the audio engine with the buffer size and the input format.
-        audioEngine.inputNode.installTap(onBus: self.busId, bufferSize: AVAudioFrameCount(bufferSize), format: inputFormat) { (buffer, time) in
-            self.conversionQueue.async { [self] in
+        self._audioEngine.inputNode.installTap(onBus: self._busId, bufferSize: AVAudioFrameCount(self._bufferSize), format: inputFormat) { (buffer, time) in
+            self._conversionQueue.async { [self] in
                 // Convert the microphone input to the recording format required
                 let outputBufferCapacity = AVAudioFrameCount(buffer.duration * recordingFormat!.sampleRate)
                 
@@ -64,15 +63,15 @@ class RemoteSpeechManager: AbstractSpeechManager {
                     }
 
                     if let data = audioData.data {
-                        self.audioDataStream.append(data)
+                        self._audioDataStream.append(data)
                     }
                 }
             }
         }
 
-        audioEngine.prepare()
+        self._audioEngine.prepare()
         do {
-            try audioEngine.start()
+            try self._audioEngine.start()
         }
         catch {
             print(error.localizedDescription)
@@ -80,15 +79,15 @@ class RemoteSpeechManager: AbstractSpeechManager {
     }
 
     override func synthesize(text: String) {
-        self.apiManager.speechSynthesize(text: text) { result in
+        self._apiManager.speechSynthesize(text: text) { result in
             switch result {
             case .success(let responseData):
                 self._setAudioMode(mode: .Playback)
-                self.updateProgress(.Speak)
+                self._updateProgress(.Speak)
                 do {
-                    self.audioPlayer = try AVAudioPlayer(data: responseData)
-                    self.audioPlayer?.play()
-                    self.updateProgress(.Idle)
+                    self._audioPlayer = try AVAudioPlayer(data: responseData)
+                    self._audioPlayer?.play()
+                    self._updateProgress(.Idle)
                 } catch {
                     print("Error: \(error.localizedDescription)")
                 }
@@ -98,18 +97,18 @@ class RemoteSpeechManager: AbstractSpeechManager {
         }
     }
 
-    override func stopSpeechRecognize(imageList: [Image]) {
+    private func stopSpeechRecognize(imageList: [Image]) {
         if !self._speechRecognizing {
             return
         }
 
-        self.updateProgress(.Idle)
+        self._updateProgress(.Idle)
         self._speechRecognizing = false
 
-        self.audioEngine.stop()
-        self.audioEngine.inputNode.removeTap(onBus: self.busId)
+        self._audioEngine.stop()
+        self._audioEngine.inputNode.removeTap(onBus: self._busId)
 
-        self.apiManager?.speechRecognize(data: self.audioDataStream) { result in
+        self._apiManager.speechRecognize(data: self._audioDataStream) { result in
             print("Recognition result: \(result)")
             switch result {
             case .success(let message):

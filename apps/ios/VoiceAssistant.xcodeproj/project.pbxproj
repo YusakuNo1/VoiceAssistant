@@ -13,15 +13,17 @@
 		DC1C153B22B8E27B00367496 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153922B8E27B00367496 /* Main.storyboard */; };
 		DC1C153D22B8E27D00367496 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153C22B8E27D00367496 /* Assets.xcassets */; };
 		DC1C154022B8E27D00367496 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC1C153E22B8E27D00367496 /* LaunchScreen.storyboard */; };
-		FC1D05A72D27E3CC005CEBE3 /* RemoteSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1D05A62D27E3CC005CEBE3 /* RemoteSpeechManager.swift */; };
-		FC1D05A92D286737005CEBE3 /* AbstractSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1D05A82D286735005CEBE3 /* AbstractSpeechManager.swift */; };
+		FC1BD1712D29B56F00F1ACDD /* SpeechVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD1702D29B56700F1ACDD /* SpeechVC.swift */; };
+		FC1BD1742D29CADC00F1ACDD /* AbstractSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1BD1732D29CAD600F1ACDD /* AbstractSpeech.swift */; };
+		FC1D05A72D27E3CC005CEBE3 /* RemoteSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1D05A62D27E3CC005CEBE3 /* RemoteSpeech.swift */; };
+		FC1D05A92D286737005CEBE3 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1D05A82D286735005CEBE3 /* SpeechManager.swift */; };
 		FC3EF79F2D1A09520088B897 /* ChatTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF79E2D1A094B0088B897 /* ChatTable.swift */; };
 		FC3EF7A12D1A12A70088B897 /* ChatTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */; };
 		FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EF7A22D1B18CC0088B897 /* Utils.swift */; };
 		FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */; };
 		FC46F0B32D17532A004020A9 /* consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B22D175325004020A9 /* consts.swift */; };
 		FC46F0B52D175344004020A9 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B42D175343004020A9 /* common.swift */; };
-		FC46F0B72D17543C004020A9 /* LocalSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B62D175434004020A9 /* LocalSpeechManager.swift */; };
+		FC46F0B72D17543C004020A9 /* LocalSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B62D175434004020A9 /* LocalSpeech.swift */; };
 		FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0BA2D176FD6004020A9 /* ApiManager.swift */; };
 		FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B462D1B6A22007C8159 /* MediaManager.swift */; };
 		FCC38B802D1C8338007C8159 /* message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B7F2D1C832C007C8159 /* message.swift */; };
@@ -56,8 +58,10 @@
 		DC1C153F22B8E27D00367496 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC1C154122B8E27D00367496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC1C154722B8E4B700367496 /* MicrosoftCognitiveServicesSpeech-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MicrosoftCognitiveServicesSpeech-Bridging-Header.h"; sourceTree = "<group>"; };
-		FC1D05A62D27E3CC005CEBE3 /* RemoteSpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpeechManager.swift; sourceTree = "<group>"; };
-		FC1D05A82D286735005CEBE3 /* AbstractSpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractSpeechManager.swift; sourceTree = "<group>"; };
+		FC1BD1702D29B56700F1ACDD /* SpeechVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechVC.swift; sourceTree = "<group>"; };
+		FC1BD1732D29CAD600F1ACDD /* AbstractSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractSpeech.swift; sourceTree = "<group>"; };
+		FC1D05A62D27E3CC005CEBE3 /* RemoteSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpeech.swift; sourceTree = "<group>"; };
+		FC1D05A82D286735005CEBE3 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		FC3EF79E2D1A094B0088B897 /* ChatTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTable.swift; sourceTree = "<group>"; };
 		FC3EF7A02D1A12A50088B897 /* ChatTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableCell.swift; sourceTree = "<group>"; };
 		FC3EF7A22D1B18CC0088B897 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -65,7 +69,7 @@
 		FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioPCMBuffer.swift; sourceTree = "<group>"; };
 		FC46F0B22D175325004020A9 /* consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consts.swift; sourceTree = "<group>"; };
 		FC46F0B42D175343004020A9 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
-		FC46F0B62D175434004020A9 /* LocalSpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSpeechManager.swift; sourceTree = "<group>"; };
+		FC46F0B62D175434004020A9 /* LocalSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSpeech.swift; sourceTree = "<group>"; };
 		FC46F0BA2D176FD6004020A9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FCC38B462D1B6A22007C8159 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		FCC38B7F2D1C832C007C8159 /* message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = message.swift; sourceTree = "<group>"; };
@@ -149,9 +153,20 @@
 			path = VoiceAssistant;
 			sourceTree = "<group>";
 		};
+		FC1BD1722D29CACE00F1ACDD /* speech */ = {
+			isa = PBXGroup;
+			children = (
+				FC1BD1732D29CAD600F1ACDD /* AbstractSpeech.swift */,
+				FC46F0B62D175434004020A9 /* LocalSpeech.swift */,
+				FC1D05A62D27E3CC005CEBE3 /* RemoteSpeech.swift */,
+			);
+			path = speech;
+			sourceTree = "<group>";
+		};
 		FCC38B422D1B6918007C8159 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				FC1BD1702D29B56700F1ACDD /* SpeechVC.swift */,
 				FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */,
 				FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */,
 				FC3EF79E2D1A094B0088B897 /* ChatTable.swift */,
@@ -175,11 +190,10 @@
 		FCC38B452D1B696D007C8159 /* managers */ = {
 			isa = PBXGroup;
 			children = (
-				FC1D05A82D286735005CEBE3 /* AbstractSpeechManager.swift */,
+				FC1BD1722D29CACE00F1ACDD /* speech */,
+				FC1D05A82D286735005CEBE3 /* SpeechManager.swift */,
 				FCC38B462D1B6A22007C8159 /* MediaManager.swift */,
 				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
-				FC46F0B62D175434004020A9 /* LocalSpeechManager.swift */,
-				FC1D05A62D27E3CC005CEBE3 /* RemoteSpeechManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -365,19 +379,21 @@
 				FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */,
 				FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */,
 				FC3EF79F2D1A09520088B897 /* ChatTable.swift in Sources */,
-				FC46F0B72D17543C004020A9 /* LocalSpeechManager.swift in Sources */,
+				FC46F0B72D17543C004020A9 /* LocalSpeech.swift in Sources */,
+				FC1BD1742D29CADC00F1ACDD /* AbstractSpeech.swift in Sources */,
 				FC3EF7A12D1A12A70088B897 /* ChatTableCell.swift in Sources */,
 				DC1C153822B8E27B00367496 /* ViewController.swift in Sources */,
-				FC1D05A72D27E3CC005CEBE3 /* RemoteSpeechManager.swift in Sources */,
+				FC1D05A72D27E3CC005CEBE3 /* RemoteSpeech.swift in Sources */,
 				FCC38B802D1C8338007C8159 /* message.swift in Sources */,
 				FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */,
 				FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */,
 				FC46F0B32D17532A004020A9 /* consts.swift in Sources */,
 				FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */,
 				FC46F0B52D175344004020A9 /* common.swift in Sources */,
+				FC1BD1712D29B56F00F1ACDD /* SpeechVC.swift in Sources */,
 				DC1C153622B8E27B00367496 /* AppDelegate.swift in Sources */,
 				FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */,
-				FC1D05A92D286737005CEBE3 /* AbstractSpeechManager.swift in Sources */,
+				FC1D05A92D286737005CEBE3 /* SpeechManager.swift in Sources */,
 				FCC38B902D1CF082007C8159 /* Logger.swift in Sources */,
 				FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */,
 				FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */,
