@@ -18,7 +18,7 @@ class ApiManager {
     init(appendChatMessages: @escaping (String?, [Message]) -> Void) {
         self.appendChatMessages = appendChatMessages
     }
-
+    
     func getCredentials(completion: @escaping (Result<Credentials, Error>) -> Void) {
         if let credentials = self.credentials {
             completion(.success(credentials))
@@ -52,20 +52,20 @@ class ApiManager {
             for image in imageList {
                 messageContentList.append(MessageContent(image: image))
             }
-
+            
             let lmRequestBody = LanguageModelRequestBody(messages: [
                 Message(role: Role.user, content: messageContentList)
             ])
-
+            
             // Attach user meesage first
             self.appendChatMessages(chatId, lmRequestBody.messages)
-
+            
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
             completion(.failure(error))
             return
         }
-
+        
 //        let isNewChat = self.chatId == nil
         var headers: [String: String] = [
             "Content-Type": "application/json",
@@ -73,7 +73,7 @@ class ApiManager {
         if self.chatId != nil {
             headers["chat-id"] = self.chatId
         }
-
+        
         self.request(method: .post, endpoint: "/chat", headers: headers, httpBody: httpBody) { result in
             switch result {
             case .success(let responseData):
@@ -84,28 +84,65 @@ class ApiManager {
                 self.chatId = chatId
                 
 //                if !isNewChat {
-                    self.appendChatMessages(chatId, [
-//                        Message(role: Role.user, content: [MessageContent(text: message)]),
-                        Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
-                    ])
-                    completion(.success(responseString))
-//                } else {
-//                    self.getChatHistory(chatId: chatId) { result in
-//                        switch result {
-//                        case .success(let messages):
-//                            self.appendChatMessages(chatId, messages)
-//                            completion(.success(responseString))
-//                        case.failure(let error):
-//                            completion(.failure(error))
-//                        }
-//                    }
-//                }                
+                self.appendChatMessages(chatId, [
+                    //                        Message(role: Role.user, content: [MessageContent(text: message)]),
+                    Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
+                ])
+                completion(.success(responseString))
+                //                } else {
+                //                    self.getChatHistory(chatId: chatId) { result in
+                //                        switch result {
+                //                        case .success(let messages):
+                //                            self.appendChatMessages(chatId, messages)
+                //                            completion(.success(responseString))
+                //                        case.failure(let error):
+                //                            completion(.failure(error))
+                //                        }
+                //                    }
+                //                }
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
-    
+
+    func speechRecognize(data: Data, completion: @escaping (Result<String, Error>) -> Void) {
+        let headers: [String: String] = [
+            "Content-Type": "application/octet-stream",
+        ]
+        self.postByteStream(endpoint: "/speech/recognize", headers: headers, httpBody: data) { result in
+            switch result {
+            case .success(let responseData):
+                guard let responseString = String(data: responseData.data, encoding: .utf8) else {
+                    completion(.failure(URLError(.badServerResponse)))
+                    return
+                }
+                completion(.success(responseString))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func speechSynthesize(text: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        do {
+            let headers: [String: String] = [
+                "Content-Type": "application/json",
+            ]
+            let httpBody: Data = try JSONEncoder().encode(SpeechSynthesizeRequestBody(text: text))
+            self.request(method: .post, endpoint: "/speech/synthesize", headers: headers, httpBody: httpBody) { result in
+                switch result {
+                case .success(let responseData):
+                    completion(.success(responseData.data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
     func resetChatId() {
         self.chatId = nil
     }
@@ -115,7 +152,7 @@ class ApiManager {
             "Content-Type": "application/json",
             "chat-id": chatId,
         ]
-
+        
         self.request(method: .get, endpoint: "/chat_history", headers: headers, httpBody: nil) { result in
             switch result {
             case .success(let responseData):
@@ -145,7 +182,7 @@ class ApiManager {
         for header in headers {
             request.setValue(header.1, forHTTPHeaderField: header.0)
         }
-
+        
         if let httpBody = httpBody {
             request.httpBody = httpBody
         }
@@ -160,7 +197,7 @@ class ApiManager {
                     }
                 }
             }
-
+            
             DispatchQueue.main.async {
                 if let error = error {
                     completion(.failure(error))
@@ -174,5 +211,42 @@ class ApiManager {
             }
         }
         task.resume()
+    }
+    
+    private func postByteStream(
+        endpoint: String,
+        headers: [String: String],
+        httpBody: Data,
+        completion: @escaping (Result<ResponseData, Error>) -> Void)
+    {
+        guard let url = URL(string: "\(API_HOST)\(endpoint)") else {
+            DispatchQueue.main.async {
+                completion(.failure(URLError(.badURL)))
+            }
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if (200...299).contains(httpResponse.statusCode), let data = data {
+                    let responseData = ResponseData(data: data, headers: headers)
+                    completion(.success(responseData))
+                } else {
+                    completion(.failure(HttpError(code: httpResponse.statusCode, message: httpResponse.statusCode.description)))
+                }
+            } else {
+                completion(.failure(HttpError(code: 0, message: "Unknown error")))
+            }
+        }.resume()
     }
 }

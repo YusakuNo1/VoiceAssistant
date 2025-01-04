@@ -51,8 +51,19 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" hidden="YES" id="i7H-Re-mui">
+                                    <barButtonItem title="Start" id="Vjv-ox-GVS">
+                                        <connections>
+                                            <action selector="onStartSpeechRecognition:" destination="BYZ-38-t0r" id="mea-UD-mfE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Stop" id="qKT-FI-CmN">
+                                        <connections>
+                                            <action selector="onStopSpeechRecognition:" destination="BYZ-38-t0r" id="5ah-rU-UEe"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="i7H-Re-mui">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="rub-qH-tdO">
+                                            <rect key="frame" x="205.66666666666666" y="5" width="56.333333333333343" height="34.333333333333336"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="Test"/>

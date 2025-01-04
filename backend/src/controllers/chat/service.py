@@ -1,7 +1,7 @@
 from jinja2 import Template
 from dataclasses import asdict
 
-from src.config.env import aoai_chat_endpoint, aoai_vision_endpoint
+from src.config.env import aoai_chat_endpoint, aoai_key, aoai_vision_endpoint
 from src.utils.loggers import log
 from .types import Message, Request
 from src.utils.str_utils import escape_json_string
@@ -36,7 +36,7 @@ def _use_vision_model(request: Request) -> bool:
 
 async def chat(chat_id: str, request: Request):
     from azure.ai.inference import ChatCompletionsClient
-    from azure.identity import DefaultAzureCredential
+    from azure.core.credentials import AzureKeyCredential
 
     # As of now (2024.12.26), the token price for vision is very different and opposite to the chat token price:
     #  * GPT-4o-mini costs $0.001275 for 150px x 150px image
@@ -46,7 +46,7 @@ async def chat(chat_id: str, request: Request):
 
     client = ChatCompletionsClient(
         endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),
-        credential=DefaultAzureCredential(exclude_interactive_browser_credential=False),
+        credential=AzureKeyCredential(aoai_key),
         credential_scopes=["https://cognitiveservices.azure.com/.default"],
         api_version="2024-06-01",  # Azure OpenAI api-version. See https://aka.ms/azsdk/azure-ai-inference/azure-openai-api-versions
     )

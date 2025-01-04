@@ -6,6 +6,10 @@ struct LanguageModelRequestBody: Codable {
     let messages: [Message]
 }
 
+struct SpeechSynthesizeRequestBody: Codable {
+    let text: String
+}
+
 struct Credentials: Codable {
     struct Speech: Codable {
         let key: String

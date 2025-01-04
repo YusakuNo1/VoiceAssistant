@@ -1,27 +1,15 @@
 import UIKit
 import AVFoundation
 
-class AudioManager {
-    var credentials: Credentials?
-    var sampleRate = 16000
-    var bufferSize = 2048
-    var audioEngine: AVAudioEngine = AVAudioEngine()
-    var conversionQueue = DispatchQueue(label: "conversionQueue")
+class LocalSpeechManager: AbstractSpeechManager {
+    private var credentials: Credentials?
+    private var conversionQueue = DispatchQueue(label: "conversionQueue")
+    private var speechConfig: SPXSpeechConfiguration!
+    private var audioConfig: SPXAudioConfiguration!
+    private var reco: SPXSpeechRecognizer!
+    private var pushStream: SPXPushAudioInputStream!
     
-    var speechConfig: SPXSpeechConfiguration!
-    var audioConfig: SPXAudioConfiguration!
-    var reco: SPXSpeechRecognizer!
-    var pushStream: SPXPushAudioInputStream!
-    
-    let apiManager: ApiManager!
-    let updateProgress: (ProgressState) -> Void
-    
-    public init(apiManager: ApiManager, updateProgress: @escaping (ProgressState) -> Void) {
-        self.apiManager = apiManager
-        self.updateProgress = updateProgress
-    }
-    
-    func recognizeFromMic(imageList: [Image]) async {
+    override func recognize(imageList: [Image]) {
         self._setAudioMode(mode: .Record)
         
         self.apiManager.getCredentials() { result in
@@ -33,14 +21,18 @@ class AudioManager {
                 self.pushStream = SPXPushAudioInputStream()
                 self.audioConfig = SPXAudioConfiguration(streamInput: self.pushStream)
                 self.reco = try! SPXSpeechRecognizer(speechConfiguration: self.speechConfig!, audioConfiguration: self.audioConfig!)
-                self.reco.addRecognizedEventHandler() { reco, evt in self._onSpeechRecognized(message: evt.result.text, imageList: imageList) }
+                self.reco.addRecognizedEventHandler() { reco, evt in
+                    if let message = evt.result.text {
+                        self._onSpeechRecognized(message: message, imageList: imageList)
+                    }
+                }
                 self.reco.addCanceledEventHandler { reco, evt in
                     print("Recognition canceled: \(evt.errorDetails?.description ?? "(no result)")")
                     self.updateProgress(.Idle)
                 }
                 try! self.reco.recognizeOnceAsync({ srresult in
                     self.audioEngine.stop()
-                    self.audioEngine.inputNode.removeTap(onBus: 0)
+                    self.audioEngine.inputNode.removeTap(onBus: self.busId)
                     self.pushStream.close()
                 })
                 self._readDataFromMicrophone()
@@ -51,7 +43,7 @@ class AudioManager {
         }
     }
     
-    func synthesize(inputText: String) async {
+    override func synthesize(text: String) {
         self._setAudioMode(mode: .Playback)
         self.updateProgress(.Speak)
         
@@ -70,7 +62,7 @@ class AudioManager {
                 
                 let synthesizer = try! SPXSpeechSynthesizer(speechConfig!)
                 
-                let result = try! synthesizer.speakText(inputText)
+                let result = try! synthesizer.speakText(text)
                 if result.reason == SPXResultReason.canceled
                 {
                     do {
@@ -89,22 +81,9 @@ class AudioManager {
         }
     }
     
-    
-    private func _setAudioMode(mode: AudioMode) {
-        do {
-            if mode == AudioMode.Playback {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-            } else if mode == AudioMode.Record {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord, with: .mixWithOthers)
-            }
-            
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch { }
-    }
-    
     private func _readDataFromMicrophone() {
         let inputNode = audioEngine.inputNode
-        let inputFormat = inputNode.outputFormat(forBus: 0)
+        let inputFormat = inputNode.outputFormat(forBus: self.busId)
         let recordingFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: Double(self.sampleRate), channels: 1, interleaved: false)
         
         guard let formatConverter =  AVAudioConverter(from:inputFormat, to: recordingFormat!)
@@ -112,7 +91,7 @@ class AudioManager {
             return
         }
         // Install a tap on the audio engine with the buffer size and the input format.
-        audioEngine.inputNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(bufferSize), format: inputFormat) { (buffer, time) in
+        audioEngine.inputNode.installTap(onBus: self.busId, bufferSize: AVAudioFrameCount(bufferSize), format: inputFormat) { (buffer, time) in
             
             self.conversionQueue.async { [self] in
                 // Convert the microphone input to the recording format required
@@ -145,26 +124,6 @@ class AudioManager {
         }
         catch {
             print(error.localizedDescription)
-        }
-    }
-    
-    private func _onSpeechRecognized(message: String?, imageList: [Image]) {
-        print("Final recognition result: \(message ?? "(no result)")")
-        
-        if let message = message {
-            self.updateProgress(.WaitForRes)
-            self.apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
-                switch result {
-                case .success(let respnoseString):
-                    Task {
-                        await self.synthesize(inputText: respnoseString)
-                    }
-                case .failure(let error):
-                    print("Error sending message: \(error)")
-                }
-            }
-        } else {
-            // TODO: handle errors here
         }
     }
 }

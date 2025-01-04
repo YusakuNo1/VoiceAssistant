@@ -3,6 +3,7 @@ from fastapi import FastAPI, Header
 
 import src.controllers.chat.controller
 import src.controllers.config
+import src.controllers.speech.controller
 from src.config.app import app
 
 

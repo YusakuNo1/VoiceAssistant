@@ -4,7 +4,7 @@ import MicrosoftCognitiveServicesSpeech
 
 
 class ViewController: UIViewController {
-    private var audioManager: AudioManager!
+    private var speechManager: AbstractSpeechManager!
     private var apiManager: ApiManager!
     private var mediaManager: MediaManager!
     private var chatTable: ChatTable!
@@ -24,7 +24,8 @@ class ViewController: UIViewController {
         
         let apiManager = ApiManager(appendChatMessages: self.appendChatMessages)
         self.apiManager = apiManager
-        self.audioManager = AudioManager(apiManager: apiManager, updateProgress: self.updateProgress)
+//        self.speechManager = LocalSpeechManager(apiManager: apiManager, updateProgress: self.updateProgress)
+        self.speechManager = RemoteSpeechManager(apiManager: apiManager, updateProgress: self.updateProgress)
         self.mediaManager = MediaManager()
         self.mediaManager.registerUpdatedListener(listener: self.mediaManagerUpdated)
         
@@ -36,8 +37,8 @@ class ViewController: UIViewController {
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
         self.updateProgress(.Init)
         Task {
-            let imageList = mediaManager.imageList
-            await self.audioManager.recognizeFromMic(imageList: imageList)
+            let imageList = self.mediaManager.imageList
+            self.speechManager.recognize(imageList: imageList)
             mediaManager.resetImageList()
         }
     }
@@ -61,9 +62,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onTestActionButtonClicked(_ sender: Any) {
-        // Test
+        print("test button clicked")
     }
     
+    @IBAction func onStartSpeechRecognition(_ sender: Any) {
+        let imageList = self.mediaManager.imageList
+        self.speechManager.recognize(imageList: imageList)
+    }
+
+    @IBAction func onStopSpeechRecognition(_ sender: Any) {
+        let imageList = self.mediaManager.imageList
+        self.speechManager.stopSpeechRecognize(imageList: imageList)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show-textdrawingvc" {
             let vc = segue.destination as! TextDrawingVC
