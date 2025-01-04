@@ -13,10 +13,11 @@ struct ResponseData {
 class ApiManager {
     private var credentials: Credentials?
     private var chatId: String?
-    private var appendChatMessages: (String?, [Message]) -> Void
-    
-    init(appendChatMessages: @escaping (String?, [Message]) -> Void) {
-        self.appendChatMessages = appendChatMessages
+
+    private var _appendChatMessages: ((String?, [Message]) -> Void)?
+    var appendChatMessages: ((String?, [Message]) -> Void)? {
+        get { _appendChatMessages }
+        set { _appendChatMessages = newValue }
     }
     
     func getCredentials(completion: @escaping (Result<Credentials, Error>) -> Void) {
@@ -58,7 +59,7 @@ class ApiManager {
             ])
             
             // Attach user meesage first
-            self.appendChatMessages(chatId, lmRequestBody.messages)
+            self.appendChatMessages?(chatId, lmRequestBody.messages)
             
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
@@ -84,7 +85,7 @@ class ApiManager {
                 self.chatId = chatId
                 
 //                if !isNewChat {
-                self.appendChatMessages(chatId, [
+                self.appendChatMessages?(chatId, [
                     //                        Message(role: Role.user, content: [MessageContent(text: message)]),
                     Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
                 ])

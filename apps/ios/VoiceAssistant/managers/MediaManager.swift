@@ -19,14 +19,17 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         self.dispatchUpdateEvent()
     }
 
-    private var updatedListener: [(([Image]) -> Void)] = []
-    func registerUpdatedListener(listener: @escaping ([Image]) -> Void) {
-        updatedListener.append(listener)
+    private var _updatedListeners: [String: (([Image]) -> Void)] = [:]
+    func registerUpdatedListener(key: String, listener: @escaping ([Image]) -> Void) {
+        self._updatedListeners[key] = listener
+    }
+    func unregisterUpdatedListener(key: String) {
+        self._updatedListeners.removeValue(forKey: key)
     }
     
     func dispatchUpdateEvent() {
         DispatchQueue.main.async {
-            self.updatedListener.forEach { (listener) in
+            self._updatedListeners.values.forEach { (listener) in
                 listener(self._imageList)
             }
         }

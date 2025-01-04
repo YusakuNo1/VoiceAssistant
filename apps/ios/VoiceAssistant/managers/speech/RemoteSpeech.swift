@@ -15,7 +15,7 @@ class RemoteSpeech: AbstractSpeech {
         }
 
         self._setAudioMode(mode: .Record)
-        self._updateProgress(.Listen)
+        self._updateProgress?(.Listen)
         self._audioDataStream.removeAll()
 
         let inputNode = self._audioEngine.inputNode
@@ -33,7 +33,6 @@ class RemoteSpeech: AbstractSpeech {
             self._conversionQueue.async { [self] in
                 // Convert the microphone input to the recording format required
                 let outputBufferCapacity = AVAudioFrameCount(buffer.duration * recordingFormat!.sampleRate)
-                
                 guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: recordingFormat!, frameCapacity: outputBufferCapacity) else {
                     print("Failed to create new pcm buffer")
                     return
@@ -83,11 +82,11 @@ class RemoteSpeech: AbstractSpeech {
             switch result {
             case .success(let responseData):
                 self._setAudioMode(mode: .Playback)
-                self._updateProgress(.Speak)
+                self._updateProgress?(.Speak)
                 do {
                     self._audioPlayer = try AVAudioPlayer(data: responseData)
                     self._audioPlayer?.play()
-                    self._updateProgress(.Idle)
+                    self._updateProgress?(.Idle)
                 } catch {
                     print("Error: \(error.localizedDescription)")
                 }
@@ -102,7 +101,7 @@ class RemoteSpeech: AbstractSpeech {
             return
         }
 
-        self._updateProgress(.Idle)
+        self._updateProgress?(.Idle)
         self._speechRecognizing = false
 
         self._audioEngine.stop()

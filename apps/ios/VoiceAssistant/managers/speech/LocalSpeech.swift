@@ -27,7 +27,7 @@ class LocalSpeech: AbstractSpeech {
                 }
                 self._reco.addCanceledEventHandler { reco, evt in
                     print("Recognition canceled: \(evt.errorDetails?.description ?? "(no result)")")
-                    self._updateProgress(.Idle)
+                    self._updateProgress?(.Idle)
                 }
                 try! self._reco.recognizeOnceAsync({ srresult in
                     self._audioEngine.stop()
@@ -35,7 +35,7 @@ class LocalSpeech: AbstractSpeech {
                     self._pushStream.close()
                 })
                 self._readDataFromMicrophone()
-                self._updateProgress(.Listen)
+                self._updateProgress?(.Listen)
             case .failure(let error):
                 print("Error: \(error)")
             }
@@ -44,7 +44,7 @@ class LocalSpeech: AbstractSpeech {
     
     override func synthesize(text: String) {
         self._setAudioMode(mode: .Playback)
-        self._updateProgress(.Speak)
+        self._updateProgress?(.Speak)
         
         self._apiManager.getCredentials() { result in
             switch result {
@@ -72,10 +72,10 @@ class LocalSpeech: AbstractSpeech {
                         print(error)
                     }
                 }
-                self._updateProgress(.Idle)
+                self._updateProgress?(.Idle)
             case .failure(let error):
                 print("error \(error) happened")
-                self._updateProgress(.Idle)
+                self._updateProgress?(.Idle)
             }
         }
     }

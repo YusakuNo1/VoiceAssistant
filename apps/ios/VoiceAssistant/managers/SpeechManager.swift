@@ -3,7 +3,7 @@ import AVFoundation
 let USE_REMOTE_SPEECH = true
 
 class SpeechManager {
-//    static let shared = SpeechManager()
+    static let shared = SpeechManager()
 
     internal let _mediaManager: MediaManager
     var mediaManager: MediaManager {
@@ -16,18 +16,17 @@ class SpeechManager {
     }
 
     private let _speech: AbstractSpeech
+    var speech: AbstractSpeech {
+        get { return self._speech }
+    }
 
-    init(
-        appendChatMessages: @escaping (String?, [Message]) -> Void,
-        updateProgress: @escaping (ProgressState) -> Void
-    ) {
-        self._apiManager = ApiManager(appendChatMessages: appendChatMessages)
+    private init() {
+        self._apiManager = ApiManager()
         self._mediaManager = MediaManager()
-
         if USE_REMOTE_SPEECH {
-            self._speech = RemoteSpeech(apiManager: _apiManager, updateProgress: updateProgress)
+            self._speech = RemoteSpeech(apiManager: self._apiManager)
         } else {
-            self._speech = LocalSpeech(apiManager: _apiManager, updateProgress: updateProgress)
+            self._speech = LocalSpeech(apiManager: self._apiManager)
         }
     }
 

@@ -7,12 +7,16 @@ class AbstractSpeech {
     internal var _bufferSize = 2048
 
     internal let _apiManager: ApiManager
-    internal let _updateProgress: (ProgressState) -> Void
     internal var _audioEngine: AVAudioEngine = AVAudioEngine()
 
-    init(apiManager: ApiManager, updateProgress: @escaping (ProgressState) -> Void) {
+    internal var _updateProgress: ((ProgressState) -> Void)?
+    var updateProgress: ((ProgressState) -> Void)? {
+        get { _updateProgress }
+        set { _updateProgress = newValue }
+    }
+
+    init(apiManager: ApiManager) {
         self._apiManager = apiManager
-        self._updateProgress = updateProgress
     }
     
     func recognize(imageList: [Image]) {
@@ -38,7 +42,7 @@ class AbstractSpeech {
     }
     
     internal func _onSpeechRecognized(message: String, imageList: [Image]) {
-        self._updateProgress(.WaitForRes)
+        self._updateProgress?(.WaitForRes)
         self._apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
             switch result {
             case .success(let respnoseString):
