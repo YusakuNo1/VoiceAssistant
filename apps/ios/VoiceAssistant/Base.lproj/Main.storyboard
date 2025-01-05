@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cc1-Ea-8dD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3DL-aV-Ibh">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -54,52 +54,72 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjG-OD-DM3" userLabel="Bottom Container">
                                 <rect key="frame" x="0.0" y="738" width="393" height="80"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconStart" translatesAutoresizingMaskIntoConstraints="NO" id="Hxn-tP-VdT">
-                                        <rect key="frame" x="176.66666666666666" y="20" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="9UM-2y-gsX"/>
-                                            <constraint firstAttribute="height" constant="40" id="rB2-52-38v"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconReset" translatesAutoresizingMaskIntoConstraints="NO" id="YgR-zU-tbc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPx-do-bwH" userLabel="Reset Button">
                                         <rect key="frame" x="16" y="20" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="v4s-hI-P06"/>
-                                            <constraint firstAttribute="width" constant="40" id="z5c-92-wb5"/>
+                                            <constraint firstAttribute="width" constant="40" id="PqW-cp-A84"/>
+                                            <constraint firstAttribute="height" constant="40" id="Ytm-a5-0VC"/>
                                         </constraints>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconAttachment" translatesAutoresizingMaskIntoConstraints="NO" id="xGM-gH-dcM">
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="R"/>
+                                        <connections>
+                                            <action selector="onResetButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="xlU-Nv-9HQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6X-dc-sWA">
+                                        <rect key="frame" x="176.66666666666666" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="hJM-zb-Pr1"/>
+                                            <constraint firstAttribute="height" constant="40" id="rzK-Ec-s7V"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="IconStart" title="S"/>
+                                        <connections>
+                                            <action selector="onStartStopButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="sNL-Q0-HAf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3h-1H-WFo" userLabel="Attachment Button">
                                         <rect key="frame" x="337" y="20" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="1eC-pK-rMJ"/>
-                                            <constraint firstAttribute="width" constant="40" id="Rex-6J-Jqa"/>
+                                            <constraint firstAttribute="height" constant="40" id="7Wn-FP-UkE"/>
+                                            <constraint firstAttribute="width" constant="40" id="Rbl-v4-cho"/>
                                         </constraints>
-                                    </imageView>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="A"/>
+                                        <connections>
+                                            <action selector="onAttachmentButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="aV6-Xw-63B"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xGM-gH-dcM" secondAttribute="trailing" constant="16" id="5QM-LV-09O"/>
-                                    <constraint firstItem="YgR-zU-tbc" firstAttribute="leading" secondItem="bjG-OD-DM3" secondAttribute="leading" constant="16" id="5XX-0f-V9i"/>
-                                    <constraint firstItem="Hxn-tP-VdT" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="6dr-9Z-8DT"/>
-                                    <constraint firstItem="Hxn-tP-VdT" firstAttribute="centerX" secondItem="bjG-OD-DM3" secondAttribute="centerX" id="8Cm-iu-KyT"/>
+                                    <constraint firstItem="w6X-dc-sWA" firstAttribute="centerX" secondItem="bjG-OD-DM3" secondAttribute="centerX" id="7d6-US-SZe"/>
+                                    <constraint firstItem="F3h-1H-WFo" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="FEE-vT-cxh"/>
                                     <constraint firstAttribute="height" constant="80" id="NgK-bk-QyR"/>
-                                    <constraint firstItem="xGM-gH-dcM" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="O3N-7p-jck"/>
-                                    <constraint firstItem="YgR-zU-tbc" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="ugE-Rh-pKe"/>
+                                    <constraint firstItem="OPx-do-bwH" firstAttribute="leading" secondItem="bjG-OD-DM3" secondAttribute="leading" constant="16" id="W0m-iQ-9zA"/>
+                                    <constraint firstAttribute="trailing" secondItem="F3h-1H-WFo" secondAttribute="trailing" constant="16" id="bMc-Gg-B3j"/>
+                                    <constraint firstItem="w6X-dc-sWA" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="iMT-QQ-1Cv"/>
+                                    <constraint firstItem="OPx-do-bwH" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="zw1-an-BcA"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYR-6N-FqC" userLabel="Top Container">
                                 <rect key="frame" x="0.0" y="59" width="393" height="80"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconSettings" translatesAutoresizingMaskIntoConstraints="NO" id="E0G-pu-2yY">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaT-df-3QI" userLabel="Settings Button">
                                         <rect key="frame" x="337" y="20" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="RXE-4J-L1A"/>
-                                            <constraint firstAttribute="height" constant="40" id="VlU-WQ-x41"/>
+                                            <constraint firstAttribute="height" constant="40" id="9qV-Ls-DeC"/>
+                                            <constraint firstAttribute="width" constant="40" id="ZBL-rb-ceg"/>
                                         </constraints>
-                                    </imageView>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="S"/>
+                                        <connections>
+                                            <action selector="onSettingsuttonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="IBX-nU-FYZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="E0G-pu-2yY" secondAttribute="trailing" constant="16" id="5Nw-Ig-6bL"/>
-                                    <constraint firstItem="E0G-pu-2yY" firstAttribute="centerY" secondItem="SYR-6N-FqC" secondAttribute="centerY" id="QeN-We-Arb"/>
+                                    <constraint firstItem="qaT-df-3QI" firstAttribute="centerY" secondItem="SYR-6N-FqC" secondAttribute="centerY" id="0v4-2a-R8F"/>
+                                    <constraint firstAttribute="trailing" secondItem="qaT-df-3QI" secondAttribute="trailing" constant="16" id="R7C-4F-Vsr"/>
                                     <constraint firstAttribute="height" constant="80" id="dG1-vY-hHU"/>
                                 </constraints>
                             </view>
@@ -117,6 +137,12 @@
                             <constraint firstItem="R4i-Xq-Aob" firstAttribute="centerX" secondItem="By7-oY-hi9" secondAttribute="centerX" id="oGr-1v-sL9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="attachmentButton" destination="F3h-1H-WFo" id="Vz4-Zt-znd"/>
+                        <outlet property="resetButton" destination="OPx-do-bwH" id="QEg-oG-oZO"/>
+                        <outlet property="settingsButton" destination="qaT-df-3QI" id="bEE-Ad-BBl"/>
+                        <outlet property="startStopButton" destination="w6X-dc-sWA" id="HrU-aq-QxX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifb-Qj-wih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -573,9 +599,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
-        <image name="IconAttachment" width="800" height="800"/>
-        <image name="IconReset" width="800" height="800"/>
-        <image name="IconSettings" width="800" height="800"/>
         <image name="IconStart" width="800" height="800"/>
         <image name="IconUser" width="170.66667175292969" height="170.66667175292969"/>
         <image name="IconWelcome" width="800" height="800"/>
