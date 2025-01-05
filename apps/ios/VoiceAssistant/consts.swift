@@ -2,7 +2,7 @@
 //let API_HOST = "http://192.168.254.106:8000"
 ////let API_HOST = "http://10.16.176.13:8000"
 
-let API_HOST = "http://192.168.254.106"
+let API_HOST = "http://192.168.254.107"
 //let API_HOST = "http://10.16.176.13"
 
 enum AudioMode {

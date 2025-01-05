@@ -36,9 +36,9 @@ const run = async () => {
 
     function createFileStream() {
         // const stream = fs.createReadStream("../audio/speech_tell_me_a_joke.m4a");
-        const stream = fs.createReadStream("../audio/whatstheweatherlike.wav");
+        // const stream = fs.createReadStream("../audio/whatstheweatherlike.wav");
         // const stream = fs.createReadStream("../audio/pronunciation_assessment_fall.wav");
-        // const stream = fs.createReadStream("../audio/zhcn_short_dummy_sample.wav");
+        const stream = fs.createReadStream("../audio/zhcn_short_dummy_sample.wav");
         return stream;
     }
 

@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var photoActionButtonItem: UIBarButtonItem!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressLabelContainer: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Chat"
@@ -25,9 +25,14 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SpeechManager.shared.apiManager.appendChatMessages = self.appendChatMessages
         SpeechManager.shared.speech.updateProgress = self.updateProgress
         SpeechManager.shared.mediaManager.registerUpdatedListener(key: String(describing: self), listener: self.mediaManagerUpdated)
+
+        SpeechManager.shared.registerChatHistoryUpdateListener(listenerKey: String(describing: self), listener: {
+            DispatchQueue.main.async {
+                self.chatTableView.reloadData()
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,8 +43,7 @@ class ViewController: UIViewController {
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
         self.updateProgress(.Init)
         Task {
-            let imageList = SpeechManager.shared.mediaManager.imageList
-            SpeechManager.shared.recognize(imageList: imageList)
+            SpeechManager.shared.recognize()
             SpeechManager.shared.mediaManager.resetImageList()
         }
     }
@@ -55,9 +59,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Do you want to reset?", message: "All chat messages will be deleted.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
-            self.chatTable.reset()
-            self.chatTableView.reloadData()
-            SpeechManager.shared.apiManager.resetChatId()
+            SpeechManager.shared.clearChatHistory()
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -67,13 +69,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onStartSpeechRecognition(_ sender: Any) {
-        let imageList = SpeechManager.shared.mediaManager.imageList
-        SpeechManager.shared.recognize(imageList: imageList)
+        SpeechManager.shared.recognize()
     }
 
     @IBAction func onStopSpeechRecognition(_ sender: Any) {
-//        let imageList = SpeechManager.shared.mediaManager.imageList
-//        SpeechManager.shared.stopSpeechRecognize(imageList: imageList)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -123,13 +122,6 @@ class ViewController: UIViewController {
                 self.mainActionButton.isEnabled = true
                 self.mainActionButton.titleLabel?.text = "Cancel"
             }
-        }
-    }
-    
-    private func appendChatMessages(_ chatId: String?, _ messages: [Message]) {
-        DispatchQueue.main.async {
-            self.chatTable.appendChatMessages(chatId, messages)
-            self.chatTableView.reloadData()
         }
     }
     
