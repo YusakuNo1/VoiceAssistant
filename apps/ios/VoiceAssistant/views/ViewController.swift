@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.title = "Chat"
 
         self.chatTable = ChatTable(parentVC: self)
@@ -23,9 +23,10 @@ class ViewController: UIViewController {
         self.chatTableView.dataSource = self.chatTable
         self.chatTableView.delegate = self.chatTable
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         SpeechManager.shared.speech.updateProgress = self.updateProgress
         MediaManager.shared.registerUpdatedListener(key: String(describing: self), listener: self.mediaManagerUpdated)
 
@@ -126,7 +127,8 @@ class ViewController: UIViewController {
         }
     }
     
-    private func mediaManagerUpdated(_ imageList: [Image]) {
+    private func mediaManagerUpdated() {
+        let imageList = MediaManager.shared.imageList
         self.photoActionButtonItem.isHidden = imageList.isEmpty
     }
 }

@@ -32,14 +32,16 @@ class SpeechVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self._updateProgress(.Idle)
         self._chatHistoryUpdated()
+        self._mediaManagerUpdated()
         self._setupButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         SpeechManager.shared.speech.updateProgress = self._updateProgress
         MediaManager.shared.registerUpdatedListener(key: String(describing: self), listener: self._mediaManagerUpdated)
         ChatHistoryManager.shared.registerChatHistoryUpdateListener(listenerKey: String(describing: self), listener: self._chatHistoryUpdated)
@@ -64,11 +66,9 @@ class SpeechVC: UIViewController {
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
             ChatHistoryManager.shared.clearChatHistory()
+            MediaManager.shared.resetImageList()
         }))
         self.present(alert, animated: true, completion: nil)
-    }
-
-    @IBAction func onAttachmentButtonClicked(_ sender: Any) {
     }
 
     @IBAction func onAttachButtonClicked(_ sender: Any) {
@@ -108,6 +108,8 @@ class SpeechVC: UIViewController {
     
     private func _updateProgress(_ progressState: ProgressState) {
         DispatchQueue.main.async {
+            Logger.log(message: "progressState: \(progressState)")
+
             if progressState == ProgressState.Init || progressState == ProgressState.WaitForRes {
                 self.statusImageView.isHidden = true
                 self.statusActivityIndicator.isHidden = false
@@ -128,7 +130,8 @@ class SpeechVC: UIViewController {
         }
     }
 
-    private func _mediaManagerUpdated(_ imageList: [Image]) {
+    private func _mediaManagerUpdated() {
+        let imageList = MediaManager.shared.imageList
         self.attachmentButton.isHidden = imageList.isEmpty
     }
 }

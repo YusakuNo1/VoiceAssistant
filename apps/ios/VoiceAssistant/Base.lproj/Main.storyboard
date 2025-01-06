@@ -96,7 +96,6 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Am"/>
                                         <connections>
-                                            <action selector="onAttachmentButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="aV6-Xw-63B"/>
                                             <segue destination="Bd8-vQ-jNW" kind="show" identifier="show-imagegalleryvc" id="vFA-Pa-heq"/>
                                         </connections>
                                     </button>
@@ -185,7 +184,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPw-bt-mxG">
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPw-bt-mxG">
                                 <rect key="frame" x="0.0" y="774" width="393" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="idd-WK-PiU"/>
@@ -525,7 +524,10 @@
                                 <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconUser" translatesAutoresizingMaskIntoConstraints="NO" id="bkV-Z2-ttG">
-                                        <rect key="frame" x="0.0" y="0.0" width="170.66666666666666" height="170.66666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="bkV-Z2-ttG" secondAttribute="height" multiplier="1:1" id="OFw-eH-aUg"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -544,6 +546,7 @@
                         <constraints>
                             <constraint firstItem="Jwq-xw-tUd" firstAttribute="centerX" secondItem="MJq-fq-VnN" secondAttribute="centerX" id="WgS-4V-Cn9"/>
                             <constraint firstItem="Jwq-xw-tUd" firstAttribute="centerY" secondItem="MJq-fq-VnN" secondAttribute="centerY" id="Xd3-Vl-WVB"/>
+                            <constraint firstItem="bkV-Z2-ttG" firstAttribute="width" secondItem="MJq-fq-VnN" secondAttribute="width" id="bIA-HB-UXI"/>
                             <constraint firstItem="Jwq-xw-tUd" firstAttribute="width" secondItem="MJq-fq-VnN" secondAttribute="width" id="y1b-Qk-nbu"/>
                         </constraints>
                     </view>

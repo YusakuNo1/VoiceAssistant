@@ -22,8 +22,8 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         self.dispatchUpdateEvent()
     }
 
-    private var _updatedListeners: [String: (([Image]) -> Void)] = [:]
-    func registerUpdatedListener(key: String, listener: @escaping ([Image]) -> Void) {
+    private var _updatedListeners: [String: (() -> Void)] = [:]
+    func registerUpdatedListener(key: String, listener: @escaping () -> Void) {
         self._updatedListeners[key] = listener
     }
     func unregisterUpdatedListener(key: String) {
@@ -32,9 +32,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     func dispatchUpdateEvent() {
         DispatchQueue.main.async {
-            self._updatedListeners.values.forEach { (listener) in
-                listener(self._imageList)
-            }
+            self._updatedListeners.values.forEach { $0() }
         }
     }
     

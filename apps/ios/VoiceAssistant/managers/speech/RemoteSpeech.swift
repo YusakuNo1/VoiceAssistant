@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class RemoteSpeech: AbstractSpeech {
+class RemoteSpeech: AbstractSpeech, AVAudioPlayerDelegate {
     private var _audioPlayer: AVAudioPlayer? = nil
     private var _conversionQueue = DispatchQueue(label: "conversionQueue")
     private var _audioDataStream: Data = Data()
@@ -85,8 +85,8 @@ class RemoteSpeech: AbstractSpeech {
                 self._updateProgress?(.Speak)
                 do {
                     self._audioPlayer = try AVAudioPlayer(data: responseData)
+                    self._audioPlayer?.delegate = self
                     self._audioPlayer?.play()
-                    self._updateProgress?(.Idle)
                 } catch {
                     print("Error: \(error.localizedDescription)")
                 }
@@ -95,13 +95,20 @@ class RemoteSpeech: AbstractSpeech {
             }
         }
     }
+    
+    // MARK: - AVAudioPlayerDelegate
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self._updateProgress?(.Idle)
+    }
 
+    // MARK: - Private
+    
     private func stopSpeechRecognize(imageList: [Image]) {
         if !self._speechRecognizing {
             return
         }
 
-        self._updateProgress?(.Idle)
         self._speechRecognizing = false
 
         self._audioEngine.stop()

@@ -16,7 +16,12 @@ class TextDrawingVC: UIViewController {
         super.viewDidLoad()
         self._setMode(.draw)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     @IBAction func onDrawButtonClicked(_ sender: Any) {
         self._setMode(.draw)
     }

@@ -1,7 +1,7 @@
 import AVFoundation
 
 
-class AbstractSpeech {
+class AbstractSpeech: NSObject {
     internal var _busId: AVAudioNodeBus = 0
     internal var _sampleRate = 16000
     internal var _bufferSize = 2048
@@ -14,7 +14,7 @@ class AbstractSpeech {
         set { _updateProgress = newValue }
     }
 
-    init() {}
+    override init() {}
     
     func recognize(imageList: [Image]) {
         fatalError( "recognize() must be implemented by subclasses")
