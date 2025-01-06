@@ -88,7 +88,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3h-1H-WFo" userLabel="Attachment Button">
-                                        <rect key="frame" x="337" y="20" width="40" height="40"/>
+                                        <rect key="frame" x="232.66666666666666" y="20" width="39.999999999999972" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7Wn-FP-UkE"/>
                                             <constraint firstAttribute="width" constant="40" id="Rbl-v4-cho"/>
@@ -100,7 +100,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIa-0w-uLy" userLabel="Attach Button">
-                                        <rect key="frame" x="289" y="20" width="40" height="40"/>
+                                        <rect key="frame" x="337" y="20" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="OsA-Kq-uxv"/>
                                             <constraint firstAttribute="width" constant="40" id="bPw-Rk-mxG"/>
@@ -113,14 +113,14 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="F3h-1H-WFo" firstAttribute="leading" secondItem="w6X-dc-sWA" secondAttribute="trailing" constant="16" id="3xg-yg-SDj"/>
                                     <constraint firstItem="w6X-dc-sWA" firstAttribute="centerX" secondItem="bjG-OD-DM3" secondAttribute="centerX" id="7d6-US-SZe"/>
                                     <constraint firstItem="F3h-1H-WFo" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="FEE-vT-cxh"/>
                                     <constraint firstAttribute="height" constant="80" id="NgK-bk-QyR"/>
+                                    <constraint firstAttribute="trailing" secondItem="eIa-0w-uLy" secondAttribute="trailing" constant="16" id="SFW-zC-XSQ"/>
                                     <constraint firstItem="OPx-do-bwH" firstAttribute="leading" secondItem="bjG-OD-DM3" secondAttribute="leading" constant="16" id="W0m-iQ-9zA"/>
-                                    <constraint firstAttribute="trailing" secondItem="F3h-1H-WFo" secondAttribute="trailing" constant="16" id="bMc-Gg-B3j"/>
                                     <constraint firstItem="eIa-0w-uLy" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="hoE-QC-mPj"/>
                                     <constraint firstItem="w6X-dc-sWA" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="iMT-QQ-1Cv"/>
-                                    <constraint firstItem="F3h-1H-WFo" firstAttribute="leading" secondItem="eIa-0w-uLy" secondAttribute="trailing" constant="8" id="vV8-Ub-JdR"/>
                                     <constraint firstItem="OPx-do-bwH" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="zw1-an-BcA"/>
                                 </constraints>
                             </view>
@@ -628,7 +628,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="BAb-KA-fH9"/>
-        <segue reference="vFA-Pa-heq"/>
+        <segue reference="SBO-By-WeD"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>

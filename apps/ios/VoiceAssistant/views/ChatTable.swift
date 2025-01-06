@@ -74,6 +74,6 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
                 uiImageList.append(uiImage)
             }
         }
-        self.parentVC.performSegue(withIdentifier: "show-textdrawingvc", sender: uiImageList)
+        self.parentVC.performSegue(withIdentifier: "show-imagegalleryvc-from-cell", sender: uiImageList)
     }
 }
