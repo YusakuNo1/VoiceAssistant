@@ -11,19 +11,10 @@ class TextDrawingVC: UIViewController {
     @IBOutlet weak var textDrawingView: TextDrawingView!
 
     private var _mode: Mode = .draw
-    private var _mediaManager: MediaManager?
-    public var mediaManager: MediaManager? {
-        set { self._mediaManager = newValue }
-        get { self._mediaManager }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self._setMode(.draw)
-    }
-    
-    func setMediaManager(_ mediaManager: MediaManager) {
-        self._mediaManager = mediaManager
     }
     
     @IBAction func onDrawButtonClicked(_ sender: Any) {
@@ -42,7 +33,7 @@ class TextDrawingVC: UIViewController {
             }
             
             if let image = image.toSquareImage(format: .png, size: IMAGE_SIZE) {
-                self._mediaManager?.setImageList([image])
+                MediaManager.shared.setImageList([image])
             }
             self.navigationController?.popViewController(animated: true)
         }

@@ -7,6 +7,9 @@ enum MediaSourceType {
 }
 
 class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    static let shared = MediaManager()
+    private override init() {}
+
     private var _imageList: [Image] = []
     var imageList: [Image] {
         get {

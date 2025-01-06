@@ -11,7 +11,7 @@ class LocalSpeech: AbstractSpeech {
     override func recognize(imageList: [Image]) {
         self._setAudioMode(mode: .Record)
         
-        self._apiManager.getCredentials() { result in
+        ApiManager.shared.getCredentials() { result in
             switch result {
             case .success(let credentials):
                 try! self._speechConfig = SPXSpeechConfiguration(subscription: credentials.speech.key, region: credentials.speech.region)
@@ -46,7 +46,7 @@ class LocalSpeech: AbstractSpeech {
         self._setAudioMode(mode: .Playback)
         self._updateProgress?(.Speak)
         
-        self._apiManager.getCredentials() { result in
+        ApiManager.shared.getCredentials() { result in
             switch result {
             case .success(let credentials):
                 var speechConfig: SPXSpeechConfiguration?

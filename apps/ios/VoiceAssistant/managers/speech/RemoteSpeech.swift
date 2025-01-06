@@ -78,7 +78,7 @@ class RemoteSpeech: AbstractSpeech {
     }
 
     override func synthesize(text: String) {
-        self._apiManager.speechSynthesize(text: text) { result in
+        ApiManager.shared.speechSynthesize(text: text) { result in
             switch result {
             case .success(let responseData):
                 self._setAudioMode(mode: .Playback)
@@ -107,7 +107,7 @@ class RemoteSpeech: AbstractSpeech {
         self._audioEngine.stop()
         self._audioEngine.inputNode.removeTap(onBus: self._busId)
 
-        self._apiManager.speechRecognize(data: self._audioDataStream) { result in
+        ApiManager.shared.speechRecognize(data: self._audioDataStream) { result in
             print("Recognition result: \(result)")
             switch result {
             case .success(let message):

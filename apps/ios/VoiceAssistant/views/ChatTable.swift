@@ -13,12 +13,12 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SpeechManager.shared.getChatHistory().count
+        return ChatHistoryManager.shared.getChatHistory().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create cells from story board, for roles of "user", create with ID "cell-user", otherwise, create with ID "cell-assistant"
-        guard let message = SpeechManager.shared.getChatMessage(index: indexPath.row) else {
+        guard let message = ChatHistoryManager.shared.getChatMessage(index: indexPath.row) else {
             return UITableViewCell()
         }
         
@@ -66,7 +66,7 @@ class ChatTable: NSObject, UITableViewDelegate, UITableViewDataSource {
     // MARK: - Table view delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let messageContent = SpeechManager.shared.getChatMessage(index: indexPath.row)?.content else { return }
+        guard let messageContent = ChatHistoryManager.shared.getChatMessage(index: indexPath.row)?.content else { return }
 
         var uiImageList: [UIImage] = []
         for item in messageContent {

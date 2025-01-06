@@ -6,7 +6,6 @@ class AbstractSpeech {
     internal var _sampleRate = 16000
     internal var _bufferSize = 2048
 
-    internal let _apiManager: ApiManager
     internal var _audioEngine: AVAudioEngine = AVAudioEngine()
 
     internal var _updateProgress: ((ProgressState) -> Void)?
@@ -15,9 +14,7 @@ class AbstractSpeech {
         set { _updateProgress = newValue }
     }
 
-    init(apiManager: ApiManager) {
-        self._apiManager = apiManager
-    }
+    init() {}
     
     func recognize(imageList: [Image]) {
         fatalError( "recognize() must be implemented by subclasses")
@@ -43,7 +40,7 @@ class AbstractSpeech {
     
     internal func _onSpeechRecognized(message: String, imageList: [Image]) {
         self._updateProgress?(.WaitForRes)
-        self._apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
+        ApiManager.shared.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
             switch result {
             case .success(let respnoseString):
                 self.synthesize(text: respnoseString)

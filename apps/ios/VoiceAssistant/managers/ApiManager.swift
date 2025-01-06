@@ -11,8 +11,12 @@ struct ResponseData {
 }
 
 class ApiManager {
+    static let shared = ApiManager()
+
     private var credentials: Credentials?
     
+    private init() {}
+
     func getCredentials(completion: @escaping (Result<Credentials, Error>) -> Void) {
         if let credentials = self.credentials {
             completion(.success(credentials))
@@ -52,7 +56,7 @@ class ApiManager {
             ])
             
             // Attach user meesage first
-            SpeechManager.shared.appendChatMessages(messages: lmRequestBody.messages)
+            ChatHistoryManager.shared.appendChatMessages(messages: lmRequestBody.messages)
             
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
@@ -63,8 +67,8 @@ class ApiManager {
         var headers: [String: String] = [
             "Content-Type": "application/json",
         ]
-        if SpeechManager.shared.chatId != nil {
-            headers["chat-id"] = SpeechManager.shared.chatId
+        if ChatHistoryManager.shared.chatId != nil {
+            headers["chat-id"] = ChatHistoryManager.shared.chatId
         }
         
         self.request(method: .post, endpoint: "/chat", headers: headers, httpBody: httpBody) { result in
@@ -74,8 +78,8 @@ class ApiManager {
                     completion(.failure(URLError(.badServerResponse)))
                     return
                 }
-                SpeechManager.shared.chatId = chatId
-                SpeechManager.shared.appendChatMessages(messages: [
+                ChatHistoryManager.shared.chatId = chatId
+                ChatHistoryManager.shared.appendChatMessages(messages: [
                     Message(role: Role.assistant, content: [MessageContent(text: responseString)])
                 ])
                 completion(.success(responseString))

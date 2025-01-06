@@ -15,6 +15,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
         self.title = "Chat"
 
         self.chatTable = ChatTable(parentVC: self)
@@ -26,9 +27,9 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         SpeechManager.shared.speech.updateProgress = self.updateProgress
-        SpeechManager.shared.mediaManager.registerUpdatedListener(key: String(describing: self), listener: self.mediaManagerUpdated)
+        MediaManager.shared.registerUpdatedListener(key: String(describing: self), listener: self.mediaManagerUpdated)
 
-        SpeechManager.shared.registerChatHistoryUpdateListener(listenerKey: String(describing: self), listener: {
+        ChatHistoryManager.shared.registerChatHistoryUpdateListener(listenerKey: String(describing: self), listener: {
             DispatchQueue.main.async {
                 self.chatTableView.reloadData()
             }
@@ -37,19 +38,20 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        SpeechManager.shared.mediaManager.unregisterUpdatedListener(key: String(describing: self))
+        MediaManager.shared.unregisterUpdatedListener(key: String(describing: self))
+        ChatHistoryManager.shared.unregisterChatHistoryUpdateListener(listenerKey: String(describing: self))
     }
     
     @IBAction func onMainActionButtonClicked(_ sender: Any) {
         self.updateProgress(.Init)
         Task {
             SpeechManager.shared.recognize()
-            SpeechManager.shared.mediaManager.resetImageList()
+            MediaManager.shared.resetImageList()
         }
     }
     
     @IBAction func onUploadActionButtonClicked(_ sender: Any) {
-        SpeechManager.shared.mediaManager.showOption(vc: self)
+        MediaManager.shared.showOption(vc: self)
     }
     
     @IBAction func onPhotoActionButtonClicked(_ sender: Any) {
@@ -59,7 +61,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Do you want to reset?", message: "All chat messages will be deleted.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
-            SpeechManager.shared.clearChatHistory()
+            ChatHistoryManager.shared.clearChatHistory()
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -77,12 +79,11 @@ class ViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show-textdrawingvc" {
-            let vc = segue.destination as! TextDrawingVC
-            vc.mediaManager = SpeechManager.shared.mediaManager
+            // Do nothing for now
         } else if segue.identifier == "show-imagegalleryvc" {
             let vc = segue.destination as! ImageGalleryVC
             var uiImageList: [UIImage] = []
-            for image in SpeechManager.shared.mediaManager.imageList {
+            for image in MediaManager.shared.imageList {
                 if let uiImage = ImageUtils.imageToUIImage(image: image) {
                     uiImageList.append(uiImage)
                 }

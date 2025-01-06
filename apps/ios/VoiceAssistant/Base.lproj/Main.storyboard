@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3s2-KE-aya"/>
+                        <segue destination="3DL-aV-Ibh" kind="relationship" relationship="rootViewController" id="EbA-Ki-oVO"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7o-qx-CNG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -36,19 +36,28 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4i-Xq-Aob" userLabel="Main Container">
                                 <rect key="frame" x="136.66666666666666" y="266" width="119.99999999999997" height="120"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconWelcome" translatesAutoresizingMaskIntoConstraints="NO" id="0yW-ag-0xF">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconWelcome" translatesAutoresizingMaskIntoConstraints="NO" id="0yW-ag-0xF" userLabel="statusImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="AlG-WA-oQo"/>
                                             <constraint firstAttribute="width" constant="120" id="SzX-PY-7PO"/>
                                         </constraints>
                                     </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YU1-Gp-N6U" userLabel="statusActivityIndicator">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="Jgr-Dv-6m7"/>
+                                            <constraint firstAttribute="height" constant="120" id="ik8-i5-ycW"/>
+                                        </constraints>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="5nW-Xw-c1z"/>
                                     <constraint firstItem="0yW-ag-0xF" firstAttribute="centerY" secondItem="R4i-Xq-Aob" secondAttribute="centerY" id="Kln-zA-TqK"/>
                                     <constraint firstAttribute="height" constant="120" id="MzO-yI-Z0R"/>
+                                    <constraint firstItem="YU1-Gp-N6U" firstAttribute="centerX" secondItem="R4i-Xq-Aob" secondAttribute="centerX" id="Ncn-JU-UtF"/>
                                     <constraint firstItem="0yW-ag-0xF" firstAttribute="centerX" secondItem="R4i-Xq-Aob" secondAttribute="centerX" id="T2N-zt-2Ps"/>
+                                    <constraint firstItem="YU1-Gp-N6U" firstAttribute="centerY" secondItem="R4i-Xq-Aob" secondAttribute="centerY" id="X4K-RG-JsP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjG-OD-DM3" userLabel="Bottom Container">
@@ -85,9 +94,22 @@
                                             <constraint firstAttribute="width" constant="40" id="Rbl-v4-cho"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="A"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Am"/>
                                         <connections>
                                             <action selector="onAttachmentButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="aV6-Xw-63B"/>
+                                            <segue destination="Bd8-vQ-jNW" kind="show" identifier="show-imagegalleryvc" id="vFA-Pa-heq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIa-0w-uLy" userLabel="Attach Button">
+                                        <rect key="frame" x="289" y="20" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="OsA-Kq-uxv"/>
+                                            <constraint firstAttribute="width" constant="40" id="bPw-Rk-mxG"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="A"/>
+                                        <connections>
+                                            <action selector="onAttachButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="SQw-ER-id5"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -97,12 +119,14 @@
                                     <constraint firstAttribute="height" constant="80" id="NgK-bk-QyR"/>
                                     <constraint firstItem="OPx-do-bwH" firstAttribute="leading" secondItem="bjG-OD-DM3" secondAttribute="leading" constant="16" id="W0m-iQ-9zA"/>
                                     <constraint firstAttribute="trailing" secondItem="F3h-1H-WFo" secondAttribute="trailing" constant="16" id="bMc-Gg-B3j"/>
+                                    <constraint firstItem="eIa-0w-uLy" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="hoE-QC-mPj"/>
                                     <constraint firstItem="w6X-dc-sWA" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="iMT-QQ-1Cv"/>
+                                    <constraint firstItem="F3h-1H-WFo" firstAttribute="leading" secondItem="eIa-0w-uLy" secondAttribute="trailing" constant="8" id="vV8-Ub-JdR"/>
                                     <constraint firstItem="OPx-do-bwH" firstAttribute="centerY" secondItem="bjG-OD-DM3" secondAttribute="centerY" id="zw1-an-BcA"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYR-6N-FqC" userLabel="Top Container">
-                                <rect key="frame" x="0.0" y="59" width="393" height="80"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaT-df-3QI" userLabel="Settings Button">
                                         <rect key="frame" x="337" y="20" width="40" height="40"/>
@@ -113,7 +137,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="S"/>
                                         <connections>
-                                            <action selector="onSettingsuttonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="IBX-nU-FYZ"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="Rg2-WY-Tev"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -137,11 +161,16 @@
                             <constraint firstItem="R4i-Xq-Aob" firstAttribute="centerX" secondItem="By7-oY-hi9" secondAttribute="centerX" id="oGr-1v-sL9"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="EwF-yN-KE3"/>
                     <connections>
+                        <outlet property="attachButton" destination="eIa-0w-uLy" id="1ZC-MW-d6v"/>
                         <outlet property="attachmentButton" destination="F3h-1H-WFo" id="Vz4-Zt-znd"/>
                         <outlet property="resetButton" destination="OPx-do-bwH" id="QEg-oG-oZO"/>
                         <outlet property="settingsButton" destination="qaT-df-3QI" id="bEE-Ad-BBl"/>
                         <outlet property="startStopButton" destination="w6X-dc-sWA" id="HrU-aq-QxX"/>
+                        <outlet property="statusActivityIndicator" destination="YU1-Gp-N6U" id="kzo-yj-HvO"/>
+                        <outlet property="statusImageView" destination="0yW-ag-0xF" id="bpb-SR-CjG"/>
+                        <segue destination="3oi-Nl-L6P" kind="show" identifier="show-textdrawingvc" id="BAb-KA-fH9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifb-Qj-wih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -482,7 +511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142.74809160305344" y="-28.169014084507044"/>
+            <point key="canvasLocation" x="82" y="105"/>
         </scene>
         <!--Image GalleryVC-->
         <scene sceneID="2lm-W2-qlp">
@@ -591,11 +620,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qO-JM-o64" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="689"/>
+            <point key="canvasLocation" x="82" y="903"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SBU-Fu-1XO"/>
+        <segue reference="BAb-KA-fH9"/>
+        <segue reference="vFA-Pa-heq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>

@@ -1,10 +1,6 @@
-import AVFoundation
+class ChatHistoryManager{
+    static let shared = ChatHistoryManager()
 
-let USE_REMOTE_SPEECH = true
-
-class SpeechManager {
-    static let shared = SpeechManager()
-    
     private var _chatId: String?
     var chatId: String? {
         get { return self._chatId }
@@ -14,44 +10,8 @@ class SpeechManager {
     private var chatHistoryUpdateListeners: [String: (() -> Void)] = [:]
     private var achievedChatHistory: [String: [Message]] = [:]
     
-    private let _mediaManager: MediaManager
-    var mediaManager: MediaManager {
-        get { return self._mediaManager }
-    }
-    
-    private let _apiManager: ApiManager
-    var apiManager: ApiManager {
-        get { return self._apiManager }
-    }
-    
-    private let _speech: AbstractSpeech
-    var speech: AbstractSpeech {
-        get { return self._speech }
-    }
-    
-    private init() {
-        self._apiManager = ApiManager()
-        self._mediaManager = MediaManager()
-        if USE_REMOTE_SPEECH {
-            self._speech = RemoteSpeech(apiManager: self._apiManager)
-        } else {
-            self._speech = LocalSpeech(apiManager: self._apiManager)
-        }
-    }
-    
-    // MARK: - Public methods
-    
-    func recognize() {
-        let imageList = mediaManager.imageList
-        self._speech.recognize(imageList: imageList)
-    }
-    
-    func synthesize(text: String) {
-        self._speech.synthesize(text: text)
-    }
-    
-    // MARK: - Message history
-    
+    private init() {}
+
     func getChatHistory() -> [Message] {
         return self.chatHistory
     }
