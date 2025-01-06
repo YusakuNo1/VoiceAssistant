@@ -11,14 +11,12 @@ struct ResponseData {
 }
 
 class ApiManager {
+    static let shared = ApiManager()
+
     private var credentials: Credentials?
-    private var chatId: String?
-    private var appendChatMessages: (String?, [Message]) -> Void
     
-    init(appendChatMessages: @escaping (String?, [Message]) -> Void) {
-        self.appendChatMessages = appendChatMessages
-    }
-    
+    private init() {}
+
     func getCredentials(completion: @escaping (Result<Credentials, Error>) -> Void) {
         if let credentials = self.credentials {
             completion(.success(credentials))
@@ -58,20 +56,19 @@ class ApiManager {
             ])
             
             // Attach user meesage first
-            self.appendChatMessages(chatId, lmRequestBody.messages)
+            ChatHistoryManager.shared.appendChatMessages(messages: lmRequestBody.messages)
             
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
             completion(.failure(error))
             return
         }
-        
-//        let isNewChat = self.chatId == nil
+
         var headers: [String: String] = [
             "Content-Type": "application/json",
         ]
-        if self.chatId != nil {
-            headers["chat-id"] = self.chatId
+        if ChatHistoryManager.shared.chatId != nil {
+            headers["chat-id"] = ChatHistoryManager.shared.chatId
         }
         
         self.request(method: .post, endpoint: "/chat", headers: headers, httpBody: httpBody) { result in
@@ -81,25 +78,11 @@ class ApiManager {
                     completion(.failure(URLError(.badServerResponse)))
                     return
                 }
-                self.chatId = chatId
-                
-//                if !isNewChat {
-                self.appendChatMessages(chatId, [
-                    //                        Message(role: Role.user, content: [MessageContent(text: message)]),
-                    Message(role: Role.assistant, content: [MessageContent(text: responseString)]),
+                ChatHistoryManager.shared.chatId = chatId
+                ChatHistoryManager.shared.appendChatMessages(messages: [
+                    Message(role: Role.assistant, content: [MessageContent(text: responseString)])
                 ])
                 completion(.success(responseString))
-                //                } else {
-                //                    self.getChatHistory(chatId: chatId) { result in
-                //                        switch result {
-                //                        case .success(let messages):
-                //                            self.appendChatMessages(chatId, messages)
-                //                            completion(.success(responseString))
-                //                        case.failure(let error):
-                //                            completion(.failure(error))
-                //                        }
-                //                    }
-                //                }
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -143,10 +126,6 @@ class ApiManager {
         }
     }
 
-    func resetChatId() {
-        self.chatId = nil
-    }
-    
     private func getChatHistory(chatId: String, completion: @escaping (Result<[Message], Error>) -> Void) {
         let headers: [String: String] = [
             "Content-Type": "application/json",

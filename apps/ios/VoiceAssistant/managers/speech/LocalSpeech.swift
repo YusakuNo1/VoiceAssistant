@@ -1,42 +1,41 @@
 import UIKit
 import AVFoundation
 
-class LocalSpeechManager: AbstractSpeechManager {
-    private var credentials: Credentials?
-    private var conversionQueue = DispatchQueue(label: "conversionQueue")
-    private var speechConfig: SPXSpeechConfiguration!
-    private var audioConfig: SPXAudioConfiguration!
-    private var reco: SPXSpeechRecognizer!
-    private var pushStream: SPXPushAudioInputStream!
-    
+class LocalSpeech: AbstractSpeech {
+    private var _conversionQueue = DispatchQueue(label: "conversionQueue")
+    private var _speechConfig: SPXSpeechConfiguration!
+    private var _audioConfig: SPXAudioConfiguration!
+    private var _reco: SPXSpeechRecognizer!
+    private var _pushStream: SPXPushAudioInputStream!
+
     override func recognize(imageList: [Image]) {
         self._setAudioMode(mode: .Record)
         
-        self.apiManager.getCredentials() { result in
+        ApiManager.shared.getCredentials() { result in
             switch result {
             case .success(let credentials):
-                try! self.speechConfig = SPXSpeechConfiguration(subscription: credentials.speech.key, region: credentials.speech.region)
-                self.speechConfig?.speechRecognitionLanguage = "en-US"
+                try! self._speechConfig = SPXSpeechConfiguration(subscription: credentials.speech.key, region: credentials.speech.region)
+                self._speechConfig?.speechRecognitionLanguage = "en-US"
                 
-                self.pushStream = SPXPushAudioInputStream()
-                self.audioConfig = SPXAudioConfiguration(streamInput: self.pushStream)
-                self.reco = try! SPXSpeechRecognizer(speechConfiguration: self.speechConfig!, audioConfiguration: self.audioConfig!)
-                self.reco.addRecognizedEventHandler() { reco, evt in
+                self._pushStream = SPXPushAudioInputStream()
+                self._audioConfig = SPXAudioConfiguration(streamInput: self._pushStream)
+                self._reco = try! SPXSpeechRecognizer(speechConfiguration: self._speechConfig!, audioConfiguration: self._audioConfig!)
+                self._reco.addRecognizedEventHandler() { reco, evt in
                     if let message = evt.result.text {
                         self._onSpeechRecognized(message: message, imageList: imageList)
                     }
                 }
-                self.reco.addCanceledEventHandler { reco, evt in
+                self._reco.addCanceledEventHandler { reco, evt in
                     print("Recognition canceled: \(evt.errorDetails?.description ?? "(no result)")")
-                    self.updateProgress(.Idle)
+                    self._updateProgress?(.Idle)
                 }
-                try! self.reco.recognizeOnceAsync({ srresult in
-                    self.audioEngine.stop()
-                    self.audioEngine.inputNode.removeTap(onBus: self.busId)
-                    self.pushStream.close()
+                try! self._reco.recognizeOnceAsync({ srresult in
+                    self._audioEngine.stop()
+                    self._audioEngine.inputNode.removeTap(onBus: self._busId)
+                    self._pushStream.close()
                 })
                 self._readDataFromMicrophone()
-                self.updateProgress(.Listen)
+                self._updateProgress?(.Listen)
             case .failure(let error):
                 print("Error: \(error)")
             }
@@ -45,9 +44,9 @@ class LocalSpeechManager: AbstractSpeechManager {
     
     override func synthesize(text: String) {
         self._setAudioMode(mode: .Playback)
-        self.updateProgress(.Speak)
+        self._updateProgress?(.Speak)
         
-        self.apiManager.getCredentials() { result in
+        ApiManager.shared.getCredentials() { result in
             switch result {
             case .success(let credentials):
                 var speechConfig: SPXSpeechConfiguration?
@@ -73,27 +72,27 @@ class LocalSpeechManager: AbstractSpeechManager {
                         print(error)
                     }
                 }
-                self.updateProgress(.Idle)
+                self._updateProgress?(.Idle)
             case .failure(let error):
                 print("error \(error) happened")
-                self.updateProgress(.Idle)
+                self._updateProgress?(.Idle)
             }
         }
     }
     
     private func _readDataFromMicrophone() {
-        let inputNode = audioEngine.inputNode
-        let inputFormat = inputNode.outputFormat(forBus: self.busId)
-        let recordingFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: Double(self.sampleRate), channels: 1, interleaved: false)
+        let inputNode = self._audioEngine.inputNode
+        let inputFormat = inputNode.outputFormat(forBus: self._busId)
+        let recordingFormat = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: Double(self._sampleRate), channels: 1, interleaved: false)
         
         guard let formatConverter =  AVAudioConverter(from:inputFormat, to: recordingFormat!)
         else {
             return
         }
         // Install a tap on the audio engine with the buffer size and the input format.
-        audioEngine.inputNode.installTap(onBus: self.busId, bufferSize: AVAudioFrameCount(bufferSize), format: inputFormat) { (buffer, time) in
+        self._audioEngine.inputNode.installTap(onBus: self._busId, bufferSize: AVAudioFrameCount(self._bufferSize), format: inputFormat) { (buffer, time) in
             
-            self.conversionQueue.async { [self] in
+            self._conversionQueue.async { [self] in
                 // Convert the microphone input to the recording format required
                 let outputBufferCapacity = AVAudioFrameCount(buffer.duration * recordingFormat!.sampleRate)
                 
@@ -114,13 +113,13 @@ class LocalSpeechManager: AbstractSpeechManager {
                     print(error!.localizedDescription)
                 }
                 else {
-                    self.pushStream.write((pcmBuffer.data()))
+                    self._pushStream.write((pcmBuffer.data()))
                 }
             }
         }
-        audioEngine.prepare()
+        self._audioEngine.prepare()
         do {
-            try audioEngine.start()
+            try self._audioEngine.start()
         }
         catch {
             print(error.localizedDescription)

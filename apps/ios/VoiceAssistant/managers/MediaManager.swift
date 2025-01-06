@@ -7,6 +7,9 @@ enum MediaSourceType {
 }
 
 class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    static let shared = MediaManager()
+    private override init() {}
+
     private var _imageList: [Image] = []
     var imageList: [Image] {
         get {
@@ -19,20 +22,21 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         self.dispatchUpdateEvent()
     }
 
-    private var updatedListener: [(([Image]) -> Void)] = []
-    func registerUpdatedListener(listener: @escaping ([Image]) -> Void) {
-        updatedListener.append(listener)
+    private var _updatedListeners: [String: (() -> Void)] = [:]
+    func registerUpdatedListener(key: String, listener: @escaping () -> Void) {
+        self._updatedListeners[key] = listener
+    }
+    func unregisterUpdatedListener(key: String) {
+        self._updatedListeners.removeValue(forKey: key)
     }
     
     func dispatchUpdateEvent() {
         DispatchQueue.main.async {
-            self.updatedListener.forEach { (listener) in
-                listener(self._imageList)
-            }
+            self._updatedListeners.values.forEach { $0() }
         }
     }
     
-    func showOption(vc: ViewController) {
+    func showOption(vc: UIViewController) {
         let alertController = UIAlertController(title: "Select Image", message: "Choose an option", preferredStyle: .actionSheet)
         let photoLibraryAction = UIAlertAction(title: "From Photo Library", style: .default) { _ in
             self.openImagePicker(vc, .photoLibrary)
@@ -57,11 +61,11 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         dispatchUpdateEvent()
     }
 
-    private func showTextDrawingVC(_ vc: ViewController) {
+    private func showTextDrawingVC(_ vc: UIViewController) {
         vc.performSegue(withIdentifier: "show-textdrawingvc", sender: vc)
     }
 
-    private func openImagePicker(_ vc: ViewController, _ mediaSourceType: MediaSourceType) {
+    private func openImagePicker(_ vc: UIViewController, _ mediaSourceType: MediaSourceType) {
         if mediaSourceType == .photoLibrary {
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary

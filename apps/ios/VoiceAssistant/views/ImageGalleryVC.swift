@@ -14,4 +14,9 @@ class ImageGalleryVC: UIViewController {
         self.title = "Images"        
         imageView.image = self.uiImageList.first
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 }

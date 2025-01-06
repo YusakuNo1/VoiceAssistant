@@ -1,34 +1,30 @@
 import AVFoundation
 
 
-class AbstractSpeechManager {
-    internal let apiManager: ApiManager!
-    internal let updateProgress: (ProgressState) -> Void
+class AbstractSpeech: NSObject {
+    internal var _busId: AVAudioNodeBus = 0
+    internal var _sampleRate = 16000
+    internal var _bufferSize = 2048
 
-    internal var audioEngine: AVAudioEngine = AVAudioEngine()
+    internal var _audioEngine: AVAudioEngine = AVAudioEngine()
 
-    internal var busId: AVAudioNodeBus = 0
-    internal var sampleRate = 16000
-    internal var bufferSize = 2048
-
-    init(apiManager: ApiManager, updateProgress: @escaping (ProgressState) -> Void) {
-        self.apiManager = apiManager
-        self.updateProgress = updateProgress
+    internal var _updateProgress: ((ProgressState) -> Void)?
+    var updateProgress: ((ProgressState) -> Void)? {
+        get { _updateProgress }
+        set { _updateProgress = newValue }
     }
 
+    override init() {}
+    
     func recognize(imageList: [Image]) {
-        fatalError("Not implemented")
+        fatalError( "recognize() must be implemented by subclasses")
     }
     
-    func stopSpeechRecognize(imageList: [Image]) {
-//        fatalError("Not implemented")
-    }
-
     func synthesize(text: String) {
-        fatalError("Not implemented")
+        fatalError( "synthesize() must be implemented by subclasses")
     }
-
-    func _setAudioMode(mode: AudioMode) {
+    
+    internal func _setAudioMode(mode: AudioMode) {
         do {
             if mode == AudioMode.Playback {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
@@ -42,9 +38,9 @@ class AbstractSpeechManager {
         }
     }
     
-    func _onSpeechRecognized(message: String, imageList: [Image]) {
-        self.updateProgress(.WaitForRes)
-        self.apiManager.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
+    internal func _onSpeechRecognized(message: String, imageList: [Image]) {
+        self._updateProgress?(.WaitForRes)
+        ApiManager.shared.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
             switch result {
             case .success(let respnoseString):
                 self.synthesize(text: respnoseString)

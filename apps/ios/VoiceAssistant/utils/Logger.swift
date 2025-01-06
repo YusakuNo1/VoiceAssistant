@@ -5,7 +5,7 @@ class Logger {
         case error
     }
     
-    static var currentLoggerLevel: Level = .warning
+    static var currentLoggerLevel: Level = .info
     
     static func log(_ level: Level, _ message: String) {
         if level.rawValue >= currentLoggerLevel.rawValue {
