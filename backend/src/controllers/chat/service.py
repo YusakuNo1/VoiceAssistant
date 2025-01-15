@@ -1,10 +1,12 @@
 from jinja2 import Template
 from dataclasses import asdict
+from azure.ai.projects.models import FunctionTool, RequiredFunctionToolCall, SubmitToolOutputsAction, ToolOutput
 
 from src.config.env import aoai_chat_endpoint, aoai_key, aoai_vision_endpoint
 from src.utils.loggers import log
 from .types import Message, Request
 from src.utils.str_utils import escape_json_string
+from .tools import change_volume
 
 
 system_prompt = """You are a helpful assistant.
@@ -44,6 +46,8 @@ async def chat(chat_id: str, request: Request):
     use_vision = _use_vision_model(request)
     log(f"Using vision model: {use_vision}")
 
+    functions = FunctionTool(functions=[change_volume])
+
     client = ChatCompletionsClient(
         endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),
         credential=AzureKeyCredential(aoai_key),
@@ -63,6 +67,7 @@ async def chat(chat_id: str, request: Request):
         # stream=True,
         stream=is_streaming,
         messages=messages,
+        tools=functions.definitions,
     )
 
     response_str = ""
@@ -74,6 +79,11 @@ async def chat(chat_id: str, request: Request):
                 response_str += chunk
                 yield chunk
             # await asyncio.sleep(1) # Simulate a delay
+    elif response.choices[0].finish_reason == "tool_calls":
+        tool_calls = response.choices[0].message.tool_calls
+        for tool_call in tool_calls:
+            response_str = await functions.execute(tool_call)
+            yield response_str
     else:
         response_str = response.choices[0].message.content
         yield response_str

@@ -26,6 +26,7 @@
 		FC46F0B72D17543C004020A9 /* LocalSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0B62D175434004020A9 /* LocalSpeech.swift */; };
 		FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F0BA2D176FD6004020A9 /* ApiManager.swift */; };
 		FC93B0EC2D2B391E00865705 /* ChatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC93B0EB2D2B391900865705 /* ChatHistoryManager.swift */; };
+		FCA8BCD52D37A26800BAD23D /* response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA8BCD42D37A26600BAD23D /* response.swift */; };
 		FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B462D1B6A22007C8159 /* MediaManager.swift */; };
 		FCC38B802D1C8338007C8159 /* message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B7F2D1C832C007C8159 /* message.swift */; };
 		FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B8D2D1CED65007C8159 /* UIImage.swift */; };
@@ -73,6 +74,7 @@
 		FC46F0B62D175434004020A9 /* LocalSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSpeech.swift; sourceTree = "<group>"; };
 		FC46F0BA2D176FD6004020A9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FC93B0EB2D2B391900865705 /* ChatHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryManager.swift; sourceTree = "<group>"; };
+		FCA8BCD42D37A26600BAD23D /* response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = response.swift; sourceTree = "<group>"; };
 		FCC38B462D1B6A22007C8159 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		FCC38B7F2D1C832C007C8159 /* message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = message.swift; sourceTree = "<group>"; };
 		FCC38B8D2D1CED65007C8159 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		FCC38B7E2D1C8313007C8159 /* types */ = {
 			isa = PBXGroup;
 			children = (
+				FCA8BCD42D37A26600BAD23D /* response.swift */,
 				FCFBB1C42D263CF200E0D9B3 /* errors.swift */,
 				FCC38B7F2D1C832C007C8159 /* message.swift */,
 				FC46F0B42D175343004020A9 /* common.swift */,
@@ -407,6 +410,7 @@
 				FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */,
 				FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */,
 				FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */,
+				FCA8BCD52D37A26800BAD23D /* response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

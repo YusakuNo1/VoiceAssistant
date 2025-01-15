@@ -86,6 +86,7 @@ class RemoteSpeech: AbstractSpeech, AVAudioPlayerDelegate {
                 do {
                     self._audioPlayer = try AVAudioPlayer(data: responseData)
                     self._audioPlayer?.delegate = self
+                    self._audioPlayer?.volume = self._audioPlayerVolume
                     self._audioPlayer?.play()
                 } catch {
                     print("Error: \(error.localizedDescription)")
