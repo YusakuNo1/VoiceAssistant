@@ -83,7 +83,7 @@ async def chat(chat_id: str, request: Request):
         tool_calls = response.choices[0].message.tool_calls
         for tool_call in tool_calls:
             response_str = await functions.execute(tool_call)
-            yield response_str
+            yield response_str + "\n"
     else:
         response_str = response.choices[0].message.content
         yield response_str
