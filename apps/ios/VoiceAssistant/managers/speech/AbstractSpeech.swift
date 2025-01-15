@@ -1,4 +1,5 @@
 import AVFoundation
+import MapKit
 
 
 class AbstractSpeech: NSObject {
@@ -67,7 +68,7 @@ class AbstractSpeech: NSObject {
         if action.actionType == ActionType.changeVolume {
             if let volumeRaw = action.data["volume"] {
                 switch volumeRaw {
-                case .int(let volume):
+                case .double(let volume):
                     if volume >= 0 && volume <= 100 {
                         self._audioPlayerVolume = Float(volume) / 100
                         self.synthesize(text: ACTION_SUCCESS_MESSAGE)
@@ -78,6 +79,37 @@ class AbstractSpeech: NSObject {
                     Logger.log(.error, "Unsupported volume format: \(volumeString)")
                     self.synthesize(text: ACTION_FAILURE_MESSAGE_CHANGE_VOLUME)
                 }
+            }
+        } else if action.actionType == ActionType.openMap {
+            var latitude: Double = 0
+            var longitude: Double = 0
+            if let latitudeRaw = action.data["latitude"], let longitudeRaw = action.data["longitude"] {
+                switch latitudeRaw {
+                case .double(let latitudeValue):
+                    latitude = latitudeValue
+                case .string(let latitudeString):
+                    latitude = Double(latitudeString)!
+                }
+                
+                switch longitudeRaw {
+                case .double(let longitudeValue):
+                    longitude = longitudeValue
+                case .string(let longitudeString):
+                    longitude = Double(longitudeString)!
+                }
+
+                self.synthesize(text: ACTION_SUCCESS_MESSAGE)
+
+                let regionDistance: CLLocationDistance = 10000
+                let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+                let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+                let options = [
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+                ]
+                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                let mapItem = MKMapItem(placemark: placemark)
+                mapItem.openInMaps(launchOptions: options)
             }
         }
     }

@@ -38,13 +38,13 @@ struct Image: Codable {
 
 enum StringOrIntEnum: Codable {
     case string(String)
-    case int(Int)
+    case double(Double)
     
     init(from decoder: Decoder) throws {
         if let string = try? decoder.singleValueContainer().decode(String.self) {
             self = .string(string)
-        } else if let int = try? decoder.singleValueContainer().decode(Int.self) {
-            self = .int(int)
+        } else if let double = try? decoder.singleValueContainer().decode(Double.self) {
+            self = .double(double)
         } else {
             self = .string("")
         }
@@ -55,7 +55,7 @@ enum StringOrIntEnum: Codable {
         switch self {
         case .string(let string):
             try container.encode(string)
-        case .int(let int):
-            try container.encode(int)
+        case .double(let double):
+            try container.encode(double)
         }
     }}

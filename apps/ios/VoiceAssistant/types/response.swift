@@ -8,6 +8,7 @@ enum Platform: String, CaseIterable, Codable {
 enum ActionType: String, CaseIterable, Codable {
     case getWeather = "get_weather"
     case changeVolume = "change_volume"
+    case openMap = "open_map"
     case openBrowser = "open_browser"
 }
 
