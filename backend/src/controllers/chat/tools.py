@@ -1,6 +1,8 @@
 from enum import Enum
 import dataclasses
 import json
+import requests
+from src.config.env import weather_api_key
 
 
 @dataclasses.dataclass
@@ -20,6 +22,31 @@ class Action:
     platform: Platform
     actionType: ActionType
     data: dict[str, any]
+
+
+async def get_weather(name: str) -> str:
+    """find the location name from the command for weather, and then convert to a JSON string with Action format
+
+    :param name (str): The name of the location from the command for weather
+    :rtype: str
+
+    :return: the action command as a JSON string
+    :rtype: str
+    """
+    url = f'http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={name}'
+
+    # Make the request
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        data = data['current']
+        data['name'] = name
+        action = Action(platform=Platform.IOS.value, actionType=ActionType.GET_WEATHER.value, data=data)
+        return json.dumps(dataclasses.asdict(action))
+    else:
+        print(f"Failed to retrieve data: {response.status_code}")
 
 
 async def change_volume(volume: int) -> str:

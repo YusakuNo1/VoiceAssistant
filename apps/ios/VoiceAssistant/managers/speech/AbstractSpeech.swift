@@ -129,6 +129,27 @@ class AbstractSpeech: NSObject {
                         mapItem.openInMaps(launchOptions: options)
                     }
                 }
+            } else if action.actionType == ActionType.getWeather {
+                if let nameRaw = action.data["name"], let tempFRaw = action.data["temp_f"] {
+                    var name: String = ""
+                    var tempF: Double = 0
+
+                    switch nameRaw {
+                    case .string(let nameValue):
+                        name = nameValue
+                    case .double(_):
+                        name = ""
+                    }
+                    
+                    switch tempFRaw {
+                    case .double(let tempFValue):
+                        tempF = tempFValue
+                    case .string(_):
+                        tempF = 0
+                    }
+                    let text = String(format: ACTION_SUCCESS_MESSAGE_GET_WEATHER_FAHRENHEIT_TEMPLATE, name, tempF)
+                    self.synthesize(text: text)
+                }
             }
         }
     }

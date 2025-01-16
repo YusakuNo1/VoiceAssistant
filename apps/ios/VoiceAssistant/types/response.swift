@@ -15,7 +15,7 @@ enum ActionType: String, CaseIterable, Codable {
 struct Action: Codable {
     let platform: Platform
     let actionType: ActionType
-    let data: [String: StringOrIntEnum]
+    let data: [String: StringOrDoubleEnum]
     
     enum CodingKeys: String, CodingKey {
          case platform
@@ -34,6 +34,6 @@ struct Action: Codable {
          let container = try decoder.container(keyedBy: CodingKeys.self)
          self.platform = try container.decode(Platform.self, forKey: .platform)
          self.actionType = try container.decode(ActionType.self, forKey: .actionType)
-         self.data = try container.decode([String: StringOrIntEnum].self, forKey: .data)
+         self.data = try container.decode([String: StringOrDoubleEnum].self, forKey: .data)
      }
 }

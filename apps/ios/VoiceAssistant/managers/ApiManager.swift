@@ -207,7 +207,9 @@ class ApiManager {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
         request.httpBody = httpBody
 
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -217,7 +219,7 @@ class ApiManager {
             }
             
             if let httpResponse = response as? HTTPURLResponse {
-                if (200...299).contains(httpResponse.statusCode), let data = data {
+                if 200 <= httpResponse.statusCode && httpResponse.statusCode < 300, let data = data {
                     let responseData = ResponseData(data: data, headers: headers)
                     completion(.success(responseData))
                 } else {

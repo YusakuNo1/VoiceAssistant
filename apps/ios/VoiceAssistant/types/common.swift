@@ -36,7 +36,7 @@ struct Image: Codable {
     }
 }
 
-enum StringOrIntEnum: Codable {
+enum StringOrDoubleEnum: Codable {
     case string(String)
     case double(Double)
     
