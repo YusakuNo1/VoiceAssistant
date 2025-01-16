@@ -150,6 +150,42 @@ class AbstractSpeech: NSObject {
                     let text = String(format: ACTION_SUCCESS_MESSAGE_GET_WEATHER_FAHRENHEIT_TEMPLATE, name, tempF)
                     self.synthesize(text: text)
                 }
+            } else if action.actionType == ActionType.openBrowser {
+                if let nameRaw = action.data["name"], let urlRaw = action.data["url"] {
+                    var name = ""
+                    var url = ""
+
+                    switch nameRaw {
+                    case .string(let nameValue):
+                        name = nameValue
+                    case .double(_):
+                        name = ""
+                    }
+
+                    switch urlRaw {
+                    case .string(let urlValue):
+                        url = urlValue
+                    case .double(_):
+                        url = ""
+                    }
+
+                    self.synthesize(text: ACTION_SUCCESS_MESSAGE)
+                    // Delay for 1 second, and then run the code in the block
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        if let urlString = URL(string: url), UIApplication.shared.canOpenURL(urlString) {
+                            UIApplication.shared.open(urlString, options: [:], completionHandler: { (success) in
+                                if success {
+                                    print("Browser opened successfully")
+                                } else {
+                                    print("Failed to open browser")
+                                    self.synthesize(text: ACTION_FAILURE_MESSAGE_OPEN_BROWSER)
+                                }
+                            })
+                        } else {
+                            self.synthesize(text: ACTION_FAILURE_MESSAGE_OPEN_BROWSER)
+                        }
+                    }
+                }
             }
         }
     }

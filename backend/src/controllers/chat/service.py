@@ -6,7 +6,7 @@ from src.config.env import aoai_chat_endpoint, aoai_key, aoai_vision_endpoint
 from src.utils.loggers import log
 from .types import Message, Request
 from src.utils.str_utils import escape_json_string
-from .tools import change_volume, get_weather, open_map
+from .tools import change_volume, get_weather, open_browser, open_map
 
 
 system_prompt = """You are a helpful assistant.
@@ -46,7 +46,7 @@ async def chat(chat_id: str, request: Request):
     use_vision = _use_vision_model(request)
     log(f"Using vision model: {use_vision}")
 
-    functions = FunctionTool(functions=[change_volume, get_weather, open_map])
+    functions = FunctionTool(functions=[change_volume, get_weather, open_browser, open_map])
 
     client = ChatCompletionsClient(
         endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),

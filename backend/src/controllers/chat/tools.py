@@ -62,6 +62,23 @@ async def change_volume(volume: int) -> str:
     return json.dumps(dataclasses.asdict(action))
 
 
+async def open_browser(name: str, url: str) -> str:
+    """When the user ask for open website for a company or organization, get the URL, and then convert to a JSON string with Action format
+
+    :param name (str): The name of the company or organization from the command
+    :rtype: str
+
+    :param url (str): The url value from the command
+    :rtype: str
+
+    :return: the action command as a JSON string
+    :rtype: str
+    """
+    data = { "name": name, "url": url }
+    action = Action(platform=Platform.IOS.value, actionType=ActionType.OPEN_BROWSER.value, data=data)
+    return json.dumps(dataclasses.asdict(action))
+
+
 async def open_map(name: str, latitude: float, longitude: float) -> str:
     """When the user ask for open map for a location, get the latitude and longitude, and then convert to a JSON string with Action format
 

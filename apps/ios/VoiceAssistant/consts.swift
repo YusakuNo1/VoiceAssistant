@@ -26,3 +26,4 @@ let ACTION_SUCCESS_MESSAGE_GET_WEATHER_FAHRENHEIT_TEMPLATE = "In %@, it's %.1f d
 
 let ACTION_FAILURE_MESSAGE_CHANGE_VOLUME = "Sorry, I can't change the volume"
 let ACTION_FAILURE_MESSAGE_GET_WEATHER = "Sorry, I can't get the weather"
+let ACTION_FAILURE_MESSAGE_OPEN_BROWSER = "Sorry, I can't open a browser"
