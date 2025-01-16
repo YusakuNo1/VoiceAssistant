@@ -20,6 +20,7 @@ class AudioUtils {
             let rms = sqrt(sumOfSquares / Float(buffer.frameLength))
             let data = Data(bytes: channelData, count: Int(buffer.frameLength * buffer.format.streamDescription.pointee.mBytesPerFrame))
             let noSoundDuration = rms > SPEECH_RECOGNITION_SILENT_THRESHOLD ? 0 : buffer.duration
+            Logger.log(.info, "* rms (float): \(rms)")
             return AudioData(data: data, noSoundDuration: noSoundDuration)
         } else if let channelData = buffer.int16ChannelData?[0] {
             var sumOfSquares: Float = 0.0
@@ -29,6 +30,7 @@ class AudioUtils {
             let rms = sqrt(sumOfSquares / Float(buffer.frameLength))
             let data = Data(bytes: channelData, count: Int(buffer.frameLength * buffer.format.streamDescription.pointee.mBytesPerFrame))
             let noSoundDuration = rms > SPEECH_RECOGNITION_SILENT_THRESHOLD ? 0 : buffer.duration
+            Logger.log(.info, "* rms (int16): \(rms)")
             return AudioData(data: data, noSoundDuration: noSoundDuration)
         } else if let channelData = buffer.int32ChannelData?[0] {
             var sumOfSquares: Float = 0.0
@@ -38,6 +40,7 @@ class AudioUtils {
             let rms = sqrt(sumOfSquares / Float(buffer.frameLength))
             let data = Data(bytes: channelData, count: Int(buffer.frameLength * buffer.format.streamDescription.pointee.mBytesPerFrame))
             let noSoundDuration = rms > SPEECH_RECOGNITION_SILENT_THRESHOLD ? 0 : buffer.duration
+            Logger.log(.info, "* rms (int32): \(rms)")
             return AudioData(data: data, noSoundDuration: noSoundDuration)
         } else {
             return AudioData(data: nil, noSoundDuration: buffer.duration)

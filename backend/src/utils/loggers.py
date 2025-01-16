@@ -5,7 +5,7 @@ class LoggerLevel(Enum):
     WARNING = 2
     ERROR = 3
 
-current_logger_level = LoggerLevel.WARNING
+current_logger_level = LoggerLevel.INFO
 
 def log(message: str, level: LoggerLevel = LoggerLevel.INFO):
     if level.value >= current_logger_level.value:

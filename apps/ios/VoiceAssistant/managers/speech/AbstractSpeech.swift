@@ -87,9 +87,10 @@ class AbstractSpeech: NSObject {
                     }
                 }
             } else if action.actionType == ActionType.openMap {
+                var name = ""
                 var latitude: Double = 0
                 var longitude: Double = 0
-                if let latitudeRaw = action.data["latitude"], let longitudeRaw = action.data["longitude"] {
+                if let nameRaw = action.data["name"], let latitudeRaw = action.data["latitude"], let longitudeRaw = action.data["longitude"] {
                     switch latitudeRaw {
                     case .double(let latitudeValue):
                         latitude = latitudeValue
@@ -103,19 +104,30 @@ class AbstractSpeech: NSObject {
                     case .string(let longitudeString):
                         longitude = Double(longitudeString)!
                     }
+                    
+                    switch nameRaw {
+                    case .string(let nameValue):
+                        name = nameValue
+                    case .double(_):
+                        name = ""
+                    }
 
-                    self.synthesize(text: ACTION_SUCCESS_MESSAGE)
-
-                    let regionDistance: CLLocationDistance = 10000
-                    let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-                    let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
-                    let options = [
-                        MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
-                        MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
-                    ]
-                    let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                    let mapItem = MKMapItem(placemark: placemark)
-                    mapItem.openInMaps(launchOptions: options)
+                    let text = String(format: ACTION_SUCCESS_MESSAGE_OPEN_MAP_TEMPLATE, name)
+                    self.synthesize(text: text)
+                    
+                    // Delay for 1 second, and then run the code in the block
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        let regionDistance: CLLocationDistance = 10000
+                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+                        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+                        let options = [
+                            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+                            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+                        ]
+                        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                        let mapItem = MKMapItem(placemark: placemark)
+                        mapItem.openInMaps(launchOptions: options)
+                    }
                 }
             }
         }
