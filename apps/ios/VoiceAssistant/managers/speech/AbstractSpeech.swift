@@ -77,7 +77,8 @@ class AbstractSpeech: NSObject {
                     case .double(let volume):
                         if volume >= 0 && volume <= 100 {
                             self._audioPlayerVolume = Float(volume) / 100
-                            self.synthesize(text: ACTION_SUCCESS_MESSAGE)
+                            let text = String(format: ACTION_SUCCESS_MESSAGE_CHANGE_VOLUME_TEMPLATE, Int(volume))
+                            self.synthesize(text: text)
                         } else {
                             self.synthesize(text: ACTION_FAILURE_MESSAGE_CHANGE_VOLUME)
                         }
