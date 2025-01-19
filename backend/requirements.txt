@@ -1,6 +1,8 @@
 azure-ai-inference
 azure-identity
 azure-cognitiveservices-speech
+prompty
+
 fastapi
 uvicorn
 python-dotenv

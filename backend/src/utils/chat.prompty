@@ -1,0 +1,13 @@
+---
+name: Chat Prompty
+description: Prompty for chat
+authors:
+  - daviwu
+model:
+  api: chat
+  configuration:
+    azure_deployment: gpt-4o-mini
+    azure_endpoint: https://yusakuno1-aoai233380693902.openai.azure.com
+---
+You are a helpful assistant.
+{{ context }}

@@ -1,0 +1,12 @@
+---
+name: Vision Prompty
+description: Prompty for vision
+authors:
+  - daviwu
+model:
+  api: chat
+  configuration:
+    azure_deployment: gpt-4o
+    azure_endpoint: https://yusakuno1-aoai233380693902.openai.azure.com
+---
+[placeholder, this section is not used]

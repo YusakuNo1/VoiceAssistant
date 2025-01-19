@@ -2,16 +2,25 @@ from jinja2 import Template
 from dataclasses import asdict
 from azure.ai.projects.models import FunctionTool, RequiredFunctionToolCall, SubmitToolOutputsAction, ToolOutput
 
-from src.config.env import aoai_chat_endpoint, aoai_key, aoai_vision_endpoint
+from src.config.env import (
+    aoai_chat_endpoint,
+    aoai_key,
+    aoai_vision_endpoint,
+)
 from src.utils.loggers import log
-from .types import Message, Request
 from src.utils.str_utils import escape_json_string
-from .tools import change_volume, get_weather, open_browser, open_map
+from src.utils.prompty_utils import get_endpoint, get_messages
+from .types import Message, Request
+from .tools import (
+    change_volume,
+    get_weather,
+    open_browser,
+    open_map,
+)
 
 
-system_prompt = """You are a helpful assistant.
-{{ context }}
-"""
+chat_endpoint = get_endpoint("./chat.prompty")
+vision_endpoint = get_endpoint("./vision.prompty")
 
 # The key is chat_id, the value is a list of messages
 hisotry_dict: dict[str, list[Message]] = {}
@@ -24,8 +33,7 @@ def _get_history_messages(chat_id: str) -> list[Message]:
         return messages
 
     # Build the initial message, including RAG (if required)
-    template = Template(system_prompt)
-    return [Message(role="system", content=template.render(context="").strip())]
+    return get_messages("./chat.prompty")
 
 def _use_vision_model(request: Request) -> bool:
     for message in request.messages:
