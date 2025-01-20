@@ -42,7 +42,9 @@ class AbstractSpeech: NSObject {
     
     internal func _onSpeechRecognized(message: String, imageList: [Image]) {
         self._updateProgress?(.WaitForRes)
-        ApiManager.shared.sendChatMessages(message: message, imageList: imageList) { (result) -> Void in
+        let messages = MessageUtils.buildMessages(message: message, imageList: imageList)
+        ChatHistoryManager.shared.appendChatMessages(messages: messages)
+        ApiManager.shared.sendChatMessages(messages: messages) { (result) -> Void in
             switch result {
             case .success(let responseString):
                 self._onSpeechRecognizedSuccess(responseString: responseString)
@@ -63,13 +65,20 @@ class AbstractSpeech: NSObject {
                 let action = try jsonDecoder.decode(Action.self, from: lineData)
                 actions.append(action)
             }
-            self._onSpeechRecognizedSuccessAction(actions: actions)
+
+            let messages: [Message] = self._onSpeechRecognizedSuccessAction(actions: actions)
+            ChatHistoryManager.shared.appendChatMessages(messages: messages)
         } catch {
             self.synthesize(text: responseString)
+            ChatHistoryManager.shared.appendChatMessages(messages: [
+                Message(role: Role.assistant, content: [MessageContent(text: responseString)])
+            ])
         }
     }
     
-    internal func _onSpeechRecognizedSuccessAction(actions: [Action]) {
+    internal func _onSpeechRecognizedSuccessAction(actions: [Action]) -> [Message] {
+        var messages: [Message] = []
+
         for action in actions {
             if action.actionType == ActionType.changeVolume {
                 if let volumeRaw = action.data["volume"] {
@@ -79,6 +88,7 @@ class AbstractSpeech: NSObject {
                             self._audioPlayerVolume = Float(volume) / 100
                             let text = String(format: ACTION_SUCCESS_MESSAGE_CHANGE_VOLUME_TEMPLATE, Int(volume))
                             self.synthesize(text: text)
+                            messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
                         } else {
                             self.synthesize(text: ACTION_FAILURE_MESSAGE_CHANGE_VOLUME)
                         }
@@ -129,6 +139,7 @@ class AbstractSpeech: NSObject {
                         let mapItem = MKMapItem(placemark: placemark)
                         mapItem.openInMaps(launchOptions: options)
                     }
+                    messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
                 }
             } else if action.actionType == ActionType.getWeather {
                 if let nameRaw = action.data["name"], let tempFRaw = action.data["temp_f"] {
@@ -150,6 +161,7 @@ class AbstractSpeech: NSObject {
                     }
                     let text = String(format: ACTION_SUCCESS_MESSAGE_GET_WEATHER_FAHRENHEIT_TEMPLATE, name, tempF)
                     self.synthesize(text: text)
+                    messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
                 }
             } else if action.actionType == ActionType.openBrowser {
                 if let nameRaw = action.data["name"], let urlRaw = action.data["url"] {
@@ -170,7 +182,8 @@ class AbstractSpeech: NSObject {
                         url = ""
                     }
 
-                    self.synthesize(text: ACTION_SUCCESS_MESSAGE)
+                    let text = String(format: ACTION_SUCCESS_MESSAGE_OPEN_BROWSER_TEMPLATE, url)
+                    self.synthesize(text: text)
                     // Delay for 1 second, and then run the code in the block
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         if let urlString = URL(string: url), UIApplication.shared.canOpenURL(urlString) {
@@ -186,8 +199,41 @@ class AbstractSpeech: NSObject {
                             self.synthesize(text: ACTION_FAILURE_MESSAGE_OPEN_BROWSER)
                         }
                     }
+                    messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
+                }
+            } else if action.actionType == ActionType.findImage {
+                if let queryRaw = action.data["query"], let imageDataUrlRaw = action.data["image_data_url"] {
+                    var query = ""
+                    var imageDataUrl = ""
+                    
+                    switch queryRaw {
+                    case .string(let queryValue):
+                        query = queryValue
+                    case .double(_):
+                        query = ""
+                    }
+
+                    switch imageDataUrlRaw {
+                    case .string(let imageDataUrlValue):
+                        imageDataUrl = imageDataUrlValue
+                    case .double(_):
+                        imageDataUrl = ""
+                    }
+                    
+                    let text = String(format: ACTION_SUCCESS_MESSAGE_FIND_IMAGE_TEMPLATE, query)
+                    var message = Message(role: Role.assistant, content: [
+                        MessageContent(text: text)
+                    ])
+                    message.content.append(MessageContent(image_url: imageDataUrl))
+                    messages.append(message)
+
+                    self.synthesize(text: text)
+                } else {
+                    self.synthesize(text: ACTION_FAILURE_MESSAGE_FIND_IMAGE)
                 }
             }
         }
+        
+        return messages
     }
 }

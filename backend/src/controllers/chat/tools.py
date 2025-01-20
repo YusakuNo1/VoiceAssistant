@@ -2,7 +2,8 @@ from enum import Enum
 import dataclasses
 import json
 import requests
-from src.config.env import weather_api_key
+from src.config.env import bing_api_key, weather_api_key
+from src.utils.image_utils import convert_data_url
 
 
 @dataclasses.dataclass
@@ -16,6 +17,8 @@ class ActionType(Enum):
     CHANGE_VOLUME = "change_volume"
     OPEN_MAP = "open_map"
     OPEN_BROWSER = "open_browser"
+    FIND_IMAGE = "find_image"
+
 
 @dataclasses.dataclass
 class Action:
@@ -97,3 +100,34 @@ async def open_map(name: str, latitude: float, longitude: float) -> str:
     data = { "name": name, "latitude": latitude, "longitude": longitude }
     action = Action(platform=Platform.IOS.value, actionType=ActionType.OPEN_MAP.value, data=data)
     return json.dumps(dataclasses.asdict(action))
+
+
+async def find_image(query: str) -> str:
+    """When the user ask for searching an image, use this function to search the image, and then convert to a JSON string with Action format
+
+    :param query (str): The information for searching the image
+    :rtype: str
+
+    :return: the action command as a JSON string
+    :rtype: str
+    """
+    endpoint = "https://api.bing.microsoft.com/v7.0/images/search"
+    headers = { "Ocp-Apim-Subscription-Key": bing_api_key }
+    params = { "q": query, "count": 1 }
+
+    try:
+        response = requests.get(endpoint, headers=headers, params=params)
+        response.raise_for_status()  # Raise an exception for bad status codes
+
+        encoding_format = response.json()["value"][0]["encodingFormat"]
+        content_url = response.json()["value"][0]["contentUrl"]
+        file_name = content_url.split("/")[-1]
+        data_url = convert_data_url(content_url, 512)
+        data = { "query": query, "file_name": file_name, "encoding_format": encoding_format, "image_data_url": data_url }
+
+        action = Action(platform=Platform.IOS.value, actionType=ActionType.FIND_IMAGE.value, data=data)
+        return json.dumps(dataclasses.asdict(action))
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error during request: {e}")
+        return []

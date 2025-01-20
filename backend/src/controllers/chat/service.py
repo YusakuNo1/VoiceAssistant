@@ -13,6 +13,7 @@ from src.utils.prompty_utils import get_endpoint, get_messages
 from .types import Message, Request
 from .tools import (
     change_volume,
+    find_image,
     get_weather,
     open_browser,
     open_map,
@@ -54,7 +55,13 @@ async def chat(chat_id: str, request: Request):
     use_vision = _use_vision_model(request)
     log(f"Using vision model: {use_vision}")
 
-    functions = FunctionTool(functions=[change_volume, get_weather, open_browser, open_map])
+    functions = FunctionTool(functions=[
+        change_volume,
+        find_image,
+        get_weather,
+        open_browser,
+        open_map,
+    ])
 
     client = ChatCompletionsClient(
         endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),

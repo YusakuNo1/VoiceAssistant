@@ -10,6 +10,7 @@ enum ActionType: String, CaseIterable, Codable {
     case changeVolume = "change_volume"
     case openMap = "open_map"
     case openBrowser = "open_browser"
+    case findImage = "find_image"
 }
 
 struct Action: Codable {

@@ -34,6 +34,7 @@
 		FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B912D1D187B007C8159 /* ImageUtils.swift */; };
 		FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */; };
 		FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */; };
+		FCE961A62D3DCC10001FC338 /* MessageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */; };
 		FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C42D263CF200E0D9B3 /* errors.swift */; };
 		FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		FCC38B912D1D187B007C8159 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryVC.swift; sourceTree = "<group>"; };
 		FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDrawingVC.swift; sourceTree = "<group>"; };
+		FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUtils.swift; sourceTree = "<group>"; };
 		FCFBB1C42D263CF200E0D9B3 /* errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errors.swift; sourceTree = "<group>"; };
 		FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +190,7 @@
 		FCC38B432D1B6936007C8159 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */,
 				FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */,
 				FCC38B912D1D187B007C8159 /* ImageUtils.swift */,
 				FCC38B8F2D1CF080007C8159 /* Logger.swift */,
@@ -411,6 +414,7 @@
 				FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */,
 				FCC38B472D1B6A29007C8159 /* MediaManager.swift in Sources */,
 				FCA8BCD52D37A26800BAD23D /* response.swift in Sources */,
+				FCE961A62D3DCC10001FC338 /* MessageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

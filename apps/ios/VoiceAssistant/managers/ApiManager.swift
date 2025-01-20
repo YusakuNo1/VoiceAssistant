@@ -43,30 +43,17 @@ class ApiManager {
         }
     }
     
-    func sendChatMessages(message: String, imageList: [Image], completion: @escaping (Result<String, Error>) -> Void) {
+    func sendChatMessages(messages: [Message], completion: @escaping (Result<String, Error>) -> Void) {
         var httpBody: Data!
         do {
-            var messageContentList: [MessageContent] = [MessageContent(text: message)]
-            for image in imageList {
-                messageContentList.append(MessageContent(image: image))
-            }
-            
-            let lmRequestBody = LanguageModelRequestBody(messages: [
-                Message(role: Role.user, content: messageContentList)
-            ])
-            
-            // Attach user meesage first
-            ChatHistoryManager.shared.appendChatMessages(messages: lmRequestBody.messages)
-            
+            let lmRequestBody = LanguageModelRequestBody(messages: messages)
             httpBody = try JSONEncoder().encode(lmRequestBody)
         } catch {
             completion(.failure(error))
             return
         }
 
-        var headers: [String: String] = [
-            "Content-Type": "application/json",
-        ]
+        var headers: [String: String] = ["Content-Type": "application/json"]
         if ChatHistoryManager.shared.chatId != nil {
             headers["chat-id"] = ChatHistoryManager.shared.chatId
         }
@@ -79,9 +66,6 @@ class ApiManager {
                     return
                 }
                 ChatHistoryManager.shared.chatId = chatId
-                ChatHistoryManager.shared.appendChatMessages(messages: [
-                    Message(role: Role.assistant, content: [MessageContent(text: responseString)])
-                ])
                 completion(.success(responseString))
             case .failure(let error):
                 completion(.failure(error))
