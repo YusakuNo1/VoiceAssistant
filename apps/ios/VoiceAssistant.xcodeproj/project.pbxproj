@@ -35,6 +35,7 @@
 		FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */; };
 		FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */; };
 		FCE961A62D3DCC10001FC338 /* MessageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */; };
+		FCE961A82D3E0BA8001FC338 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961A72D3E0BA6001FC338 /* EventManager.swift */; };
 		FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C42D263CF200E0D9B3 /* errors.swift */; };
 		FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		FCC38B932D1D4D8D007C8159 /* ImageGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryVC.swift; sourceTree = "<group>"; };
 		FCC38B972D1FE584007C8159 /* TextDrawingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDrawingVC.swift; sourceTree = "<group>"; };
 		FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUtils.swift; sourceTree = "<group>"; };
+		FCE961A72D3E0BA6001FC338 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		FCFBB1C42D263CF200E0D9B3 /* errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errors.swift; sourceTree = "<group>"; };
 		FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,9 +205,10 @@
 			isa = PBXGroup;
 			children = (
 				FC1BD1722D29CACE00F1ACDD /* speech */,
-				FC93B0EB2D2B391900865705 /* ChatHistoryManager.swift */,
-				FCC38B462D1B6A22007C8159 /* MediaManager.swift */,
 				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
+				FC93B0EB2D2B391900865705 /* ChatHistoryManager.swift */,
+				FCE961A72D3E0BA6001FC338 /* EventManager.swift */,
+				FCC38B462D1B6A22007C8159 /* MediaManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				FC1BD1742D29CADC00F1ACDD /* AbstractSpeech.swift in Sources */,
 				FC3EF7A12D1A12A70088B897 /* ChatTableCell.swift in Sources */,
 				DC1C153822B8E27B00367496 /* ViewController.swift in Sources */,
+				FCE961A82D3E0BA8001FC338 /* EventManager.swift in Sources */,
 				FC1D05A72D27E3CC005CEBE3 /* RemoteSpeech.swift in Sources */,
 				FCC38B802D1C8338007C8159 /* message.swift in Sources */,
 				FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */,

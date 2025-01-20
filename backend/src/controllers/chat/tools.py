@@ -113,18 +113,26 @@ async def find_image(query: str) -> str:
     """
     endpoint = "https://api.bing.microsoft.com/v7.0/images/search"
     headers = { "Ocp-Apim-Subscription-Key": bing_api_key }
-    params = { "q": query, "count": 1 }
+    params = { "q": query, "count": 10 }
 
     try:
         response = requests.get(endpoint, headers=headers, params=params)
         response.raise_for_status()  # Raise an exception for bad status codes
 
-        encoding_format = response.json()["value"][0]["encodingFormat"]
-        content_url = response.json()["value"][0]["contentUrl"]
-        file_name = content_url.split("/")[-1]
-        data_url = convert_data_url(content_url, 512)
-        data = { "query": query, "file_name": file_name, "encoding_format": encoding_format, "image_data_url": data_url }
+        content_list = response.json()["value"]
+        # Sometimes the image URL from the search result not working, need to search for one that works
+        for content in content_list:
+            encoding_format = content["encodingFormat"]
+            content_url = content["contentUrl"]
+            file_name = content_url.split("/")[-1]
+            data_url = convert_data_url(content_url, 512)
 
+            if data_url is not None:
+                break
+            else:
+                print(f"Failed to download image: {content_url}")
+
+        data = { "query": query, "file_name": file_name, "encoding_format": encoding_format, "image_data_url": data_url }
         action = Action(platform=Platform.IOS.value, actionType=ActionType.FIND_IMAGE.value, data=data)
         return json.dumps(dataclasses.asdict(action))
 

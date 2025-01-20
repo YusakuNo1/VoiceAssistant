@@ -170,6 +170,7 @@
                         <outlet property="statusActivityIndicator" destination="YU1-Gp-N6U" id="kzo-yj-HvO"/>
                         <outlet property="statusImageView" destination="0yW-ag-0xF" id="bpb-SR-CjG"/>
                         <segue destination="3oi-Nl-L6P" kind="show" identifier="show-textdrawingvc" id="BAb-KA-fH9"/>
+                        <segue destination="Bd8-vQ-jNW" kind="show" identifier="show-imagegalleryvc-from-event" id="by4-jH-OmL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifb-Qj-wih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -628,7 +629,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="BAb-KA-fH9"/>
-        <segue reference="SBO-By-WeD"/>
+        <segue reference="by4-jH-OmL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="IconAssistant" width="170.66667175292969" height="170.66667175292969"/>
@@ -643,16 +644,16 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

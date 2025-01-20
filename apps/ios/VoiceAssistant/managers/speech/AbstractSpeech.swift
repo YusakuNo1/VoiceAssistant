@@ -184,6 +184,7 @@ class AbstractSpeech: NSObject {
 
                     let text = String(format: ACTION_SUCCESS_MESSAGE_OPEN_BROWSER_TEMPLATE, url)
                     self.synthesize(text: text)
+                    messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
                     // Delay for 1 second, and then run the code in the block
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         if let urlString = URL(string: url), UIApplication.shared.canOpenURL(urlString) {
@@ -199,7 +200,6 @@ class AbstractSpeech: NSObject {
                             self.synthesize(text: ACTION_FAILURE_MESSAGE_OPEN_BROWSER)
                         }
                     }
-                    messages.append(Message(role: Role.assistant, content: [MessageContent(text: text)]))
                 }
             } else if action.actionType == ActionType.findImage {
                 if let queryRaw = action.data["query"], let imageDataUrlRaw = action.data["image_data_url"] {
@@ -226,8 +226,11 @@ class AbstractSpeech: NSObject {
                     ])
                     message.content.append(MessageContent(image_url: imageDataUrl))
                     messages.append(message)
-
                     self.synthesize(text: text)
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        EventManager.shared.eventPublisher.send(.showImages(imageDataUrls: [imageDataUrl]))
+                    }
                 } else {
                     self.synthesize(text: ACTION_FAILURE_MESSAGE_FIND_IMAGE)
                 }

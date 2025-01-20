@@ -1,6 +1,7 @@
-import UIKit
 import AVFoundation
+import Combine
 import MicrosoftCognitiveServicesSpeech
+import UIKit
 
 let BUTTON_ICON_SIZE = 40.0
 
@@ -22,6 +23,8 @@ let StatusImageNameMap: [ProgressState: String] = [
 ]
 
 class SpeechVC: UIViewController {
+    private var cancellable: AnyCancellable?
+
     @IBOutlet weak var statusActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var resetButton: UIButton!
@@ -45,12 +48,35 @@ class SpeechVC: UIViewController {
         SpeechManager.shared.speech.updateProgress = self._updateProgress
         MediaManager.shared.registerUpdatedListener(key: String(describing: self), listener: self._mediaManagerUpdated)
         ChatHistoryManager.shared.registerChatHistoryUpdateListener(listenerKey: String(describing: self), listener: self._chatHistoryUpdated)
+
+        self.cancellable = EventManager.shared.eventPublisher
+            .sink { [weak self] event in
+                guard let self else { return }
+                
+                switch event {
+                case .showImages(let imageDataUrls):
+                    var uiImageList: [UIImage] = []
+                    for dataUrl in imageDataUrls {
+                        if let uiImage = ImageUtils.imageFromDataUrl(dataUrl: dataUrl) {
+                            uiImageList.append(uiImage)
+                        }
+                    }
+                    
+                    if !uiImageList.isEmpty {
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "show-imagegalleryvc-from-event", sender: uiImageList)
+                        }
+                    }
+                    return
+                }
+            }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         MediaManager.shared.unregisterUpdatedListener(key: String(describing: self))
         ChatHistoryManager.shared.unregisterChatHistoryUpdateListener(listenerKey: String(describing: self))
+        self.cancellable?.cancel()
     }
     
     @IBAction func onStartStopButtonClicked(_ sender: Any) {
@@ -84,6 +110,9 @@ class SpeechVC: UIViewController {
                     uiImageList.append(uiImage)
                 }
             }
+            vc.uiImageList = uiImageList
+        } else if segue.identifier == "show-imagegalleryvc-from-event", let uiImageList = sender as? [UIImage] {
+            let vc = segue.destination as! ImageGalleryVC
             vc.uiImageList = uiImageList
         }
     }

@@ -17,7 +17,8 @@ def convert_data_url(image_url, max_size=512):
   """
   try:
     response = requests.get(image_url)
-    response.raise_for_status()  # Raise an exception for bad status codes
+    if response.status_code != 200:
+      return None
 
     img = Image.open(BytesIO(response.content))
 
