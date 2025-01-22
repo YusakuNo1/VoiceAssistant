@@ -17,8 +17,8 @@ let IMAGE_SIZE: CGFloat = 256
 let IMAGE_JPEG_QUALITY: CGFloat = 0.7
 let MAX_CELL_THUMBNAILS = 5 // Defined in storyboard
 
-let SPEECH_RECOGNITION_TIMEOUT: TimeInterval = 2 // After this timeout, stop speech recognition
-let SPEECH_RECOGNITION_SILENT_THRESHOLD: Float = 1000.0
+let SPEECH_RECOGNITION_TIMEOUT: TimeInterval = 1.2 // After this timeout, stop speech recognition
+let SPEECH_RECOGNITION_SILENT_THRESHOLD: Float = 200.0
 
 let ACTION_SUCCESS_MESSAGE = "OK"
 let ACTION_SUCCESS_MESSAGE_OPEN_MAP_TEMPLATE = "Let's check %@ on the map!"

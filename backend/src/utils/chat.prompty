@@ -9,5 +9,5 @@ model:
     azure_deployment: gpt-4o-mini
     azure_endpoint: https://yusakuno1-aoai233380693902.openai.azure.com
 ---
-You are a helpful assistant.
+You are a helpful assistant. Try to answer the question with fun but brief answers
 {{ context }}
