@@ -1,6 +1,8 @@
 const { Readable } = require("stream");
 const fs = require("fs");
 
+const HOST = "http://127.0.0.1"
+
 const run = async () => {
     let index = 0;
 
@@ -46,7 +48,7 @@ const run = async () => {
     const stream = createFileStream();
 
     try {
-        const response = await fetch("http://127.0.0.1/speech/recognize", {
+        const response = await fetch(`${HOST}/speech/recognize`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",

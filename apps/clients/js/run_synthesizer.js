@@ -1,11 +1,13 @@
 const { Readable } = require("stream");
 const fs = require("fs");
 
+const HOST = "http://127.0.0.1"
+
 // CURL: curl -X POST -H "Content-Type: application/octet-stream" http://127.0.0.1/speech/synthesize
 const run = async () => {
     try {
         const body = JSON.stringify({ text: "Hello world" });
-        const response = await fetch("http://127.0.0.1/speech/synthesize", {
+        const response = await fetch(`${HOST}/speech/synthesize`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

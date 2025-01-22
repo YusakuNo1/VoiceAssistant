@@ -101,6 +101,9 @@ async def chat(chat_id: str, request: Request):
             yield response_str + "\n"
     else:
         response_str = response.choices[0].message.content
+        # if response_str is not str, convert it to str
+        if not isinstance(response_str, str):
+            response_str = str(response_str)
         yield response_str
 
     history_messages.extend(request_messages)

@@ -1,3 +1,5 @@
+const HOST = "http://127.0.0.1"
+
 function load_image(image_path) {
     return new Promise((resolve, reject) => {
         // Read local file from image_path
@@ -47,7 +49,7 @@ const run = async (query, image_path) => {
         }];
 
         const body = { messages: messages }
-        const response = await fetch("http://127.0.0.1/chat", {
+        const response = await fetch(`${HOST}/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
