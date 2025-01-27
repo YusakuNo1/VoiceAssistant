@@ -44,7 +44,17 @@ class AbstractSpeech: NSObject {
         self._updateProgress?(.WaitForRes)
         let messages = MessageUtils.buildMessages(message: message, imageList: imageList)
         ChatHistoryManager.shared.appendChatMessages(messages: messages)
-        ApiManager.shared.sendChatMessages(messages: messages) { (result) -> Void in
+        
+//        ApiManager.shared.sendChatMessages(messages: messages) { (result) -> Void in
+//            switch result {
+//            case .success(let responseString):
+//                self._onSpeechRecognizedSuccess(responseString: responseString)
+//            case .failure(let error):
+//                print("Error sending message: \(error)")
+//            }
+//        }
+
+        LocalLlmManager.shared.sendChatMessages(messages: messages) { (result) -> Void in
             switch result {
             case .success(let responseString):
                 self._onSpeechRecognizedSuccess(responseString: responseString)

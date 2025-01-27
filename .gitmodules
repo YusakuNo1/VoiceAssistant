@@ -1,0 +1,3 @@
+[submodule "apps/ios/llmfarm_core.swift"]
+	path = apps/ios/llmfarm_core.swift
+	url = https://github.com/guinmoon/llmfarm_core.swift.git
