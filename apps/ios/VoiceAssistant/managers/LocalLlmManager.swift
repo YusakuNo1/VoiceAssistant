@@ -129,7 +129,6 @@ class LocalLlmManager {
                             "description": "The unit of temperature to return",
                         ],
                     ],
-                    "additionalProperties": false,
                     "required": ["location"],
                 ],
             ],
@@ -138,9 +137,10 @@ class LocalLlmManager {
         let toolPrompt = """
 You are a helpful assistant.
 
+# Tools
+
 You may call one or more functions to assist with the user query.        
 You are provided with function signatures within <tools></tools> XML tags.
-If it's a request for tools, only return the tools related JSON, no other content.
 """
         
         let formatPrompt = """
@@ -150,11 +150,38 @@ For each function call, return a json object with function name and arguments wi
 </tool_call>
 """
         
+
+
         if let jsonString = convertDictToJsonString(dict: get_weather_api) {
             return "\(toolPrompt)\n<tools>\n\(jsonString)\n</tools>\n\n\(formatPrompt)"
         } else {
             return ""
         }
+        
+        
+//        let jsonString = convertDictToJsonString(dict: get_weather_api)
+//        let comparePrompt = "\(toolPrompt)\n<tools>\n\(jsonString!)\n</tools>\n\n\(formatPrompt)"
+//        print("* * * * * * compare prompt\n", comparePrompt)
+//        
+//        
+//        
+//        return """
+//You are a helpful assistant.
+//
+//# Tools
+//
+//You may call one or more functions to assist with the user query.
+//
+//You are provided with function signatures within <tools></tools> XML tags:
+//<tools>
+//{"type": "function", "function": {"name": "get_weather", "description": "Get the current weather for a location", "parameters": {"type": "object", "properties": {"location": {"type": "str", "description": "The city and state, e.g. San Francisco, New York"}, "unit": {"type": "str", "enum": ["celsius", "fahrenheit"], "description": "The unit of temperature to return"}}, "required": ["location"]}}}
+//</tools>
+//
+//For each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:
+//<tool_call>
+//{"name": <function-name>, "arguments": <args-json-object>}
+//</tool_call>
+//"""
     }
     
     private func createPrompt(messages: [Message]) -> String {
@@ -178,28 +205,34 @@ For each function call, return a json object with function name and arguments wi
         }
         
         var prompt: String = ""
+
+        prompt += "<|im_start|>system\n"
         for message in systemMessages {
+            for item in message.content {
+                // TODO: system prompt only supports text
+                if let text = item.text {
+                    prompt += text + "\n"
+                }
+            }
+        }
+        prompt += "<|im_end|>\n"
+
+        for message in userAndAssistantMessages {
+            if message.role == .user {
+//                prompt += "User: "
+                prompt += "<|im_start|>user\n"
+            } else if message.role == .assistant {
+//                prompt += "Assistant: "
+                prompt += "<|im_start|>assistant\n"
+            }
+            
+            // TODO: handle multi-modal data later
             for item in message.content {
                 if let text = item.text {
                     prompt += text + "\n"
                 }
             }
-            prompt += "\n"
-        }
-        
-        for message in userAndAssistantMessages {
-            if message.role == .user {
-                prompt += "User: "
-            } else if message.role == .assistant {
-                prompt += "Assistant: "
-            }
-            
-            // Ignore multi-modal data for now
-            for item in message.content {
-                if let text = item.text {
-                    prompt += text + " "
-                }
-            }
+            prompt += "<|im_end|>\n"
         }
 
         return prompt
