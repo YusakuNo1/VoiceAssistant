@@ -38,7 +38,7 @@
 		FCE961A82D3E0BA8001FC338 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961A72D3E0BA6001FC338 /* EventManager.swift */; };
 		FCE961B52D44CFB7001FC338 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = FCE961B42D44CFB7001FC338 /* llmfarm_core */; };
 		FCE961EB2D471656001FC338 /* LocalLlmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961EA2D471656001FC338 /* LocalLlmManager.swift */; };
-		FCE961ED2D472785001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */ = {isa = PBXBuildFile; fileRef = FCE961EC2D472785001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */; };
+		FCE961F72D4B5B42001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */ = {isa = PBXBuildFile; fileRef = FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */; };
 		FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C42D263CF200E0D9B3 /* errors.swift */; };
 		FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */; };
 /* End PBXBuildFile section */
@@ -91,7 +91,7 @@
 		FCE961A72D3E0BA6001FC338 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		FCE961B32D44CE97001FC338 /* llmfarm_core.swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = llmfarm_core.swift; sourceTree = SOURCE_ROOT; };
 		FCE961EA2D471656001FC338 /* LocalLlmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLlmManager.swift; sourceTree = "<group>"; };
-		FCE961EC2D472785001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; path = "../../../../OpenSource/1_shared_models/guff/Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; sourceTree = "<group>"; };
+		FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; path = "../../../../OpenSource/1_shared_models/gguf/Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; sourceTree = "<group>"; };
 		FCFBB1C42D263CF200E0D9B3 /* errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errors.swift; sourceTree = "<group>"; };
 		FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +136,7 @@
 		DC1C152922B8E27B00367496 = {
 			isa = PBXGroup;
 			children = (
-				FCE961EC2D472785001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */,
+				FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */,
 				DC1C153422B8E27B00367496 /* VoiceAssistant */,
 				FC3EF7C12D1B1DD30088B897 /* VoiceAssistantTests */,
 				DC1C153322B8E27B00367496 /* Products */,
@@ -340,7 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE961ED2D472785001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */,
+				FCE961F72D4B5B42001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */,
 				DC1C154022B8E27D00367496 /* LaunchScreen.storyboard in Resources */,
 				DC1C153D22B8E27D00367496 /* Assets.xcassets in Resources */,
 				DC1C153B22B8E27B00367496 /* Main.storyboard in Resources */,
