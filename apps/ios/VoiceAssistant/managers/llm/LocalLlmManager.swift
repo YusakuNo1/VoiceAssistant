@@ -6,7 +6,8 @@ let systemPrompt = "You are a helpful assistant, answer questions in few short s
 
 //let modelName = "qwen2.5-3b-instruct-q5_0" // Working, but not very good answer
 //let modelName = "qwen2.5-3b-instruct-q6_k" // Working, quality is not bad
-let modelName = "Qwen2.5-Coder-3B-Instruct-Q8_0"
+//let modelName = "Qwen2.5-Coder-3B-Instruct-Q8_0"
+let modelName = "qwen2.5-coder-1.5b-instruct-q8_0"
 //let modelName = "qwen2.5-3b-instruct-q8_0" // Out of memory for iPhone 13 Pro Max
 //let modelName = "Phi-3.5-mini-instruct-Q8_0" // Out of memory for iPhone 13 Pro Max
 //let modelName = "Phi-3.5-mini-instruct-TQ2_0" // Not working because TQ2 is not implmeneted in llama.cpp
@@ -43,7 +44,6 @@ class LocalLlmManager {
             }
             return false
         }
-
 
         //load model
         var params:ModelAndContextParams = .default
@@ -83,11 +83,10 @@ class LocalLlmManager {
             let input = createPrompt(messages: messages)
 //            let startTime = Date()
             let output = try ai.model?.predict(input, mainCallback)
-            print(String(format: "* * *", output!))
+//            print(String(format: "* * *", output!))
             // print delta time
 //            let deltaTime = Date().timeIntervalSince(startTime)
 //            print("\nExecution time: \(deltaTime) seconds\n")
-            
             completion(.success(output!))
         }
         catch {
@@ -151,7 +150,6 @@ For each function call, return a json object with function name and arguments wi
 """
         
 
-
         if let jsonString = convertDictToJsonString(dict: get_weather_api) {
             return "\(toolPrompt)\n<tools>\n\(jsonString)\n</tools>\n\n\(formatPrompt)"
         } else {
@@ -183,59 +181,25 @@ For each function call, return a json object with function name and arguments wi
 //</tool_call>
 //"""
     }
-    
+
     private func createPrompt(messages: [Message]) -> String {
         if messages.isEmpty {
             return ""
         }
-        
-        var systemMessages: [Message] = []
-        var userAndAssistantMessages: [Message] = []
-        
+
+        var combinedMessages: [Message] = []
+        if messages[0].role != .system {
+            let systemPrompt = "\(systemPrompt)\n\(self.sampleTools())"
+            let systemMessage: Message = Message(role: .system, content: [MessageContent(text: systemPrompt)])
+            combinedMessages.insert(systemMessage, at: 0)
+        }
+
         for message in messages {
-            if message.role == .system {
-                systemMessages.append(message)
-            } else if message.role == .user || message.role == .assistant {
-                userAndAssistantMessages.append(message)
-            }
+            combinedMessages.append(message)
         }
         
-        if systemMessages.isEmpty {
-            systemMessages.append(Message(role: .system, content: [MessageContent(text: "\(systemPrompt)\n\(self.sampleTools())")]))
-        }
-        
-        var prompt: String = ""
-
-        prompt += "<|im_start|>system\n"
-        for message in systemMessages {
-            for item in message.content {
-                // TODO: system prompt only supports text
-                if let text = item.text {
-                    prompt += text + "\n"
-                }
-            }
-        }
-        prompt += "<|im_end|>\n"
-
-        for message in userAndAssistantMessages {
-            if message.role == .user {
-//                prompt += "User: "
-                prompt += "<|im_start|>user\n"
-            } else if message.role == .assistant {
-//                prompt += "Assistant: "
-                prompt += "<|im_start|>assistant\n"
-            }
-            
-            // TODO: handle multi-modal data later
-            for item in message.content {
-                if let text = item.text {
-                    prompt += text + "\n"
-                }
-            }
-            prompt += "<|im_end|>\n"
-        }
-
-        return prompt
+        return LlmUtils.createPrompt(combinedMessages, .ChatML)
+//        return LlmUtils.createPrompt(combinedMessages, .PlainText)
     }
 
     private func getFilePath(forResource resource: String, ofType type: String?) -> String? {

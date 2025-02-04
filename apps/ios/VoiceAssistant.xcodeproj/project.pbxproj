@@ -38,7 +38,11 @@
 		FCE961A82D3E0BA8001FC338 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961A72D3E0BA6001FC338 /* EventManager.swift */; };
 		FCE961B52D44CFB7001FC338 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = FCE961B42D44CFB7001FC338 /* llmfarm_core */; };
 		FCE961EB2D471656001FC338 /* LocalLlmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961EA2D471656001FC338 /* LocalLlmManager.swift */; };
-		FCE961F72D4B5B42001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */ = {isa = PBXBuildFile; fileRef = FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */; };
+		FCE961F92D4DBD66001FC338 /* NativeSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE961F82D4DBD66001FC338 /* NativeSpeech.swift */; };
+		FCE961FD2D4E1938001FC338 /* qwen2.5-coder-1.5b-instruct-q8_0.gguf in Resources */ = {isa = PBXBuildFile; fileRef = FCE961FC2D4E1938001FC338 /* qwen2.5-coder-1.5b-instruct-q8_0.gguf */; };
+		FCE962202D4EEEAA001FC338 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = FCE9621F2D4EEEAA001FC338 /* llmfarm_core */; };
+		FCE962222D4F18C2001FC338 /* LlmUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE962212D4F18BE001FC338 /* LlmUtils.swift */; };
+		FCE962262D4F66CC001FC338 /* ToolsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE962252D4F66C6001FC338 /* ToolsManager.swift */; };
 		FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C42D263CF200E0D9B3 /* errors.swift */; };
 		FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +96,10 @@
 		FCE961B32D44CE97001FC338 /* llmfarm_core.swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = llmfarm_core.swift; sourceTree = SOURCE_ROOT; };
 		FCE961EA2D471656001FC338 /* LocalLlmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLlmManager.swift; sourceTree = "<group>"; };
 		FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; path = "../../../../OpenSource/1_shared_models/gguf/Qwen2.5-Coder-3B-Instruct-Q8_0.gguf"; sourceTree = "<group>"; };
+		FCE961F82D4DBD66001FC338 /* NativeSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSpeech.swift; sourceTree = "<group>"; };
+		FCE961FC2D4E1938001FC338 /* qwen2.5-coder-1.5b-instruct-q8_0.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "qwen2.5-coder-1.5b-instruct-q8_0.gguf"; path = "../../../../OpenSource/1_shared_models/gguf/qwen2.5-coder-1.5b-instruct-q8_0.gguf"; sourceTree = "<group>"; };
+		FCE962212D4F18BE001FC338 /* LlmUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlmUtils.swift; sourceTree = "<group>"; };
+		FCE962252D4F66C6001FC338 /* ToolsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsManager.swift; sourceTree = "<group>"; };
 		FCFBB1C42D263CF200E0D9B3 /* errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errors.swift; sourceTree = "<group>"; };
 		FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE962202D4EEEAA001FC338 /* llmfarm_core in Frameworks */,
 				A445896ECD70EC69ED14AA1D /* Pods_VoiceAssistant.framework in Frameworks */,
 				FCE961B52D44CFB7001FC338 /* llmfarm_core in Frameworks */,
 			);
@@ -136,6 +145,7 @@
 		DC1C152922B8E27B00367496 = {
 			isa = PBXGroup;
 			children = (
+				FCE961FC2D4E1938001FC338 /* qwen2.5-coder-1.5b-instruct-q8_0.gguf */,
 				FCE961F62D4B5B41001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf */,
 				DC1C153422B8E27B00367496 /* VoiceAssistant */,
 				FC3EF7C12D1B1DD30088B897 /* VoiceAssistantTests */,
@@ -180,6 +190,7 @@
 				FC1D05A82D286735005CEBE3 /* SpeechManager.swift */,
 				FC1BD1732D29CAD600F1ACDD /* AbstractSpeech.swift */,
 				FC46F0B62D175434004020A9 /* LocalSpeech.swift */,
+				FCE961F82D4DBD66001FC338 /* NativeSpeech.swift */,
 				FC1D05A62D27E3CC005CEBE3 /* RemoteSpeech.swift */,
 			);
 			path = speech;
@@ -201,6 +212,7 @@
 		FCC38B432D1B6936007C8159 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				FCE962212D4F18BE001FC338 /* LlmUtils.swift */,
 				FCE961A52D3DCC0D001FC338 /* MessageUtils.swift */,
 				FCFBB1C62D2675D100E0D9B3 /* AudioUtils.swift */,
 				FCC38B912D1D187B007C8159 /* ImageUtils.swift */,
@@ -213,11 +225,11 @@
 		FCC38B452D1B696D007C8159 /* managers */ = {
 			isa = PBXGroup;
 			children = (
+				FCE962242D4F668B001FC338 /* llm */,
 				FC1BD1722D29CACE00F1ACDD /* speech */,
 				FC46F0BA2D176FD6004020A9 /* ApiManager.swift */,
 				FC93B0EB2D2B391900865705 /* ChatHistoryManager.swift */,
 				FCE961A72D3E0BA6001FC338 /* EventManager.swift */,
-				FCE961EA2D471656001FC338 /* LocalLlmManager.swift */,
 				FCC38B462D1B6A22007C8159 /* MediaManager.swift */,
 			);
 			path = managers;
@@ -241,6 +253,15 @@
 				FC46F0B02D1752C8004020A9 /* AVAudioPCMBuffer.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		FCE962242D4F668B001FC338 /* llm */ = {
+			isa = PBXGroup;
+			children = (
+				FCE962252D4F66C6001FC338 /* ToolsManager.swift */,
+				FCE961EA2D471656001FC338 /* LocalLlmManager.swift */,
+			);
+			path = llm;
 			sourceTree = "<group>";
 		};
 		FD7E0C8024E8F50E54C59A30 /* Frameworks */ = {
@@ -324,6 +345,9 @@
 				Base,
 			);
 			mainGroup = DC1C152922B8E27B00367496;
+			packageReferences = (
+				FCE9621E2D4EEEAA001FC338 /* XCLocalSwiftPackageReference "llmfarm_core.swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DC1C153322B8E27B00367496 /* Products */;
 			projectDirPath = "";
@@ -340,7 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE961F72D4B5B42001FC338 /* Qwen2.5-Coder-3B-Instruct-Q8_0.gguf in Resources */,
+				FCE961FD2D4E1938001FC338 /* qwen2.5-coder-1.5b-instruct-q8_0.gguf in Resources */,
 				DC1C154022B8E27D00367496 /* LaunchScreen.storyboard in Resources */,
 				DC1C153D22B8E27D00367496 /* Assets.xcassets in Resources */,
 				DC1C153B22B8E27B00367496 /* Main.storyboard in Resources */,
@@ -405,6 +429,7 @@
 			files = (
 				FC93B0EC2D2B391E00865705 /* ChatHistoryManager.swift in Sources */,
 				FCC38B942D1D4D91007C8159 /* ImageGalleryVC.swift in Sources */,
+				FCE962222D4F18C2001FC338 /* LlmUtils.swift in Sources */,
 				FC46F0BB2D176FD9004020A9 /* ApiManager.swift in Sources */,
 				FCE961EB2D471656001FC338 /* LocalLlmManager.swift in Sources */,
 				FCFBB1C52D263CF400E0D9B3 /* errors.swift in Sources */,
@@ -419,12 +444,14 @@
 				FC3EF7A32D1B18D10088B897 /* Utils.swift in Sources */,
 				FCFBB1C72D2675D600E0D9B3 /* AudioUtils.swift in Sources */,
 				FC46F0B32D17532A004020A9 /* consts.swift in Sources */,
+				FCE961F92D4DBD66001FC338 /* NativeSpeech.swift in Sources */,
 				FCC38B922D1D187F007C8159 /* ImageUtils.swift in Sources */,
 				FC46F0B52D175344004020A9 /* common.swift in Sources */,
 				FC1BD1712D29B56F00F1ACDD /* SpeechVC.swift in Sources */,
 				DC1C153622B8E27B00367496 /* AppDelegate.swift in Sources */,
 				FC46F0B12D1752D2004020A9 /* AVAudioPCMBuffer.swift in Sources */,
 				FC1D05A92D286737005CEBE3 /* SpeechManager.swift in Sources */,
+				FCE962262D4F66CC001FC338 /* ToolsManager.swift in Sources */,
 				FCC38B902D1CF082007C8159 /* Logger.swift in Sources */,
 				FCC38B8E2D1CED67007C8159 /* UIImage.swift in Sources */,
 				FCC38B982D1FE594007C8159 /* TextDrawingVC.swift in Sources */,
@@ -523,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -580,7 +607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -599,7 +626,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69L3789J9R;
 				INFOPLIST_FILE = VoiceAssistant/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,7 +634,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.voiceassistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceAssistant/MicrosoftCognitiveServicesSpeech-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -620,7 +647,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69L3789J9R;
 				INFOPLIST_FILE = VoiceAssistant/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -628,7 +655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.voiceassistant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceAssistant/MicrosoftCognitiveServicesSpeech-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -726,8 +753,19 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		FCE9621E2D4EEEAA001FC338 /* XCLocalSwiftPackageReference "llmfarm_core.swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = llmfarm_core.swift;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		FCE961B42D44CFB7001FC338 /* llmfarm_core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = llmfarm_core;
+		};
+		FCE9621F2D4EEEAA001FC338 /* llmfarm_core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = llmfarm_core;
 		};

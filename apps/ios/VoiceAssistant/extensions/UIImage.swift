@@ -9,8 +9,8 @@ extension UIImage {
             return nil
         }
         let data = switch format {
-        case .jpeg: UIImageJPEGRepresentation(newImage, IMAGE_JPEG_QUALITY)!
-        case .png: UIImagePNGRepresentation(newImage)!
+        case .jpeg: newImage.jpegData(compressionQuality: IMAGE_JPEG_QUALITY)!
+        case .png: newImage.pngData()!
         }
         return Image(width: size, height: size, format: format, data: data)
     }

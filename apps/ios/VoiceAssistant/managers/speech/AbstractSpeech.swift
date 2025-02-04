@@ -29,9 +29,9 @@ class AbstractSpeech: NSObject {
     internal func _setAudioMode(mode: AudioMode) {
         do {
             if mode == AudioMode.Playback {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+                try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
             } else if mode == AudioMode.Record {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord, with: .mixWithOthers)
+                try AVAudioSession.sharedInstance().setCategory(.record, options: .mixWithOthers)
             }
             
             try AVAudioSession.sharedInstance().setActive(true)
@@ -39,7 +39,7 @@ class AbstractSpeech: NSObject {
             print("Failed to set audio mode: \(error.localizedDescription)")
         }
     }
-    
+
     internal func _onSpeechRecognized(message: String, imageList: [Image]) {
         self._updateProgress?(.WaitForRes)
         let messages = MessageUtils.buildMessages(message: message, imageList: imageList)
@@ -140,7 +140,7 @@ class AbstractSpeech: NSObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         let regionDistance: CLLocationDistance = 10000
                         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-                        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+                        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
                         let options = [
                             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
                             MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)

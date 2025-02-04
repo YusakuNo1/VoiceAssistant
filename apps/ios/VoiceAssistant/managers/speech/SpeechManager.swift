@@ -11,11 +11,12 @@ class SpeechManager {
     }
     
     private init() {
-        if USE_REMOTE_SPEECH {
-            self._speech = RemoteSpeech()
-        } else {
-            self._speech = LocalSpeech()
-        }
+        self._speech = NativeSpeech()
+//        if USE_REMOTE_SPEECH {
+//            self._speech = RemoteSpeech()
+//        } else {
+//            self._speech = LocalSpeech()
+//        }
     }
     
     // MARK: - Public methods

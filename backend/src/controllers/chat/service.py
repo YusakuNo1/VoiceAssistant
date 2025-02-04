@@ -30,10 +30,10 @@ tools_map = {
 functions = FunctionTool(functions=tools_map.values())
 
 def get_llamacpp_func_extra_params(response_str: str) -> dict:
-    if response_str.startswith("<tool_call>"):
+    if response_str.startswith("<tool_call>"): # Found at Qwen2.5-Coder-3B-Instruct-Q8_0.gguf
         tool_call_str = response_str[len("<tool_call>"):-len("</tool_call>")]
         return json.loads(tool_call_str)
-    elif response_str.startswith("```json"):
+    elif response_str.startswith("```json"): # Found at qwen2.5-coder-1.5b-instruct-q8_0.gguf
         tool_call_str = response_str[len("```json"):-len("```")]
         return json.loads(tool_call_str)
     else:

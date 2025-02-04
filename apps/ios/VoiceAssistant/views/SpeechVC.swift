@@ -78,7 +78,16 @@ class SpeechVC: UIViewController {
         ChatHistoryManager.shared.unregisterChatHistoryUpdateListener(listenerKey: String(describing: self))
         self.cancellable?.cancel()
     }
-    
+
+    @IBAction func onTestButtonClicked(_ sender: Any) {
+//        let query = "Where is microsoft headquarter?"
+        let query = "what is the weather in redmond"
+        let messages = [Message(role: .user, content: [MessageContent(text: query)])]
+        LocalLlmManager.shared.sendChatMessages(messages: messages) { result in
+            print("result: \(result)")
+        }
+    }
+
     @IBAction func onStartStopButtonClicked(_ sender: Any) {
         self._updateProgress(.Init)
         Task {

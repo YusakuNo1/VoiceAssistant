@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cc1-Ea-8dD">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -139,11 +140,21 @@
                                             <segue destination="BYZ-38-t0r" kind="show" id="Rg2-WY-Tev"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYO-gl-CN8">
+                                        <rect key="frame" x="263" y="22.666666666666671" width="57" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Test"/>
+                                        <connections>
+                                            <action selector="onTestButtonClicked:" destination="3DL-aV-Ibh" eventType="touchUpInside" id="1Bd-Xp-z0C"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="qaT-df-3QI" firstAttribute="centerY" secondItem="SYR-6N-FqC" secondAttribute="centerY" id="0v4-2a-R8F"/>
+                                    <constraint firstItem="qaT-df-3QI" firstAttribute="leading" secondItem="EYO-gl-CN8" secondAttribute="trailing" constant="17" id="Cai-c2-cDt"/>
                                     <constraint firstAttribute="trailing" secondItem="qaT-df-3QI" secondAttribute="trailing" constant="16" id="R7C-4F-Vsr"/>
                                     <constraint firstAttribute="height" constant="80" id="dG1-vY-hHU"/>
+                                    <constraint firstItem="EYO-gl-CN8" firstAttribute="centerY" secondItem="SYR-6N-FqC" secondAttribute="centerY" id="xHi-92-Osg"/>
                                 </constraints>
                             </view>
                         </subviews>
