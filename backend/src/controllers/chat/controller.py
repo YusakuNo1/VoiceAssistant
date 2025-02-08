@@ -30,6 +30,7 @@ async def chat_controller(request: Request, chat_id: Annotated[str | None, Heade
 """
 Sample queries:
 curl -X POST http://127.0.0.1/chat-llamacpp --header "Content-Type: application/json" --header "chat-id: my-id-123" --data '{ "messages": [{ "role": "user", "content": "where is the headquarter of microsoft" }] }'
+curl -X POST http://127.0.0.1/chat-llamacpp --header "Content-Type: application/json" --header "chat-id: my-id-123" --data '{ "messages": [{ "role": "user", "content": "convert the following question to math formula in LaTex format: 2 times x to the power of 2 equals to 8" }] }'
 """
 @app.post("/chat-llamacpp")
 async def chat_llamacpp_controller(request: Request, chat_id: Annotated[str | None, Header()] = None):

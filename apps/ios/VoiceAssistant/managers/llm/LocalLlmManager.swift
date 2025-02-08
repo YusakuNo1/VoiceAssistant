@@ -59,6 +59,7 @@ class LocalLlmManager {
 //        let input_text = "State the meaning of life"
 
         params.use_metal = true
+        params.context = LLM_CONTEXT_LENGTH
 
         //Uncomment this line to add lora adapter
         //params.lora_adapters.append(("lora-open-llama-3b-v2-q8_0-shakespeare-LATEST.bin",1.0 ))
