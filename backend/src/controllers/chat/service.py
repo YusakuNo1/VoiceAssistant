@@ -1,7 +1,7 @@
 import json
 from jinja2 import Template
 from dataclasses import asdict
-from azure.ai.projects.models import FunctionTool, RequiredFunctionToolCall, SubmitToolOutputsAction, ToolOutput
+from azure.ai.agents.models import FunctionTool
 
 from src.config.env import (
     aoai_chat_endpoint,

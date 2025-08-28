@@ -50,6 +50,7 @@ class AbstractSpeech: NSObject {
                 self._onSpeechRecognizedSuccess(responseString: responseString)
             case .failure(let error):
                 print("Error sending message: \(error)")
+                self._onSpeechRecognizedFailure(error: error)
             }
         }
     }
@@ -75,7 +76,11 @@ class AbstractSpeech: NSObject {
             ])
         }
     }
-    
+
+    internal func _onSpeechRecognizedFailure(error: Any) {
+        self._updateProgress?(.Idle)
+    }
+
     internal func _onSpeechRecognizedSuccessAction(actions: [Action]) -> [Message] {
         var messages: [Message] = []
 
