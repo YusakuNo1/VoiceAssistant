@@ -75,7 +75,7 @@ async def chat(chat_id: str, request: Request):
         endpoint=(aoai_vision_endpoint if use_vision else aoai_chat_endpoint),
         credential=AzureKeyCredential(aoai_key),
         credential_scopes=["https://cognitiveservices.azure.com/.default"],
-        api_version="2024-06-01",  # Azure OpenAI api-version. See https://aka.ms/azsdk/azure-ai-inference/azure-openai-api-versions
+        api_version="2025-04-01-preview",  # Azure OpenAI api-version. See https://aka.ms/azsdk/azure-ai-inference/azure-openai-api-versions
     )
 
     history_messages = _get_history_messages(chat_id)

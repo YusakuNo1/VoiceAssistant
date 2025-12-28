@@ -1,4 +1,5 @@
-let API_HOST = "http://192.168.254.109"
+//let API_HOST = "http://192.168.254.109"
+let API_HOST = "http://127.0.0.1"
 
 enum AudioMode {
     case Record
